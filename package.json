@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production"
+    },
+    "devDependencies": {
+        "@types/node": "^22.13.1",
+        "@types/react": "^19.0.8",
+        "@types/react-dom": "^19.0.3",
+        "@vitejs/plugin-react": "^4.3.4",
+        "axios": "^0.21",
+        "laravel-vite-plugin": "^1.2.0",
+        "lodash": "^4.17.19",
+        "postcss": "^8.1.14",
+        "typescript": "^5.7.3",
+        "vite": "^6.1.0"
+    }
+}
