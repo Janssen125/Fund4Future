@@ -13,4 +13,12 @@ class FundHistory extends Model
         'amount',
         'funder_id'
     ];
+
+    public function fund() {
+        return $this->belongsTo(Fund::class);
+    }
+
+    public function funder() {
+        return $this->belongsTo(User::class, 'funder_id');
+    }
 }

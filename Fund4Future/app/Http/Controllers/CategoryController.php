@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class CategoryController extends Controller
 {
@@ -34,7 +35,15 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255'
+        ]);
+
+        Fund::create([
+            'name' => $request->name
+        ]);
+        return redirect()->route('category.index')->with('success', 'Fund created successfully!');
+
     }
 
     /**
@@ -68,7 +77,16 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255'
+        ]);
+
+        $fund = Fund::findOrFail($id);
+
+        $fund->update([
+            'name' => $request->name
+        ]);
+        return redirect()->route('category.index')->with('success', 'Fund updated successfully!');
     }
 
     /**
@@ -79,6 +97,10 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $fund = Fund::findOrFail($id);
+
+        $fund->delete();
+
+        return redirect()->route('category.index')->with('success', 'Fund deleted successfully!');
     }
 }

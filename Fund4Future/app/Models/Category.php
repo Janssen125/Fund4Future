@@ -12,4 +12,8 @@ class Category extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function fund() {
+        return $this->hasMany(Fund::class);
+    }
 }

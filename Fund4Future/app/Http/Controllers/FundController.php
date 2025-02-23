@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Fund;
 
 class FundController extends Controller
 {
@@ -13,7 +14,13 @@ class FundController extends Controller
      */
     public function index()
     {
-        //
+        $data = Fund::all();
+        return view('user.fund', compact($data));
+    }
+
+    public function indexAdmin() {
+        $data = Fund::all();
+        return view('admin.fund', compact($data));
     }
 
     /**

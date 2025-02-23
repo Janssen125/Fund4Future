@@ -13,4 +13,8 @@ class FundDetail extends Model
         'types',
         'imageOrVideo'
     ];
+
+    public function fund() {
+        return $this->belongsTo(Fund::class);
+    }
 }

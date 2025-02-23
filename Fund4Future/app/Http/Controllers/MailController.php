@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Mail;
 
 class MailController extends Controller
 {
@@ -13,7 +14,7 @@ class MailController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.mail');
     }
 
     /**
@@ -34,7 +35,17 @@ class MailController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'sender_id' => 'required',
+        ]);
+        Mail::create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'sender_id' => $request->sender_id,
+        ]);
+        return redirect()->back()->with('success', 'Mail sent successfully');
     }
 
     /**

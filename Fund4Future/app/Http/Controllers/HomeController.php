@@ -23,6 +23,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('user.dashboard');
+    }
+
+    public function about() {
+        return view('user.about');
+    }
+
+    public function profile($id) {
+        $data = User::findOrFail($id);
+        return view('user.profile', compact($data));
     }
 }

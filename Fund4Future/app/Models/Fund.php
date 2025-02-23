@@ -12,9 +12,21 @@ class Fund extends Model
     protected $fillable = [
         'name',
         'description',
-        'user_id',
+        'owner_id',
         'category_id',
         'currAmount',
         'targetAmount'
     ];
+
+    public function fundHistory() {
+        return $this->hasMany(FundHistory::class);
+    }
+
+    public function category() {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function fundDetail() {
+        return $this->hasMany(FundDetail::class);
+    }
 }
