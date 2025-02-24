@@ -69,7 +69,15 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'role' => 'required',
+            'balance' => 'required'
+        ]);
+
+        $data = User::findOrFail($id);
+        
     }
 
     /**
