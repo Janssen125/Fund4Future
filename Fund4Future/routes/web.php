@@ -21,9 +21,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/admin', function () {
+    return view('admin.dashboard');
+})->middleware('auth');
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/about', [App\Http\Controllers\HomeController::class, 'about'])->name('about');
 Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
 Route::resource('category', CategoryController::class);
 Route::resource('fund', FundController::class);
 Route::resource('mail', MailController::class);
+Route::resource('user', UserController::class);
