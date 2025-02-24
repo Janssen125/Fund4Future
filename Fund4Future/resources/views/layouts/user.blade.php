@@ -7,7 +7,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
 </head>
-
+<header>
+    <nav class="navbar bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+        <img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+        Bootstrap
+        </a>
+    </div>
+    </nav>
+</header>
 <body>
     @yield('content')
 </body>
