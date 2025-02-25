@@ -15,9 +15,9 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid mx-4">
             <a class="navbar-brand" href="#">
-                <img src="{{ asset('img/LogoFund4Future.jpg') }}" alt="Bootstrap" width="50" height="50">
+                <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Bootstrap" width="50" height="50">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -47,8 +47,44 @@
 </body>
 
 <!-- Footer Section -->
- <footer>
-    
- </footer>
+<footer>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col col-3 d-flex justify-content-center flex-sm-column align-items-center">
+                <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Logo" width=80 height=100>
+                <img src="{{ asset('img/LogoText.png') }}" alt="LogoText" width=250 height=50>
+            </div>
+            <div class="col col-3">
+                <ul class="list-unstyled d-flex justify-content-around flex-sm-column align-items-start h-100">
+                    <li>
+                        Return Policy
+                    </li>
+                    <li>
+                        Cookies Policy
+                    </li>
+                    <li>
+                        Privacy Policy
+                    </li>
+                </ul>
+            </div>
+            <div class="col col-3">
+                <ul class="list-unstyled d-flex justify-content-around flex-sm-column align-items-start h-100">
+                    <li>
+                        <a href="{{ route('home') }}" class="text-decoration-none ">Home</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('about') }}" class="text-decoration-none ">About Us</a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-decoration-none ">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col col-3 d-flex justify-content-center align-items-center">
+                Copyright Fund4Future. All Right Reserved
+            </div>
+        </div>
+</footer>
+
 </html>
 {{-- Ini buat templatenya user page (tampilannya user) --}}
