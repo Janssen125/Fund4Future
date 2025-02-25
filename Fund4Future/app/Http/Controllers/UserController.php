@@ -77,7 +77,14 @@ class UserController extends Controller
         ]);
 
         $data = User::findOrFail($id);
-        
+
+        $data->update([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'role' => $request->input('role'),
+            'balance' => $request->input('balance')
+        ]);
+        return redirect()->route('user.index')->with('success', 'User updated successfully!');
     }
 
     /**
@@ -88,6 +95,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = User::findOrFail($id);
+
+        $data->delete();
+
+        return redirect()->route('user.index')->with('success', 'User deleted successfully!');
     }
 }
