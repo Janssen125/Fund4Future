@@ -1,0 +1,15 @@
+* {
+    font-family: "Poppins", serif;
+}
+.container-color {
+    background-color: var(--primary-green);
+    opacity: 20%;
+}
+
+.small-p {
+    color: var(--secondary-green);
+}
+
+.btn-ourbtn {
+    background-color: var(--primary-green);
+}
