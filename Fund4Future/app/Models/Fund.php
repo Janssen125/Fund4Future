@@ -29,4 +29,8 @@ class Fund extends Model
     public function fundDetail() {
         return $this->hasMany(FundDetail::class);
     }
+
+    public function comment() {
+        return $this->hasMany(Comment::class);
+    }
 }

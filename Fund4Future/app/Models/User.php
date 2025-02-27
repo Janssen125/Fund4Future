@@ -50,4 +50,16 @@ class User extends Authenticatable
     public function fundHistory() {
         return $this->hasMany(FundHistory::class);
     }
+
+    public function fund() {
+        return $this->hasMany(Fund::class);
+    }
+
+    public function comment() {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function reply() {
+        return $this->hasMany(Reply::class);
+    }
 }

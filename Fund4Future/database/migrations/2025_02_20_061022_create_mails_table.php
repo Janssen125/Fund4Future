@@ -17,8 +17,8 @@ class CreateMailsTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('content');
-            $table->unsignedBigInteger('sender_id');
-            $table->foreign('sender_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedBigInteger('sender_id')->nullable();
+            $table->foreign('sender_id')->references('id')->on('users')->onDelete('set null')->onUpdate('cascade');
             $table->enum('status', ['pending', 'read', 'replied'])->default('pending');
             $table->string('readBy')->default('-');
             $table->timestamps();

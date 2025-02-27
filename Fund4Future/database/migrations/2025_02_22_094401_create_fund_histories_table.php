@@ -15,11 +15,11 @@ class CreateFundHistoriesTable extends Migration
     {
         Schema::create('fund_histories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('fund_id');
-            $table->foreign('fund_id')->references('id')->on('funds')->onUpdate('cascade');
+            $table->unsignedBigInteger('fund_id')->nullable();
+            $table->foreign('fund_id')->references('id')->on('funds')->onDelete('set null')->onUpdate('cascade');
             $table->bigInteger('amount');
-            $table->unsignedBigInteger('funder_id');
-            $table->foreign('funder_id')->references('id')->on('users')->onUpdate('cascade');
+            $table->unsignedBigInteger('funder_id')->nullable();
+            $table->foreign('funder_id')->references('id')->on('users')->onDelete('set null')->onUpdate('cascade');
             $table->timestamps();
         });
     }
