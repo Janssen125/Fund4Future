@@ -73,7 +73,8 @@
                                     Us</a>
                             </li>
                             <li>
-                                <a href="#" class="text-decoration-none text-white fs-3">Contact Us</a>
+                                <a href="{{ route('contact') }}" class="text-decoration-none text-white fs-3">Contact
+                                    Us</a>
                             </li>
                         </ul>
                     </div>
