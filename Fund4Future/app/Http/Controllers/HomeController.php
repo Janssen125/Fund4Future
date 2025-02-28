@@ -34,4 +34,8 @@ class HomeController extends Controller
         $data = User::findOrFail($id);
         return view('user.profile', compact($data));
     }
+
+    public function contact() {
+        return view('user.contact');
+    }
 }
