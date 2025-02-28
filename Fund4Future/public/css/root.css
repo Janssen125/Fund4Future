@@ -10,6 +10,7 @@
     color: var(--secondary-green);
 }
 
-.primary-background {
+.primary-background,
+.main-container {
     background-color: var(--primary-green);
 }
