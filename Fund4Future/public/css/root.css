@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 * {
     font-family: "Poppins", serif;
 }
@@ -12,8 +11,6 @@
 }
 
 .primary-background,
-=======
->>>>>>> Stashed changes
 .main-container {
     background-color: var(--primary-green);
 }

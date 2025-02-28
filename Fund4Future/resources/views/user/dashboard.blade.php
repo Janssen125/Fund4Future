@@ -3,7 +3,6 @@
     Dashboard
 @endsection
 @section('content')
-<<<<<<< Updated upstream
     <div class="dvh-100 d-flex flex-sm-row w-100 align-items-center">
         <div class="hero-left w-60 dvh-100 d-flex justify-content-center position-relative container-color">
         </div>
@@ -26,13 +25,5 @@
             </div>
         </div>
     </div>
-=======
-    <section>
-        <div class="container-fluid main-container vh-100">
-            <h1>Hello</h1>
-        </div>
-        
-    </section>
->>>>>>> Stashed changes
 @endsection
 {{-- Halaman untuk landing page user --}}
