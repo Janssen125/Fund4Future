@@ -7,6 +7,9 @@
  */
 :root,
 [data-bs-theme=light] {
+  --primary-green: #00A9A5;
+  --secondary-green: #0B5351;
+  --tri-green: #092327;
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
   --bs-purple: #6f42c1;
