@@ -9,6 +9,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/root.css') }}">
+<<<<<<< Updated upstream
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -19,6 +20,13 @@
 <!-- Navbar Section -->
 <header class="fixed-top">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
+=======
+</head>
+
+<!-- Navbar Section -->
+<header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+>>>>>>> Stashed changes
         <div class="container-fluid mx-4">
             <a class="navbar-brand" href="#">
                 <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Bootstrap" width="45" height="50">
