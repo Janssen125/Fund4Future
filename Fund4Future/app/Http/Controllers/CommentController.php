@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Comments;
+use App\Models\Replies;
 
 class CommentController extends Controller
 {
@@ -34,7 +36,19 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'user_id' => 'required',
+            'fund_id' => 'required',
+            'comment' => 'required'
+        ]);
+
+        Comments::create([
+            'user_id' => $request->user_id,
+            'fund_id' => $request->fund_id,
+            'comment' => $request->comment
+        ]);
+
+        return redirect()->back()->with('success', 'Comment has been added!');
     }
 
     /**
@@ -68,7 +82,19 @@ class CommentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'user_id' => 'required',
+            'comment_id' =>'required',
+            'replyText' => 'required'
+        ]);
+
+        Replies::create([
+            'user_id' => $request->user_id,
+            'comment_id' => $request->comment_id,
+            'replyText' => $request->replyText
+        ]);
+
+        return redirect()->back()->with('success', 'Reply has been added!');
     }
 
     /**
@@ -79,6 +105,10 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $fund = Fund::findOrFail($id);
+
+        $fund->delete();
+
+        return redirect()->route('category.index')->with('success', 'Fund deleted successfully!');
     }
 }

@@ -41,7 +41,36 @@ class FundController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'owner_id' => 'required',
+            'category_id' => 'required',
+            'currAmount' => 'required',
+            'targetAmount' => 'required',
+            'fund_details' => 'required|array',
+            'fund_details.*.types' => 'required',
+            'fund_details.*.imageOrVideo' => 'required',
+        ]);
+
+        $fund = Fund::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'owner_id' => $request->owner_id,
+            'category_id' => $request->category_id,
+            'currAmount' => $request->currAmount,
+            'targetAmount' => $request->targetAmount,
+        ]);
+
+        foreach ($request->fund_details as $detail) {
+            FundDetail::create([
+                'fund_id' => $fund->id,
+                'types' => $detail['types'],
+                'imageOrVideo' => $detail['imageOrVideo'],
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Fund added successfully!');
     }
 
     /**
