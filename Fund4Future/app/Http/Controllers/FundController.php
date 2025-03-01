@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Fund;
+use App\Models\FundDetail;
 
 class FundController extends Controller
 {
