@@ -7223,6 +7223,11 @@ fieldset:disabled .btn {
         var(--bs-link-underline-opacity, 1)
     ) !important;
 }
+
+.link-secondary-green{
+    color: var(--secondary-green);
+}
+
 .link-success:hover,
 .link-success:focus {
     color: RGBA(20, 108, 67, var(--bs-link-opacity, 1)) !important;
@@ -8099,6 +8104,10 @@ fieldset:disabled .btn {
 
 .w-75 {
     width: 75% !important;
+}
+
+.w-80 {
+    width: 80% !important;
 }
 
 .w-100 {
@@ -9204,6 +9213,15 @@ fieldset:disabled .btn {
         var(--bs-link-color-rgb),
         var(--bs-link-underline-opacity, 1)
     ) !important;
+}
+
+.bg-primary-green{
+    background-color: var(--primary-green);
+}
+
+
+.bg-secondary-green{
+    background-color: var(--secondary-green);
 }
 
 .link-underline-opacity-0 {
