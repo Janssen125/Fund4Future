@@ -53,7 +53,7 @@
 </body>
 
 <!-- Footer Section -->
-<footer class="p-5 primary-background dvw-100">
+<footer class="p-5 secondary-background dvw-100">
     <div class="container-fluid">
         <div class="row">
             <div class="col col-3 d-flex justify-content-center flex-sm-column align-items-center bg-white rounded">

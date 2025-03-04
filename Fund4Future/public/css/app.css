@@ -134,6 +134,14 @@
     --bs-form-invalid-border-color: #dc3545;
 }
 
+.primary-background {
+    background-color: #00a9a5;
+}
+
+.secondary-background {
+    background-color: #0b5351;
+}
+
 [data-bs-theme="dark"] {
     color-scheme: dark;
     --bs-body-color: #dee2e6;
@@ -2744,6 +2752,7 @@ textarea.form-control-lg {
     width: 1%;
     min-width: 0;
 }
+
 .input-group > .form-control:focus,
 .input-group > .form-select:focus,
 .input-group > .form-floating:focus-within {
@@ -3156,6 +3165,10 @@ fieldset:disabled .btn {
     --bs-btn-disabled-color: #fff;
     --bs-btn-disabled-bg: #0d6efd;
     --bs-btn-disabled-border-color: #0d6efd;
+}
+
+.btn-color-primary {
+    background-color: #00a9a5;
 }
 
 .btn-secondary {
@@ -8957,6 +8970,10 @@ fieldset:disabled .btn {
 .text-primary {
     --bs-text-opacity: 1;
     color: rgba(var(--bs-primary-rgb), var(--bs-text-opacity)) !important;
+}
+
+.text-primary-color {
+    color: #00a9a5;
 }
 
 .text-secondary {

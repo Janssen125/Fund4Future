@@ -13,10 +13,10 @@
                         <p class="small-p">#1 fundraiser for technology</p>
                     </div>
                     <div class="h1-container text-wrap">
-                        <h1 class="lh-sm fw-semibold header-f">Fund Inovative Future <br> Projects With Us</h1>
+                        <h1 class="lh-sm fw-semibold header-f">Fund Inovative Future <br> Projects With Us</h1> <br>  
                     </div>
                     <div class="button-container">
-                        <button type="button" class="btn btn-success primary-background">Start Funding</button>
+                        <a href=""><button type="button" class="btn btn-success btn-color-primary">Start Funding</button></a>
                     </div>
             </div>
             <div class="hero-right w-40 position-absolute end-0 top-15 d-flex justify-content-center align-items-center">
@@ -93,10 +93,10 @@
         </div>
     </section>
     <section class="container our-recommendation">
-        <div class="container">
-            <p>Our Recommendation</p>
+        <div class="container d-flex justify-content-center">
+            <h4>Our Recommendation</h4>
         </div>
-        <div class="container grid-container">
+        <div class="container grid-container p-3">
             <div class="card">
                 <img src="{{ asset('img/LogoFund4Future.png') }}" class="card-img-top" alt="..." width=100 height=200 >
                 <div class="card-body p-4">
@@ -167,7 +167,7 @@
                                 50%
                             </div>
                         </div>
-                        <div class="readmore-btn">
+                        <div class="readmore-btn d-flex justify-content-center">
                             <a class="btn link-secondary-green" href="#" role="button">Read More</a>
                         </div>
                     </div>
@@ -175,8 +175,18 @@
             </div>
             
         </div>
-        <div class="container">
-            <button>View More</button>
+        <div class="button-container d-flex justify-content-center p-5">
+            <a href=""><button type="button" class="btn btn-success btn-color-primary">View More</button></a>
+        </div>
+    </section>
+    <section class="our-goals container d-flex justify-content-center align-center flex-column p-5">
+        <div class="header-container d-flex justify-content-center">
+            <h4 class="fw-bold text-primary-color">Our Goals</h4>
+        </div>
+        <div class="p-container">
+             <p class="text-center">Fund4Future is a crowdfunding platform designed to support individuals and small businesses in bringing their businesses or projects to life.</p>
+             <br>
+             <p class="text-center">Beyond financial assistance, Fund4Future also helps in achieving Sustainable Development Goals (SDGs), particularly SDG 1(No poverty), SDG 8 (Decent Work and Economic Growth), and SDG 9 (Industry, Innovation, and Infrastructure). By fostering research, innovation, and entrepreneurship, the platform helps bridge the gap between ambition and execution, ensuring that creative individuals and small business entrepreneur can thrive while also helping people avoid poverty by creating job opportunity and economic growth.</p>
         </div>
     </section>
 @endsection
