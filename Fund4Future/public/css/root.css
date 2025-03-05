@@ -32,3 +32,16 @@
 html {
     overflow-x: hidden;
 }
+
+.section-background-size {
+    width: 100%;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: brightness(50%);
+    filter: opacity(50%);
+}
+
+.bg-container-transparent {
+    background-color:rgba(255, 255, 255, 0.95);
+}

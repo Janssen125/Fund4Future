@@ -17,7 +17,7 @@
 </head>
 
 <!-- Navbar Section -->
-<header class="fixed-top">
+<header class="sticky-top">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid mx-4">
             <a class="navbar-brand" href="#">
