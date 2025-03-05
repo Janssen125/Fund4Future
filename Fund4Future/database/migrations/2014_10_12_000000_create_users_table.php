@@ -21,6 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->enum('role', ['admin', 'user', 'staff'])->default('user');
             $table->bigInteger('balance')->default(0);
+            $table->bigInteger('nik')->nullable();
+            $table->string('ktpImg')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

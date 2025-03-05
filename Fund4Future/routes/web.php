@@ -6,6 +6,7 @@ use App\Http\Controllers\FundController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\MidtransController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,3 +37,12 @@ Route::resource('category', CategoryController::class);
 Route::resource('fund', FundController::class);
 Route::resource('mail', MailController::class);
 Route::resource('user', UserController::class);
+Route::post('/midtrans/topup', [MidtransController::class, 'createTransaction'])->name('midtrans.topup');
+Route::post('/midtrans/notification', [MidtransController::class, 'handleNotification'])->name('midtrans.notification');
+Route::post('/midtrans/withdraw', [MidtransController::class, 'withdraw'])->name('midtrans.withdraw');
+
+
+
+Route::get('/test', function() {
+    return view('test.test');
+})->middleware('auth');
