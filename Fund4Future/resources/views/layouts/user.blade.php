@@ -8,6 +8,9 @@
     <title>@yield('title')</title>
     <script src="{{ asset('js/app.js') }}" defer></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link
+        href="{{ asset('css/' . (View::hasSection('cssName') ? trim(View::yieldContent('cssName')) : 'root') . '.css') }}"
+        rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/root.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,8 +20,8 @@
 </head>
 
 <!-- Navbar Section -->
-<header class="sticky-top">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+<header class="sticky-top dvw-100">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary dvw-100">
         <div class="container-fluid mx-4">
             <a class="navbar-brand" href="#">
                 <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Bootstrap" width="45" height="50">
@@ -53,17 +56,16 @@
 </body>
 
 <!-- Footer Section -->
-<footer class="p-5 secondary-background dvw-100">
+<footer class="p-5 secondary-background w-100">
     <div class="container-fluid">
         <div class="row">
             <div class="col col-3 d-flex justify-content-center flex-sm-column align-items-center bg-white rounded">
                 <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Logo" width=80 height=100>
                 <img src="{{ asset('img/LogoText.png') }}" alt="LogoText" width=250 height=50>
             </div>
-
-            <div class="col col-9">
+            <div class="col col-9 socialCopy">
                 <div class="row">
-                    <div class="col justify-content-center align-items-center d-flex">
+                    <div class="col justify-content-center align-items-center d-flex w-100">
                         <ul class="list-unstyled d-flex justify-content-around align-items-start h-100 w-75">
                             <li>
                                 <a href="{{ route('home') }}" class="text-decoration-none text-white fs-3">Home</a>
@@ -79,18 +81,24 @@
                         </ul>
                     </div>
                 </div>
-                <div class="row p-3">
-                    <div class="col d-flex justify-content-evenly align-items-center">
-                        <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Logo" width=40 height=40
-                            class="bg-white">
-                        <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Logo" width=40 height=40
-                            class="bg-white">
-                        <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Logo" width=40 height=40
-                            class="bg-white">
+                <div class="row p-3 socialCopy">
+                    <div class="col flex d-flex justify-content-evenly align-items-center">
+                        <a href="#">
+                            <img src="{{ asset('img/FacebookPNG.png') }}" alt="Logo" width=40 height=40
+                                class="">
+                        </a>
+                        <a href="#">
+                            <img src="{{ asset('img/InstagramPNG.png') }}" alt="Logo" width=40 height=40
+                                class="">
+                        </a>
+                        <a href="#">
+                            <img src="{{ asset('img/TwitterPNG.png') }}" alt="Logo" width=40 height=40
+                                class="">
+                        </a>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col d-flex justify-content-center align-items-center text-white">
+                <div class="row socialCopy" id="copyright">
+                    <div class="col flex d-flex justify-content-center align-items-center text-white">
                         Copyright Fund4Future. All Right Reserved
                     </div>
                 </div>

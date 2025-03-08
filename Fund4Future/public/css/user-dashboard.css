@@ -1,0 +1,48 @@
+@media screen and (max-width: 960px)  {
+    .hero {
+        text-align: center;
+    }
+    .hero .flex-sm-row {
+        flex-direction: column;
+    }
+    .hero-right {
+        display: none !important;
+    }
+    .big-hero-left{
+        display: block !important;
+    }
+    .hero-left {
+        max-height: 1024px;
+    }
+    .card-container,
+    .grid-container {
+        display: block !important;
+    }
+    .under-card {
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 80px;
+    }
+    footer .container-fluid .row .col-3{
+        display: none !important;
+    }
+
+    footer .d-flex
+     {
+        display: block !important;
+    }
+
+    footer .flex {
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .socialCopy {
+        width: 100%;
+    }
+
+    #copyright {
+        text-align: center;
+    }
+}
