@@ -21,26 +21,6 @@
                             </p>
                         </div>
                         <div>
-                            <h3>
-                                Social Media
-                            </h3>
-                            <p>
-                                {{-- Nanti ini tinggal dikasih logo aja --}}
-                                <a href="#">
-                                    {{-- gambar1 --}}
-                                    <img src="" alt="" srcset="">
-                                </a>
-                                <a href="#">
-                                    {{-- gambar2 --}}
-                                    <img src="" alt="" srcset="">
-                                </a>
-                                <a href="#">
-                                    {{-- gambar3 --}}
-                                    <img src="" alt="" srcset="">
-                                </a>
-                            </p>
-                        </div>
-                        <div>
                             <h3>Opening Hours</h3>
                             <p><b>Mon - Fri:</b>
                                 9 AM - 5 PM<br>
@@ -57,6 +37,26 @@
                         <div>
                             <h3>Mail</h3>
                             <p>fund4future@gmail.com</p>
+                        </div>
+                        <div>
+                            <h3>
+                                Social Media
+                            </h3>
+                            <p>
+                                {{-- Nanti ini tinggal dikasih logo aja --}}
+                                <a href="#">
+                                    {{-- gambar1 --}}
+                                    <img src="{{ ('img/FacebookPNG.png') }}" alt="" srcset="" width="50" height="50" style="margin-right: 20px;">
+                                </a>
+                                <a href="#">
+                                    {{-- gambar2 --}}
+                                    <img src="{{ ('img/InstagramPNG.png') }}" alt="" srcset="" width="50" height="50" style="margin-right: 20px;">
+                                </a>
+                                <a href="#">
+                                    {{-- gambar3 --}}
+                                    <img src="{{ ('img/TwitterPNG.png') }}" alt="" srcset="" width="50" height="50">
+                                </a>
+                            </p>
                         </div>
                     </div>
                     <div class="col-sm">
