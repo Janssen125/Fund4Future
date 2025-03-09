@@ -15,7 +15,9 @@ class Fund extends Model
         'owner_id',
         'category_id',
         'currAmount',
-        'targetAmount'
+        'targetAmount',
+        'approvalStatus',
+        'approvedOrDeclinedBy'
     ];
 
     public function fundHistory() {

@@ -23,6 +23,9 @@ class CreateFundsTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null')->onUpdate('cascade');
             $table->bigInteger('currAmount');
             $table->bigInteger('targetAmount');
+            $table->enum('approvalStatus', ['pending', 'approved', 'declined'])->default('pending');
+            $table->unsignedBigInteger('approvedOrDeclinedBy')->nullable();
+            $table->foreign('approvedOrDeclinedBy')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
