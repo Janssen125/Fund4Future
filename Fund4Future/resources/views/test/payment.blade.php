@@ -17,6 +17,22 @@
                 onSuccess: function(result) {
                     console.log("Payment Success:", result);
                     alert("Payment successful!");
+
+                    // ✅ Call the notification route
+                    fetch("{{ route('midtrans.notification') }}", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                            },
+                            body: JSON.stringify(result)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log("Server Response:", data);
+                            alert("Transaction processed on server!");
+                        })
+                        .catch(error => console.error("Error:", error));
                 },
                 onPending: function(result) {
                     console.log("Payment Pending:", result);
