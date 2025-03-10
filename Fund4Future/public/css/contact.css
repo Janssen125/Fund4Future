@@ -23,4 +23,26 @@
         justify-content: space-between;
         min-height: 80px;
     }
+    footer .container-fluid .row .col-3{
+        display: none !important;
+    }
+
+    footer .d-flex
+     {
+        display: block !important;
+    }
+
+    footer .flex {
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .socialCopy {
+        width: 100%;
+    }
+
+    #copyright {
+        text-align: center;
+    }
 }
