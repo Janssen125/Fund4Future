@@ -99,26 +99,33 @@ class MidtransController extends Controller
         // return response()->json(['message' => 'Invalid signature key'], 400);
 
         try {
-            // Log incoming request
-            Log::info('Midtrans Notification:', $request->all());
+            // 🔹 Log the entire request data
+            Log::info('🔔 Midtrans Notification Received:', $request->all());
 
-            // Validate Signature Key
+            // ✅ Verify Signature
             $serverKey = config('services.midtrans.server_key');
             $expectedSignature = hash("sha512", $request->order_id . $request->status_code . $request->gross_amount . $serverKey);
 
             if ($expectedSignature !== $request->signature_key) {
+                Log::warning("🚨 Invalid Signature Key");
                 return response()->json(['message' => 'Invalid signature'], 403);
             }
 
-            // Process transaction
-            if ($request->transaction_status == 'settlement') {
-                // ✅ Update order status in DB (Implement this)
-                Log::info("Transaction Settled: " . $request->order_id);
+            // 🔹 Extract transaction data
+            $transactionStatus = $request->transaction_status;
+            $orderId = $request->order_id;
+
+            // 🔹 Log transaction status
+            Log::info("🔍 Order ID: $orderId | Status: $transactionStatus");
+
+            if ($transactionStatus == 'settlement') {
+                // ✅ Update database (implement this part)
+                Log::info("✅ Payment Settled for Order ID: $orderId");
             }
 
-            return response()->json(['message' => 'Notification received'], 200);
+            return response()->json(['message' => 'Notification processed'], 200);
         } catch (\Exception $e) {
-            Log::error("Midtrans Notification Error: " . $e->getMessage());
+            Log::error("❌ Midtrans Notification Error: " . $e->getMessage());
             return response()->json(['message' => 'Server Error'], 500);
         }
     }
