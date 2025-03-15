@@ -101,17 +101,9 @@ class MidtransController extends Controller
         Log::info('Midtrans Notification Received:', $request->all());
 
         try {
-            $serverKey = config('services.midtrans.server_key');
-            $hashed = hash("sha512", $request->order_id.$request->status_code.$request->gross_amount.$serverKey);
-
-            if ($hashed !== $request->signature_key) {
-                return response()->json(['message' => 'Invalid signature'], 403);
-            }
-
-            // Lakukan update transaksi di database
-            return response()->json(['message' => 'Notification processed']);
+            return response()->json(['message' => 'Notification received']);
         } catch (\Exception $e) {
-            Log::error('Midtrans Notification Error: ' . $e->getMessage());
+            Log::error('Error processing Midtrans Notification: ' . $e->getMessage());
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
