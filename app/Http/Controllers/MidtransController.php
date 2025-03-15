@@ -102,26 +102,44 @@ class MidtransController extends Controller
             // Get Midtrans notification
             $notif = new Notification();
 
-            // Extract transaction status
-            $transaction = $notif->transaction_status;
-            $orderId = $notif->order_id;
+            // Extract necessary fields from notification
+            $orderId = $notif->order_id ?? null;
+            $transaction = $notif->transaction_status ?? null;
+            $statusCode = $notif->status_code ?? null;
+            $grossAmount = $notif->gross_amount ?? null;
+            $signatureKey = $notif->signature_key ?? null;
 
-            // Log the notification for debugging
-            Log::info("Midtrans Notification Received:", (array) $notif);
+            // Log request for debugging
+            Log::info('Midtrans Notification Received:', (array) $notif);
 
-            // Process status
-            if ($transaction == 'settlement') {
-                // Payment success, update order status
-            } elseif ($transaction == 'pending') {
-                // Payment is pending
-            } elseif ($transaction == 'deny' || $transaction == 'expire' || $transaction == 'cancel') {
-                // Payment failed
+            // Validate Signature Key
+            $serverKey = config('services.midtrans.server_key');
+            $expectedSignature = hash("sha512", $orderId . $statusCode . $grossAmount . $serverKey);
+
+            if ($signatureKey !== $expectedSignature) {
+                Log::warning("Midtrans Invalid Signature for Order: $orderId");
+                return response()->json(['message' => 'Invalid signature'], 403);
             }
 
-            return response()->json(['message' => 'Notification received']);
+            // Handle transaction statuses
+            if ($transaction === 'settlement') {
+                // TODO: Update order status in database to 'paid'
+                Log::info("Order $orderId successfully paid.");
+            } elseif ($transaction === 'pending') {
+                Log::info("Order $orderId is pending payment.");
+            } elseif ($transaction === 'cancel' || $transaction === 'deny') {
+                Log::warning("Order $orderId was cancelled or denied.");
+            } elseif ($transaction === 'expire') {
+                Log::warning("Order $orderId has expired.");
+            }
+
+            return response()->json(['message' => 'Notification processed'], 200);
+
         } catch (\Exception $e) {
-            Log::error("Midtrans Notification Error: " . $e->getMessage());
-            return response()->json(['message' => 'Error'], 500);
+            Log::error("Midtrans Notification Error: " . $e->getMessage(), [
+                'trace' => $e->getTraceAsString()
+            ]);
+            return response()->json(['message' => 'Internal Server Error'], 500);
         }
     }
 
