@@ -97,12 +97,48 @@ class MidtransController extends Controller
         //     }
         // }
         // return response()->json(['message' => 'Invalid signature key'], 400);
-        dd($request->all());
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Raw request data',
-            'data' => $request->all()
-        ]);
+    // Log request data for debugging
+    Log::info('Midtrans Notification Received:', $request->all());
+
+    // Get Midtrans server key from .env
+    $serverKey = env('MIDTRANS_SERVER_KEY');
+
+    // Extract necessary fields
+    $order_id = $request->order_id;
+    $status_code = $request->status_code;
+    $gross_amount = $request->gross_amount;
+    $signature_key = $request->signature_key;
+
+    // Generate expected signature key
+    $expected_signature = hash("sha512", $order_id . $status_code . $gross_amount . $serverKey);
+
+    // Verify signature key
+    if ($signature_key === $expected_signature) {
+        // Get transaction
+        $transaction = TopUpTransaction::where('order_id', $order_id)->first();
+
+        if ($transaction) {
+            if ($request->transaction_status == 'settlement') {
+                // Update user's balance
+                $user = $transaction->user;
+                $user->increment('balance', $transaction->amount);
+                $transaction->update(['status' => 'completed']);
+
+                return response()->json(['message' => 'Transaction processed successfully'], 200);
+            } elseif ($request->transaction_status == 'pending') {
+                $transaction->update(['status' => 'pending']);
+            } elseif ($request->transaction_status == 'expire') {
+                $transaction->update(['status' => 'expired']);
+            } elseif ($request->transaction_status == 'cancel' || $request->transaction_status == 'deny') {
+                $transaction->update(['status' => 'failed']);
+            }
+            return response()->json(['message' => 'Transaction status updated'], 200);
+        }
+
+        return response()->json(['message' => 'Transaction not found'], 404);
+    }
+
+    return response()->json(['message' => 'Invalid signature key'], 400);
 
     }
 
