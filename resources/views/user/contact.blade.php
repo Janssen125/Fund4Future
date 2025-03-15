@@ -6,7 +6,7 @@
     contact
 @endsection
 @section('content')
-    <section class="dvw-100 position-relative d-flex justify-content-center align-items-center">
+    <section class="dvw-100 position-relative d-flex justify-content-center align-items-center p-5">
         <div class="dvw-100 position-absolute top-0 start-0 z-n1">
             <img src="{{ asset('img/BgImgContactUs.jpg') }}" alt="Background" srcset="" class="section-background-size">
         </div>

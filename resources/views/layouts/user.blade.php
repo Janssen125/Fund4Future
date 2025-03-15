@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
-    <script src="{{ secure_asset('js/app.js') }}" defer></script>
-    <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link
-        href="{{ secure_asset('css/' . (View::hasSection('cssName') ? trim(View::yieldContent('cssName')) : 'root') . '.css') }}"
+        href="{{ asset('css/' . (View::hasSection('cssName') ? trim(View::yieldContent('cssName')) : 'root') . '.css') }}"
         rel="stylesheet">
-    <link rel="stylesheet" href="{{ secure_asset('css/root.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/root.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -24,7 +24,7 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary dvw-100">
         <div class="container-fluid mx-4">
             <a class="navbar-brand" href="#">
-                <img src="{{ secure_asset('img/LogoFund4Future.png') }}" alt="Bootstrap" width="45" height="50">
+                <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Bootstrap" width="45" height="50">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,8 +60,8 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col col-3 d-flex justify-content-center flex-sm-column align-items-center bg-white rounded">
-                <img src="{{ secure_asset('img/LogoFund4Future.png') }}" alt="Logo" width=80 height=100>
-                <img src="{{ secure_asset('img/LogoText.png') }}" alt="LogoText" width=250 height=50>
+                <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Logo" width=80 height=100>
+                <img src="{{ asset('img/LogoText.png') }}" alt="LogoText" width=250 height=50>
             </div>
             <div class="col col-9 socialCopy">
                 <div class="row">
@@ -84,15 +84,15 @@
                 <div class="row p-3 socialCopy">
                     <div class="col flex d-flex justify-content-evenly align-items-center">
                         <a href="#">
-                            <img src="{{ secure_asset('img/FacebookPNG.png') }}" alt="Logo" width=40 height=40
+                            <img src="{{ asset('img/FacebookPNG.png') }}" alt="Logo" width=40 height=40
                                 class="">
                         </a>
                         <a href="#">
-                            <img src="{{ secure_asset('img/InstagramPNG.png') }}" alt="Logo" width=40 height=40
+                            <img src="{{ asset('img/InstagramPNG.png') }}" alt="Logo" width=40 height=40
                                 class="">
                         </a>
                         <a href="#">
-                            <img src="{{ secure_asset('img/TwitterPNG.png') }}" alt="Logo" width=40 height=40
+                            <img src="{{ asset('img/TwitterPNG.png') }}" alt="Logo" width=40 height=40
                                 class="">
                         </a>
                     </div>
