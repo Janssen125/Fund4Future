@@ -99,47 +99,27 @@ class MidtransController extends Controller
         // return response()->json(['message' => 'Invalid signature key'], 400);
 
         try {
-            // Get Midtrans notification
-            $notif = new Notification();
-
-            // Extract necessary fields from notification
-            $orderId = $notif->order_id ?? null;
-            $transaction = $notif->transaction_status ?? null;
-            $statusCode = $notif->status_code ?? null;
-            $grossAmount = $notif->gross_amount ?? null;
-            $signatureKey = $notif->signature_key ?? null;
-
-            // Log request for debugging
-            Log::info('Midtrans Notification Received:', (array) $notif);
+            // Log incoming request
+            Log::info('Midtrans Notification:', $request->all());
 
             // Validate Signature Key
             $serverKey = config('services.midtrans.server_key');
-            $expectedSignature = hash("sha512", $orderId . $statusCode . $grossAmount . $serverKey);
+            $expectedSignature = hash("sha512", $request->order_id . $request->status_code . $request->gross_amount . $serverKey);
 
-            if ($signatureKey !== $expectedSignature) {
-                Log::warning("Midtrans Invalid Signature for Order: $orderId");
+            if ($expectedSignature !== $request->signature_key) {
                 return response()->json(['message' => 'Invalid signature'], 403);
             }
 
-            // Handle transaction statuses
-            if ($transaction === 'settlement') {
-                // TODO: Update order status in database to 'paid'
-                Log::info("Order $orderId successfully paid.");
-            } elseif ($transaction === 'pending') {
-                Log::info("Order $orderId is pending payment.");
-            } elseif ($transaction === 'cancel' || $transaction === 'deny') {
-                Log::warning("Order $orderId was cancelled or denied.");
-            } elseif ($transaction === 'expire') {
-                Log::warning("Order $orderId has expired.");
+            // Process transaction
+            if ($request->transaction_status == 'settlement') {
+                // ✅ Update order status in DB (Implement this)
+                Log::info("Transaction Settled: " . $request->order_id);
             }
 
-            return response()->json(['message' => 'Notification processed'], 200);
-
+            return response()->json(['message' => 'Notification received'], 200);
         } catch (\Exception $e) {
-            Log::error("Midtrans Notification Error: " . $e->getMessage(), [
-                'trace' => $e->getTraceAsString()
-            ]);
-            return response()->json(['message' => 'Internal Server Error'], 500);
+            Log::error("Midtrans Notification Error: " . $e->getMessage());
+            return response()->json(['message' => 'Server Error'], 500);
         }
     }
 
