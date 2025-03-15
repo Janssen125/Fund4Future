@@ -62,34 +62,15 @@ class MidtransController extends Controller
 
     public function handleNotification(Request $request)
     {
-        $serverKey = env('MIDTRANS_SERVER_KEY');
+        // Capture the actual payload Midtrans sends
+        $data = $request->all();
 
-        // Extract data from request
-        $order_id = $request->input('order_id');
-        $status_code = $request->input('status_code');
-        $gross_amount = $request->input('gross_amount');
-        $signature_key = $request->input('signature_key');
-
-        // Check if required fields exist
-        if (!$order_id || !$status_code || !$gross_amount || !$signature_key) {
-            return response()->json(['message' => 'Invalid request: Missing parameters'], 400);
-        }
-
-        // Generate expected signature
-        $expected_signature = hash("sha512", $order_id . $status_code . $gross_amount . $serverKey);
-
-        // Compare signature keys
-        if ($signature_key !== $expected_signature) {
-            return response()->json([
-                'message' => 'Invalid signature key',
-                'expected_signature' => $expected_signature,
-                'received_signature' => $signature_key,
-            ], 400);
-        }
-
-        // If valid, process transaction
-        return response()->json(['message' => 'Valid signature, processing transaction'], 200);
+        // Dump and return response for debugging
+        return response()->json([
+            'received' => $data
+        ]);
     }
+
 
 }
 
