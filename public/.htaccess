@@ -1,6 +1,9 @@
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
+        RewriteEngine On
+        RewriteCond %{HTTPS} !=on
+        RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
     </IfModule>
 
     RewriteEngine On
