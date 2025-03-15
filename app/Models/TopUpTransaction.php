@@ -10,9 +10,19 @@ class TopUpTransaction extends Model
     use HasFactory;
 
     protected $fillable = [
-      'user_id',
-      'order_id',
-      'amount',
-      'status'
+        'user_id',
+        'order_id',
+        'gross_amount',
+        'status',
+        'status_code',
+        'transaction_id',
+        'fraud_status',
+        'payment_type',
+        'transaction_time',
+        'finish_redirect_url',
     ];
+
+    public function users() {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

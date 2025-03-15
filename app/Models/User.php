@@ -64,4 +64,8 @@ class User extends Authenticatable
     public function reply() {
         return $this->hasMany(Reply::class);
     }
+
+    public function topup() {
+        return $this->hasMany(TopUpTransaction::class);
+    }
 }

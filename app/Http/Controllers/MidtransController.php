@@ -64,33 +64,41 @@ class MidtransController extends Controller
 
     public function handleNotification(Request $request)
     {
-        $serverKey = env('MIDTRANS_SERVER_KEY');
-
-        // Extract data from Midtrans notification
+        // Retrieve Midtrans notification data
         $order_id = $request->input('order_id');
         $status_code = $request->input('status_code');
+        $status_message = $request->input('status_message');
+        $transaction_id = $request->input('transaction_id');
         $gross_amount = $request->input('gross_amount');
+        $payment_type = $request->input('payment_type');
+        $fraud_status = $request->input('fraud_status');
+        $transaction_time = $request->input('transaction_time');
+        $finish_redirect_url = $request->input('finish_redirect_url');
 
-        // Validate required fields
-        if (!$order_id || !$status_code || !$gross_amount) {
-            return response()->json(['message' => 'Invalid request'], 400);
+        // Optionally validate the request if needed (e.g., signature verification)
+        // If you're not validating signature, skip that part
+
+        // Check if the required fields exist in the notification
+        if (!$order_id || !$status_code || !$transaction_id || !$gross_amount || !$payment_type) {
+            return response()->json(['message' => 'Invalid notification data'], 400);
         }
+        $user_id = Auth::user()->id;
+        // Insert into the database
+        $topUpTransaction = TopUpTransaction::create([
+            'user_id' => $user_id,
+            'order_id' => $order_id,
+            'gross_amount' => $gross_amount,
+            'status' => 'completed',
+            'status_code' => $status_code,
+            'transaction_id' => $transaction_id,
+            'fraud_status' => $fraud_status,
+            'payment_type' => $payment_type,
+            'transaction_time' => $transaction_time,
+            'finish_redirect_url' => $finish_redirect_url,
+        ]);
 
-        // Generate expected signature key (as per Midtrans documentation)
-        $expected_signature = hash("sha512", $order_id . $status_code . $gross_amount . $serverKey);
-
-        // You can log or store the $expected_signature if you need to debug or store it
-        // For now, we skip this and assume the notification is valid if it reaches here.
-
-        // Process the transaction logic here
-        if ($status_code == '200' && $gross_amount > 0) {
-            // Process the transaction, for example, update user balance, etc.
-            return response()->json(['message' => 'Notification successfully processed'], 200);
-        }
-
-        return response()->json(['message' => 'Invalid notification data'], 400);
+        return response()->json(['message' => 'Notification successfully processed'], 200);
     }
-
 
 
 

@@ -16,11 +16,20 @@ class CreateTopUpTransactionsTable extends Migration
         Schema::create('top_up_transactions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('order_id')->unique();
-            $table->bigInteger('amount');
+            $table->decimal('gross_amount', 10, 2);
             $table->string('status')->default('pending');
+            $table->string('status_code');
+            $table->string('transaction_id')->nullable();
+            $table->string('fraud_status')->nullable();
+            $table->string('payment_type');
+            $table->timestamp('transaction_time')->nullable();
+            $table->string('signature_key')->nullable();
+            $table->string('finish_redirect_url')->nullable();
             $table->timestamps();
         });
+
     }
 
     /**
