@@ -64,39 +64,31 @@ class MidtransController extends Controller
     {
         $serverKey = env('MIDTRANS_SERVER_KEY');
 
-        // Extract data safely
+        // Extract data from request
         $order_id = $request->input('order_id');
         $status_code = $request->input('status_code');
         $gross_amount = $request->input('gross_amount');
         $signature_key = $request->input('signature_key');
 
-        // Validate required parameters
+        // Check if required fields exist
         if (!$order_id || !$status_code || !$gross_amount || !$signature_key) {
-            return response()->json(['message' => 'Invalid request'], 400);
+            return response()->json(['message' => 'Invalid request: Missing parameters'], 400);
         }
 
         // Generate expected signature
         $expected_signature = hash("sha512", $order_id . $status_code . $gross_amount . $serverKey);
 
-        // Verify signature
+        // Compare signature keys
         if ($signature_key !== $expected_signature) {
-            return response()->json(['message' => 'Invalid signature'], 400);
+            return response()->json([
+                'message' => 'Invalid signature key',
+                'expected_signature' => $expected_signature,
+                'received_signature' => $signature_key,
+            ], 400);
         }
 
-        // Find the transaction
-        $transaction = TopUpTransaction::where('order_id', $order_id)->first();
-        if (!$transaction) {
-            return response()->json(['message' => 'Transaction not found'], 404);
-        }
-
-        // If transaction is successful, update the balance
-        if ($status_code == '200') {
-            $user = $transaction->user;
-            $user->increment('balance', $transaction->amount);
-            $transaction->update(['status' => 'completed']);
-        }
-
-        return response()->json(['message' => 'Notification processed successfully'], 200);
+        // If valid, process transaction
+        return response()->json(['message' => 'Valid signature, processing transaction'], 200);
     }
 
 }
