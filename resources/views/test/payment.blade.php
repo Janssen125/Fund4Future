@@ -15,31 +15,34 @@
         document.getElementById('pay-button').onclick = function() {
             window.snap.pay("{{ $snapToken }}", {
                 onSuccess: function(result) {
-                    console.log("Payment Success:", result);
+                    console.log("✅ Payment Success:", result);
                     alert("Payment successful!");
 
-                    // ✅ Call the notification route
+                    // Send payment result to Laravel backend
                     fetch("{{ route('midtrans.notification') }}", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",
-                                "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                                "X-Midtrans-Callback": "true" // Optional header for security
                             },
                             body: JSON.stringify(result)
                         })
                         .then(response => response.json())
                         .then(data => {
-                            console.log("Server Response:", data);
+                            console.log("✅ Server Response:", data);
                             alert("Transaction processed on server!");
                         })
-                        .catch(error => console.error("Error:", error));
+                        .catch(error => {
+                            console.error("❌ Error:", error);
+                            alert("Error sending data to server.");
+                        });
                 },
                 onPending: function(result) {
-                    console.log("Payment Pending:", result);
+                    console.log("⏳ Payment Pending:", result);
                     alert("Waiting for payment...");
                 },
                 onError: function(result) {
-                    console.log("Payment Failed:", result);
+                    console.log("❌ Payment Failed:", result);
                     alert("Payment failed!");
                 },
                 onClose: function() {
