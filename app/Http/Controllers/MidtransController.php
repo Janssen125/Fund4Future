@@ -62,14 +62,14 @@ class MidtransController extends Controller
 
     public function handleNotification(Request $request)
     {
-        // Capture the actual payload Midtrans sends
-        $data = $request->all();
+        // Capture raw JSON payload
+        $jsonData = file_get_contents('php://input');
 
-        // Dump and return response for debugging
         return response()->json([
-            'received' => $data
+            'raw_payload' => json_decode($jsonData, true)
         ]);
     }
+
 
 
 }
