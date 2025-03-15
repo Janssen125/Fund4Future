@@ -62,23 +62,34 @@ class MidtransController extends Controller
 
     public function handleNotification(Request $request)
     {
-    // Log request data for debugging
-    Log::info('Midtrans Notification Received:', $request->all());
+        Log::info('Midtrans Notification Received:', $request->all());
 
-    // Get Midtrans server key from .env
-    $serverKey = env('MIDTRANS_SERVER_KEY');
+        $serverKey = env('MIDTRANS_SERVER_KEY');
 
-    // Extract necessary fields
-    $order_id = $request->order_id;
-    $status_code = $request->status_code;
-    $gross_amount = $request->gross_amount;
-    $signature_key = $request->signature_key;
+        // Extract data safely
+        $order_id = $request->input('order_id');
+        $status_code = $request->input('status_code');
+        $gross_amount = $request->input('gross_amount');
+        $signature_key = $request->input('signature_key');
 
-    // Generate expected signature key
-    $expected_signature = hash("sha512", $order_id . $status_code . $gross_amount . $serverKey);
+        if (!$order_id || !$status_code || !$gross_amount || !$signature_key) {
+            Log::error('Missing parameters in Midtrans webhook');
+            return response()->json(['message' => 'Invalid request'], 400);
+        }
 
-    dd($order_id, $status_code, $gross_amount, $signature_key, $expected_signature, $request->all());
+        // Generate expected signature
+        $expected_signature = hash("sha512", $order_id . $status_code . $gross_amount . $serverKey);
 
+        // Log for debugging
+        Log::info('Midtrans Debug:', [
+            'order_id' => $order_id,
+            'status_code' => $status_code,
+            'gross_amount' => $gross_amount,
+            'signature_key' => $signature_key,
+            'expected_signature' => $expected_signature
+        ]);
+
+        return response()->json(['message' => 'Notification received'], 200);
     // Verify signature key
     // if ($signature_key === $expected_signature) {
     //     // Get transaction
