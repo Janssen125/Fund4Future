@@ -36,6 +36,7 @@
                             console.error("❌ Error:", error);
                             alert("Error sending data to server.");
                         });
+                    location.href("{{ route('home') }}");
                 },
                 onPending: function(result) {
                     console.log("⏳ Payment Pending:", result);
