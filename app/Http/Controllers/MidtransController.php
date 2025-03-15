@@ -6,6 +6,7 @@ use Midtrans\Config;
 use Midtrans\Snap;
 use App\Models\TopUpTransaction;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class MidtransController extends Controller
 {
@@ -40,7 +41,7 @@ class MidtransController extends Controller
                 [
                     'id' => uniqid(),
                     'price' => $request->amount,
-                    'quantity' => $request->amount,
+                    'quantity' => 1,
                     'name' => 'Top-up Balance',
                     'brand' => 'Fund4Future',
                     'category' => 'Top-up',
@@ -60,8 +61,6 @@ class MidtransController extends Controller
         return view('test.payment', compact('snapToken'));
     }
 
-    use Illuminate\Http\Request;
-    use Illuminate\Support\Facades\Hash;
 
     public function handleNotification(Request $request)
     {
