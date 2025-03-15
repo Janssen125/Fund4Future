@@ -62,13 +62,13 @@ class MidtransController extends Controller
 
     public function handleNotification(Request $request)
     {
-        // $serverKey = env('MIDTRANS_SERVER_KEY');
+        $serverKey = env('MIDTRANS_SERVER_KEY');
 
         // // Extract data safely
-        // $order_id = $request->input('order_id');
-        // $status_code = $request->input('status_code');
-        // $gross_amount = $request->input('gross_amount');
-        // $signature_key = $request->input('signature_key');
+        $order_id = $request->input('order_id');
+        $status_code = $request->input('status_code');
+        $gross_amount = $request->input('gross_amount');
+        $signature_key = $request->input('signature_key');
 
         // if (!$order_id || !$status_code || !$gross_amount || !$signature_key) {
         //     return response()->json(['message' => 'Invalid request'], 400);
