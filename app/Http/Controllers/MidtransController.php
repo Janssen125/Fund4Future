@@ -101,11 +101,21 @@ class MidtransController extends Controller
         Log::info('Midtrans Notification Received:', $request->all());
 
         try {
-            return response()->json(['message' => 'Notification received']);
+            // ✅ Directly return request data to inspect it in JavaScript
+            return response()->json([
+                'message' => 'Notification received',
+                'data' => $request->all()
+            ], 200);
         } catch (\Exception $e) {
+            // Log and return the error
             Log::error('Error processing Midtrans Notification: ' . $e->getMessage());
-            return response()->json(['error' => 'Internal Server Error'], 500);
+
+            return response()->json([
+                'error' => 'Internal Server Error',
+                'exception' => $e->getMessage()
+            ], 500);
         }
+
     }
 
 

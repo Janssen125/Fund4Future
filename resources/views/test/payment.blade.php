@@ -23,14 +23,14 @@
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",
-                                "X-CSRF-TOKEN": "{{ csrf_token() }}" // Fix: Include CSRF token if needed
+                                "X-CSRF-TOKEN": "{{ csrf_token() }}"
                             },
-                            body: JSON.stringify(result) // Fix: Ensure JSON data is properly formatted
+                            body: JSON.stringify(result)
                         })
-                        .then(response => response.text()) // Fetch raw response
+                        .then(response => response.json())
                         .then(data => {
-                            console.log("✅ Server Response (Raw):", data); // Log raw response
-                            alert("Transaction processed on server!");
+                            console.log("✅ Server Response:", data);
+                            alert("Server Response: " + JSON.stringify(data)); // Show full response
                         })
                         .catch(error => {
                             console.error("❌ Error:", error);
