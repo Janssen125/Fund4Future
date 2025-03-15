@@ -99,8 +99,14 @@ class MidtransController extends Controller
         // return response()->json(['message' => 'Invalid signature key'], 400);
 
         try {
-            // 🔹 Log the entire request data
-            Log::info('🔔 Midtrans Notification Received:', $request->all());
+            // 🔹 Log raw JSON data
+            Log::info('🔔 Midtrans Notification Received:', ['data' => $request->all()]);
+
+            // ✅ Verify if request contains the required fields
+            if (!$request->has(['order_id', 'status_code', 'gross_amount', 'signature_key'])) {
+                Log::error("🚨 Missing required fields in Midtrans notification");
+                return response()->json(['message' => 'Bad Request'], 400);
+            }
 
             // ✅ Verify Signature
             $serverKey = config('services.midtrans.server_key');

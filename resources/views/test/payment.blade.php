@@ -18,14 +18,14 @@
                     console.log("✅ Payment Success:", result);
                     alert("Payment successful!");
 
-                    // Send payment result to Laravel backend
+                    // ✅ Send payment result to Laravel backend
                     fetch("{{ route('midtrans.notification') }}", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",
-                                "X-Midtrans-Callback": "true" // Optional header for security
+                                "X-CSRF-TOKEN": "{{ csrf_token() }}" // Fix: Include CSRF token if needed
                             },
-                            body: JSON.stringify(result)
+                            body: JSON.stringify(result) // Fix: Ensure JSON data is properly formatted
                         })
                         .then(response => response.json())
                         .then(data => {
