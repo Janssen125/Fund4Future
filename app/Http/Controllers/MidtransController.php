@@ -79,24 +79,50 @@ class MidtransController extends Controller
 
     public function handleNotification(Request $request)
     {
-        Log::info('Midtrans Notification Received:', $request->all());
+        // Log::info('Midtrans Notification Received:', $request->all());
 
-        $serverKey = env('MIDTRANS_SERVER_KEY');
-        $hashed = hash("sha512", $request->order_id.$request->status_code.$request->gross_amount.$serverKey);
+        // $serverKey = env('MIDTRANS_SERVER_KEY');
+        // $hashed = hash("sha512", $request->order_id.$request->status_code.$request->gross_amount.$serverKey);
 
-        if ($hashed == $request->signature_key) {
-            if ($request->transaction_status == 'settlement') {
-                $transaction = TopUpTransaction::where('order_id', $request->order_id)->first();
-                if ($transaction) {
-                    $user = $transaction->user;
-                    $user->increment('balance', $transaction->amount);
-                    $transaction->update(['status' => 'completed']);
+        // if ($hashed == $request->signature_key) {
+        //     if ($request->transaction_status == 'settlement') {
+        //         $transaction = TopUpTransaction::where('order_id', $request->order_id)->first();
+        //         if ($transaction) {
+        //             $user = $transaction->user;
+        //             $user->increment('balance', $transaction->amount);
+        //             $transaction->update(['status' => 'completed']);
 
-                    return response()->json(['message' => 'Transaction processed successfully'], 200);
-                }
+        //             return response()->json(['message' => 'Transaction processed successfully'], 200);
+        //         }
+        //     }
+        // }
+        // return response()->json(['message' => 'Invalid signature key'], 400);
+
+        try {
+            // Get Midtrans notification
+            $notif = new Notification();
+
+            // Extract transaction status
+            $transaction = $notif->transaction_status;
+            $orderId = $notif->order_id;
+
+            // Log the notification for debugging
+            Log::info("Midtrans Notification Received:", (array) $notif);
+
+            // Process status
+            if ($transaction == 'settlement') {
+                // Payment success, update order status
+            } elseif ($transaction == 'pending') {
+                // Payment is pending
+            } elseif ($transaction == 'deny' || $transaction == 'expire' || $transaction == 'cancel') {
+                // Payment failed
             }
+
+            return response()->json(['message' => 'Notification received']);
+        } catch (\Exception $e) {
+            Log::error("Midtrans Notification Error: " . $e->getMessage());
+            return response()->json(['message' => 'Error'], 500);
         }
-        return response()->json(['message' => 'Invalid signature key'], 400);
     }
 
 
