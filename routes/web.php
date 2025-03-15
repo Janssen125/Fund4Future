@@ -7,6 +7,9 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\MidtransController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Midtrans\Notification;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,9 +41,35 @@ Route::resource('fund', FundController::class);
 Route::resource('mail', MailController::class);
 Route::resource('user', UserController::class);
 Route::post('/midtrans/topup', [MidtransController::class, 'createTransaction'])->name('midtrans.topup');
-Route::post('/midtrans/notification', [MidtransController::class, 'handleNotification'])->name('midtrans.notification');
+// Route::post('/midtrans/notification', [MidtransController::class, 'handleNotification'])->name('midtrans.notification');
 Route::post('/midtrans/withdraw', [MidtransController::class, 'withdraw'])->name('midtrans.withdraw');
+Route::post('/midtrans/notification', function (Request $request) {
+    try {
+        // Get Midtrans notification
+        $notif = new Notification();
 
+        // Extract transaction status
+        $transaction = $notif->transaction_status;
+        $orderId = $notif->order_id;
+
+        // Log the notification for debugging
+        Log::info("Midtrans Notification Received:", (array) $notif);
+
+        // Process status
+        if ($transaction == 'settlement') {
+            // Payment success, update order status
+        } elseif ($transaction == 'pending') {
+            // Payment is pending
+        } elseif ($transaction == 'deny' || $transaction == 'expire' || $transaction == 'cancel') {
+            // Payment failed
+        }
+
+        return response()->json(['message' => 'Notification received']);
+    } catch (\Exception $e) {
+        Log::error("Midtrans Notification Error: " . $e->getMessage());
+        return response()->json(['message' => 'Error'], 500);
+    }
+});
 
 
 Route::get('/test', function() {
