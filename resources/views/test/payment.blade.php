@@ -27,9 +27,9 @@
                             },
                             body: JSON.stringify(result) // Fix: Ensure JSON data is properly formatted
                         })
-                        .then(response => response.json())
+                        .then(response => response.text()) // Fetch raw response
                         .then(data => {
-                            console.log("✅ Server Response:", data);
+                            console.log("✅ Server Response (Raw):", data); // Log raw response
                             alert("Transaction processed on server!");
                         })
                         .catch(error => {
