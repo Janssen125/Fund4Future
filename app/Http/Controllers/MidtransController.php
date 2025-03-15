@@ -98,41 +98,21 @@ class MidtransController extends Controller
         // }
         // return response()->json(['message' => 'Invalid signature key'], 400);
 
+        Log::info('Midtrans Notification Received:', $request->all());
+
         try {
-            // 🔹 Log raw JSON data
-            Log::info('🔔 Midtrans Notification Received:', ['data' => $request->all()]);
-
-            // ✅ Verify if request contains the required fields
-            if (!$request->has(['order_id', 'status_code', 'gross_amount', 'signature_key'])) {
-                Log::error("🚨 Missing required fields in Midtrans notification");
-                return response()->json(['message' => 'Bad Request'], 400);
-            }
-
-            // ✅ Verify Signature
             $serverKey = config('services.midtrans.server_key');
-            $expectedSignature = hash("sha512", $request->order_id . $request->status_code . $request->gross_amount . $serverKey);
+            $hashed = hash("sha512", $request->order_id.$request->status_code.$request->gross_amount.$serverKey);
 
-            if ($expectedSignature !== $request->signature_key) {
-                Log::warning("🚨 Invalid Signature Key");
+            if ($hashed !== $request->signature_key) {
                 return response()->json(['message' => 'Invalid signature'], 403);
             }
 
-            // 🔹 Extract transaction data
-            $transactionStatus = $request->transaction_status;
-            $orderId = $request->order_id;
-
-            // 🔹 Log transaction status
-            Log::info("🔍 Order ID: $orderId | Status: $transactionStatus");
-
-            if ($transactionStatus == 'settlement') {
-                // ✅ Update database (implement this part)
-                Log::info("✅ Payment Settled for Order ID: $orderId");
-            }
-
-            return response()->json(['message' => 'Notification processed'], 200);
+            // Lakukan update transaksi di database
+            return response()->json(['message' => 'Notification processed']);
         } catch (\Exception $e) {
-            Log::error("❌ Midtrans Notification Error: " . $e->getMessage());
-            return response()->json(['message' => 'Server Error'], 500);
+            Log::error('Midtrans Notification Error: ' . $e->getMessage());
+            return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
 
