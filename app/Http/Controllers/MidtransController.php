@@ -70,12 +70,12 @@ class MidtransController extends Controller
         $gross_amount = $request->input('gross_amount');
         $signature_key = $request->input('signature_key');
 
-        // if (!$order_id || !$status_code || !$gross_amount || !$signature_key) {
-        //     return response()->json(['message' => 'Invalid request'], 400);
-        // }
+        if (!$order_id || !$status_code || !$gross_amount || !$signature_key) {
+            return response()->json(['message' => 'Invalid request'], 400);
+        }
 
         // // Generate expected signature
-        // $expected_signature = hash("sha512", $order_id . $status_code . $gross_amount . $serverKey);
+        $expected_signature = hash("sha512", $order_id . $status_code . $gross_amount . $serverKey);
 
 
         return response()->json(['message' => 'Notification received'], 200);
