@@ -99,19 +99,23 @@ class MidtransController extends Controller
         // return response()->json(['message' => 'Invalid signature key'], 400);
 
         try {
-            Log::info('Midtrans Notification:', ['data' => $request->all()]);
+            Log::info('✅ Midtrans Notification Received:', ['data' => $request->all()]);
 
             return response()->json([
                 'message' => 'Notification received',
                 'data' => $request->all()
             ], 200);
         } catch (\Throwable $e) {
-            Log::error('Error processing Midtrans Notification: ' . $e->getMessage());
+            Log::error('❌ Error Processing Midtrans Notification:', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTrace()
+            ]);
 
             return response()->json([
                 'error' => 'Internal Server Error',
-                'message' => $e->getMessage(),
-                'trace' => $e->getTrace()
+                'message' => $e->getMessage()
             ], 500);
         }
 

@@ -7,7 +7,8 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\MidtransController;
-
+use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,3 +46,7 @@ Route::post('/midtrans/withdraw', [MidtransController::class, 'withdraw'])->name
 Route::get('/test', function() {
     return view('test.test');
 })->middleware('auth');
+Route::post('/test-midtrans', function (Request $request) {
+    Log::info('📩 Test Midtrans Route:', ['data' => $request->all()]);
+    return response()->json(['message' => 'Test route working!', 'data' => $request->all()], 200);
+});
