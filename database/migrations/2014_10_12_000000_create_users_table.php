@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->date('dob');
             $table->enum('role', ['admin', 'user', 'staff'])->default('user');
             $table->bigInteger('balance')->default(0);
             $table->bigInteger('nik')->nullable();
@@ -32,6 +33,7 @@ class CreateUsersTable extends Migration
             'email' => 'admin@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('admin123'),
+            'dob' => '2001-01-01',
             'role' => 'admin',
             'balance' => 1000000,
             'created_at' => now(),
@@ -41,6 +43,7 @@ class CreateUsersTable extends Migration
             'email' => 'user@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('user123'),
+            'dob' => '2001-01-01',
             'role' => 'user',
             'balance' => 1000000,
             'created_at' => now(),

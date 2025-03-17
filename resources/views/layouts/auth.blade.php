@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="primary-background">
 
 <head>
     <meta charset="UTF-8">
@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="{{ asset('css/root.css') }}">
 </head>
 
-<body>
+<body class="bg-white w-50">
     @yield('content')
 </body>
 
