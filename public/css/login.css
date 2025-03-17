@@ -1,0 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.sign-in-btn {
+    background-color: var(--primary-green);
+}
+
+.sign-up,
+.forgot-password {
+    text-decoration: none;
+
+    color: var(--primary-green);
+}
