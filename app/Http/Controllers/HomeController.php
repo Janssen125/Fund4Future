@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -37,5 +38,10 @@ class HomeController extends Controller
 
     public function contact() {
         return view('user.contact');
+    }
+
+    public function logout() {
+        Auth::logout();
+        return redirect()->route('login')->with('success', 'Log Out Success!');
     }
 }

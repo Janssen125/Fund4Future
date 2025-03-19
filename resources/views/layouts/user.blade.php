@@ -45,7 +45,11 @@
                         <a class="nav-link" href="{{ route('contact') }}">Contact Us</a>
                     </li>
                 </ul>
-                <a class="btn btn-outline-success ms-lg-3" href="{{ route('login') }}">Start Funding</a>
+                @if (Auth::check())
+                    <a class="btn btn-outline-success ms-lg-3" href="{{ route('logout') }}">Logout</a>
+                @else
+                    <a class="btn btn-outline-success ms-lg-3" href="{{ route('login') }}">Start Funding</a>
+                @endif
             </div>
         </div>
     </nav>
@@ -53,6 +57,18 @@
 
 <body>
     @yield('content')
+    <div id="notification"
+        class="toast align-items-center text-white bg-success position-fixed bottom-0 start-0 m-3 p-3" role="alert"
+        aria-live="assertive" aria-atomic="true" style="display: none;">
+        <div class="d-flex">
+            <div class="toast-body" id="notification-message">
+                @if (session('message'))
+                    {{ session('message') }}
+                @endif
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" onclick="hideNotification()"></button>
+        </div>
+    </div>
 </body>
 
 <!-- Footer Section -->
@@ -106,6 +122,40 @@
         </div>
     </div>
 </footer>
+
+<script>
+    function showNotification(message, type = 'success') {
+        let notification = document.getElementById('notification');
+        let notificationMessage = document.getElementById('notification-message');
+
+        notificationMessage.innerHTML = message;
+        notification.classList.remove('bg-success', 'bg-danger', 'bg-warning');
+        notification.classList.add(`bg-${type}`);
+        notification.style.display = 'block';
+
+        setTimeout(() => {
+            hideNotification();
+        }, 5000);
+    }
+
+    function hideNotification() {
+        document.getElementById('notification').style.display = 'none';
+    }
+</script>
+@if (session('success'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            showNotification("{{ session('success') }}", 'success');
+        });
+    </script>
+@endif
+@if (session('error'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            showNotification("{{ session('error') }}", 'danger');
+        });
+    </script>
+@endif
 
 </html>
 {{-- Ini buat templatenya user page (tampilannya user) --}}

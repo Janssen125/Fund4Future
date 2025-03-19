@@ -4,6 +4,11 @@
 @endsection
 @section('content')
     <section class="container d-flex justify-content-center align-items-center flex-sm-column">
+        @if (session('message'))
+            <div class="alert alert-success">
+                {{ session('message') }}
+            </div>
+        @endif
         <form method="POST" action="{{ route('password.email') }}" class="d-flex justify-content-center flex-sm-column w-50">
             @csrf
             <div>

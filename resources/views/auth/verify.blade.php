@@ -1,7 +1,16 @@
-@extends('layouts.app')
+@extends('layouts.auth')
+
+@section('cssName')
+    login
+@endsection
 
 @section('content')
     <section class="container d-flex justify-content-center align-center">
+        @if (session('message'))
+            <div class="alert alert-success">
+                {{ session('message') }}
+            </div>
+        @endif
         <form class="d-flex justify-content-center flex-sm-column w-50" method="POST"
             action="{{ route('verification.resend') }}">
             @csrf

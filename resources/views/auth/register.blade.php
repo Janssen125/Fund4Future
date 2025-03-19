@@ -6,21 +6,40 @@
 
 @section('content')
     <section class="container d-flex justify-content-center align-center">
-        <form method="POST" action="{{ route('register') }}" class="d-flex justify-content-center flex-sm-column w-50">
+        <form method="POST" action="{{ route('user.store') }}" class="d-flex justify-content-center flex-sm-column w-50">
+            @csrf
             <div>
                 <h1 class="text-center">Registration</h1> <br>
             </div>
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" name="username" id="username" aria-describedby="emailHelp">
+                <input type="text" class="form-control @error('username') is-invalid @enderror" name="username"
+                    id="username" value="{{ old('username') }}">
+                @error('username')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email Address</label>
-                <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp">
+                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
+                    id="email" value="{{ old('email') }}">
+                @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" name="password" id="password">
+                <input type="password" class="form-control @error('password') is-invalid @enderror" name="password"
+                    id="password">
+                @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="password_confirmation" class="form-label">Confirm Password</label>
@@ -28,7 +47,13 @@
             </div>
             <div class="mb-3">
                 <label for="dob" class="form-label">Date of Birth</label>
-                <input type="date" class="form-control" name="dob" id="dob">
+                <input type="date" class="form-control @error('dob') is-invalid @enderror" name="dob" id="dob"
+                    value="{{ old('dob') }}">
+                @error('dob')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
             <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" name="remember" id="remember">

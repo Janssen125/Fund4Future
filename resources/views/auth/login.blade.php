@@ -6,6 +6,11 @@
 
 @section('content')
     <section class="container d-flex justify-content-center align-center">
+        @if (session('message'))
+            <div class="alert alert-success">
+                {{ session('message') }}
+            </div>
+        @endif
         <form method="POST" action="{{ route('login') }}" class="d-flex justify-content-center flex-sm-column w-50">
             @csrf
             <div>
@@ -13,11 +18,24 @@
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" name="email" id="email" aria-describedby="email">
+                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email"
+                    value="{{ old('email') }}">
+                @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" name="password" id="password">
+                <input type="password" class="form-control @error('password') is-invalid @enderror" name="password"
+                    id="password">
+                @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
             <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" name="remember" id="remember">
