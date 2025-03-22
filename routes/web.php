@@ -33,16 +33,16 @@ Route::get('/admin', function () {
 })->middleware('auth');
 
 Route::middleware(['auth', 'verified'])->get('/emailverifiedsuccess', function () {
-
     return view('/');
 })->name('emailverifiedsuccess');
+
 Route::get('/email/verify', function () {
     return view('auth.verify');
 })->middleware('auth')->name('verification.notice');
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill(); // Marks email as verified
-    return redirect('/')->with('success', 'Email verified successfully!');
+    $request->fulfill();
+    return redirect()->route('home')->with('message', 'Email verified successfully!');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::post('/email/resend', function (Request $request) {

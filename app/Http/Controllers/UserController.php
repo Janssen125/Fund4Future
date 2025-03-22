@@ -64,7 +64,7 @@ class UserController extends Controller
 
         $user->sendEmailVerificationNotification();
 
-        return redirect()->route('verification.notice')->with('success', 'Please verify your email before logging in.');
+        return redirect()->route('verification.notice')->with('message', 'Please verify your email before logging in.');
     }
 
     /**

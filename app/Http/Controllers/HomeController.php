@@ -42,6 +42,6 @@ class HomeController extends Controller
 
     public function logout() {
         Auth::logout();
-        return redirect()->route('login')->with('success', 'Log Out Success!');
+        return redirect()->route('login')->with('message', 'Log Out Success!');
     }
 }

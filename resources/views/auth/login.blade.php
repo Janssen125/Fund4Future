@@ -5,9 +5,9 @@
 @endsection
 
 @section('content')
-    <section class="container d-flex justify-content-center align-center">
+    <section class="container d-flex justify-content-center align-items-center flex-sm-column">
         @if (session('message'))
-            <div class="alert alert-success">
+            <div class="alert alert-success w-50 text-success">
                 {{ session('message') }}
             </div>
         @endif

@@ -23,9 +23,18 @@
 <header class="sticky-top dvw-100">
     <nav class="navbar navbar-expand-lg bg-body-tertiary dvw-100">
         <div class="container-fluid mx-4">
-            <a class="navbar-brand" href="#">
-                <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Bootstrap" width="45" height="50">
-            </a>
+            <div class="left-side d-flex justify-content-start align-items-center">
+                <div class="thepic">
+                    <a class="navbar-brand" href="#">
+                        <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Bootstrap" width="45" height="50">
+                    </a>
+                </div>
+                @guest
+                    Welcome, Guest
+                @else
+                    <span class="cooltypinganimation">Hello {{ Auth::user()->name }}!</span>
+                @endguest
+            </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -58,8 +67,8 @@
 <body>
     @yield('content')
     <div id="notification"
-        class="toast align-items-center text-white bg-success position-fixed bottom-0 start-0 m-3 p-3" role="alert"
-        aria-live="assertive" aria-atomic="true" style="display: none;">
+        class="toast align-items-center text-white bg-success primary-background position-fixed bottom-0 end-0 m-3 p-3"
+        role="alert" aria-live="assertive" aria-atomic="true" style="display: none;">
         <div class="d-flex">
             <div class="toast-body" id="notification-message">
                 @if (session('message'))
@@ -142,10 +151,10 @@
         document.getElementById('notification').style.display = 'none';
     }
 </script>
-@if (session('success'))
+@if (session('message'))
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            showNotification("{{ session('success') }}", 'success');
+            showNotification("{{ session('message') }}", 'primary-background');
         });
     </script>
 @endif
