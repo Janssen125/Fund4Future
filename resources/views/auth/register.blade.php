@@ -55,10 +55,6 @@
                     </span>
                 @enderror
             </div>
-            <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" name="remember" id="remember">
-                <label class="form-check-label" for="remember">Remember Me</label>
-            </div>
             <button type="submit" class="btn btn-primary sign-in-btn w-100">Sign Up</button>
             <hr>
             <div class="container text-center">
