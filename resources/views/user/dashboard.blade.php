@@ -13,7 +13,8 @@
                     <p class="small-p">#1 fundraiser for technology</p>
                 </div>
                 <div class="h1-container text-wrap">
-                    <h1 class="lh-sm fw-semibold header-f">Fund Inovative Future <br> Projects With Us</h1> <br>
+                    <h1 class="lh-sm fw-semibold header-f">Fund Inovative Future <br> Projects With Us
+                    </h1> <br>
                 </div>
                 <div class="button-container">
                     <a href=""><button type="button" class="btn btn-success btn-color-primary">Start

@@ -8,6 +8,7 @@
     <title>@yield('title')</title>
     <script src="{{ asset('js/app.js') }}" defer></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/user.css') }}" rel="stylesheet">
     <link
         href="{{ asset('css/' . (View::hasSection('cssName') ? trim(View::yieldContent('cssName')) : 'root') . '.css') }}"
         rel="stylesheet">
@@ -32,7 +33,9 @@
                 @guest
                     Welcome, Guest
                 @else
-                    <span class="cooltypinganimation">Hello {{ Auth::user()->name }}!</span>
+                    <div class="border-start px-3 d-flex justify-content-start align-items-center">
+                        <span class="cooltypinganimation">Hello {{ Auth::user()->name }}!</span>
+                    </div>
                 @endguest
             </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -131,7 +134,19 @@
         </div>
     </div>
 </footer>
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+            } else {
+                entry.target.classList.remove("show");
+            }
+        });
+    });
 
+    document.querySelectorAll("div").forEach((el) => observer.observe(el));
+</script>
 <script>
     function showNotification(message, type = 'success') {
         let notification = document.getElementById('notification');
