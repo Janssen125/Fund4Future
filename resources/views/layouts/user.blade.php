@@ -87,14 +87,14 @@
 <footer class="p-5 secondary-background w-100">
     <div class="container-fluid">
         <div class="row">
-            <div class="col col-3 d-flex justify-content-center flex-sm-column align-items-center bg-white rounded">
+            <div class="col col-3 bg-white rounded">
                 <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Logo" width=80 height=100>
                 <img src="{{ asset('img/LogoText.png') }}" alt="LogoText" width=250 height=50>
             </div>
             <div class="col col-9 socialCopy">
-                <div class="row">
-                    <div class="col justify-content-center align-items-center d-flex w-100">
-                        <ul class="list-unstyled d-flex justify-content-around align-items-start h-100 w-75">
+                <div class="row w-100">
+                    <div class="col">
+                        <ul class="list-unstyled d-flex justify-content-evenly w-100">
                             <li>
                                 <a href="{{ route('home') }}" class="text-decoration-none text-white fs-3">Home</a>
                             </li>
@@ -110,15 +110,19 @@
                     </div>
                 </div>
                 <div class="row p-3 socialCopy">
-                    <div class="col flex d-flex justify-content-evenly align-items-center">
+                    <div class="col">
                         <a href="#">
                             <img src="{{ asset('img/FacebookPNG.png') }}" alt="Logo" width=40 height=40
                                 class="">
                         </a>
+                    </div>
+                    <div class="col">
                         <a href="#">
                             <img src="{{ asset('img/InstagramPNG.png') }}" alt="Logo" width=40 height=40
                                 class="">
                         </a>
+                    </div>
+                    <div class="col">
                         <a href="#">
                             <img src="{{ asset('img/TwitterPNG.png') }}" alt="Logo" width=40 height=40
                                 class="">

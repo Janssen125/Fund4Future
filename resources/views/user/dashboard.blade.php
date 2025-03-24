@@ -7,21 +7,29 @@
 @endsection
 @section('content')
     <section class="hero container-color flex-sm-column w-100">
-        <div class="d-flex flex-sm-row align-items-center dvh-100 w-100 justify-content-around hero-left">
-            <div class="big-hero-left d-flex justify-content-center flex-sm-column p-3">
-                <div class="p-container">
-                    <p class="small-p">#1 fundraiser for technology</p>
-                </div>
-                <div class="h1-container text-wrap">
-                    <h1 class="lh-sm fw-semibold header-f">Fund Inovative Future <br> Projects With Us
-                    </h1> <br>
-                </div>
-                <div class="button-container">
-                    <a href=""><button type="button" class="btn btn-success btn-color-primary">Start
-                            Funding</button></a>
+        <div class="row dvh-100 w-100 justify-content-around hero-left">
+            <div class="col big-hero-left p-5">
+                <div class="container p-container">
+                    <div class="row">
+                        <div class="col col-l">
+                            <p class="small-p">#1 fundraiser for technology</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-l h1-container text-wrap">
+                            <h1 class="lh-sm fw-semibold header-f">Fund Inovative Future <br> Projects With Us
+                            </h1> <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-l button-container">
+                            <a href=""><button type="button" class="btn btn-success btn-color-primary">Start
+                                    Funding</button></a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="hero-right d-flex justify-content-center align-items-center">
+            <div class="hero-right col">
                 <div class="big-hero-right">
                     <img src="{{ asset('img/finance-pic.png') }}" width="500" height="500">
                 </div>

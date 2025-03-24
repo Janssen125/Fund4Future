@@ -13,56 +13,76 @@
         <div class="p-5 bg-container-transparent">
             <div class="container">
                 <div class="row">
-                    <h1>Contact Us</h1>
-                    <div class="col flex-column d-flex justify-content-around">
-                        <div>
-                            <h3>Address</h3>
-                            <p>
-                                8, Jl. Rw. Belong No.82B, RT.9/RW.15, Palmerah,
-                                Kec. Palmerah, Kota Jakarta Barat, Daerah
-                                Khusus Ibukota Jakarta 11480
-                            </p>
+                    <h1 class="px-4">Contact Us</h1>
+                    <div class="col">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col align-items-start">
+                                    <h3>Address</h3>
+                                    <p>
+                                        8, Jl. Rw. Belong No.82B, RT.9/RW.15, Palmerah,
+                                        Kec. Palmerah, Kota Jakarta Barat, Daerah
+                                        Khusus Ibukota Jakarta 11480
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <h3>Opening Hours</h3>
-                            <p><b>Mon - Fri:</b>
-                                9 AM - 5 PM<br>
-                                <b>Sat - Sun:</b>
-                                11 AM - 3 Pm<br>
-                            </p>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col align-items-start">
+                                    <h3>Opening Hours</h3>
+                                    <p><b>Mon - Fri:</b>
+                                        9 AM - 5 PM<br>
+                                        <b>Sat - Sun:</b>
+                                        11 AM - 3 Pm<br>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <h3>Phone Number</h3>
-                            <p>
-                                +6285169690420
-                            </p>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col align-items-start">
+                                    <h3>Phone Number</h3>
+                                    <p>
+                                        +6285169690420
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <h3>Mail</h3>
-                            <p>fund4future@gmail.com</p>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col align-items-start">
+                                    <h3>Mail</h3>
+                                    <p>fund4future@gmail.com</p>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <h3>
-                                Social Media
-                            </h3>
-                            <p>
-                                <a href="#">
-                                    <img src="{{ 'img/FacebookPNG.png' }}" alt="" srcset="" width="50"
-                                        height="50" style="margin-right: 20px;">
-                                </a>
-                                <a href="#">
-                                    <img src="{{ 'img/InstagramPNG.png' }}" alt="" srcset="" width="50"
-                                        height="50" style="margin-right: 20px;">
-                                </a>
-                                <a href="#">
-                                    <img src="{{ 'img/TwitterPNG.png' }}" alt="" srcset="" width="50"
-                                        height="50">
-                                </a>
-                            </p>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col align-items-start">
+                                    <h3>
+                                        Social Media
+                                    </h3>
+                                    <p>
+                                        <a href="#">
+                                            <img src="{{ 'img/FacebookPNG.png' }}" alt="" srcset=""
+                                                width="50" height="50" style="margin-right: 20px;">
+                                        </a>
+                                        <a href="#">
+                                            <img src="{{ 'img/InstagramPNG.png' }}" alt="" srcset=""
+                                                width="50" height="50" style="margin-right: 20px;">
+                                        </a>
+                                        <a href="#">
+                                            <img src="{{ 'img/TwitterPNG.png' }}" alt="" srcset=""
+                                                width="50" height="50">
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm">
-                        <hr>
+
                         <form method="POST" action="{{ route('mail.store') }}">
                             @csrf
                             <input type="hidden" name="sender_id" value="{{ auth()->id() }}">

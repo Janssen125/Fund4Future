@@ -1,0 +1,11 @@
+form {
+    padding: 1em;
+    border-radius: 1em;
+    border: solid var(--primary-green) medium;
+    background-color: var(--bs-light);
+}
+input[type=search] {
+    background-color: var(--bs-light);
+    border-width: 0 0 0.5px 0;
+    border-color: var(--primary-green);
+}
