@@ -9,6 +9,11 @@
                 {{ session('message') }}
             </div>
         @endif
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <form method="POST" action="{{ route('password.email') }}" class="d-flex justify-content-center flex-sm-column w-50">
             @csrf
             <div>

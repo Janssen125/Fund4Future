@@ -3,7 +3,17 @@
     login
 @endsection
 @section('content')
-    <section class="container d-flex justify-content-center align-center">
+    <section class="container d-flex justify-content-center align-items-center flex-sm-column">
+        @if (session('message'))
+            <div class="alert alert-success">
+                {{ session('message') }}
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <form method="POST" action="{{ route('password.update') }}" class="d-flex justify-content-center flex-sm-column w-50">
             @csrf
 
