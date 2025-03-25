@@ -7,8 +7,13 @@
 @endsection
 @section('content')
     <section class="container-color">
-        <div class="container dvh-100">
-            <div class="row py-5">
+        <div class="container pb-5">
+            <div class="row">
+                <div class="col">
+                    <h1>Funding List</h1>
+                </div>
+            </div>
+            <div class="row pb-3">
                 <div class="col">
                     <form action="" class="d-flex justify-content-center align-items-center p-4 w-50">
                         <div class="pe-3">
@@ -25,9 +30,36 @@
                     </form>
                 </div>
             </div>
+            @foreach ($data as $funding)
+                <div class="row py-2">
+                    <div class="col">
+                        <form action="" class="d-flex justify-content-center align-items-center p-4 w-75">
+                            <div class="container">
+                                <div class="row datarow">
+                                    <div class="col">
+                                        <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Pic" srcset=""
+                                            width=70 height=70>
+                                    </div>
+                                    <div class="col col-l">
+                                        <h5>{{ $funding->name }}</h5>
+                                        <p>{{ $funding->description }}</p>
+                                        <span
+                                            class="border border-success border-2 rounded-1 px-2">{{ $funding->category->catName }}</span>
+                                        <span>Funding Progress</span>
+                                        <span>{{ $funding->currAmount }} / {{ $funding->targetAmount }}</span>
+                                    </div>
+                                    <div class="col">
+                                        <a href="" class="btn btn-success primary-background">Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            @endforeach
             <div class="row">
                 <div class="col">
-
+                    {{ $data->links('pagination::bootstrap-4') }}
                 </div>
             </div>
         </div>

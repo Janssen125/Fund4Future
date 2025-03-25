@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
 
-        DB::table('users')->insert([
+        DB::table('users')->insert([[
             'name' => 'admin',
             'email' => 'admin@gmail.com',
             'email_verified_at' => now(),
@@ -48,7 +48,7 @@ class CreateUsersTable extends Migration
             'balance' => 1000000,
             'created_at' => now(),
             'updated_at' => now(),
-        ]);
+        ]]);
     }
 
     /**

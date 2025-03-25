@@ -8,4 +8,35 @@ input[type=search] {
     background-color: var(--bs-light);
     border-width: 0 0 0.5px 0;
     border-color: var(--primary-green);
+    outline: none;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.active > .page-link{
+    background-color: var(--primary-green) !important;
+    border-color: transparent !important;
+}
+
+:not(.active) > .page-link:hover {
+    background-color: var(--primary-green-opacity) !important;
+    border-color: var(--primary-green);
+}
+
+.page-link {
+    color: var(--primary-green);
+    transition: 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 960px)  {
+    .datarow {
+        flex-direction: column !important;
+    }
+    .datarow > * {
+        padding: 1rem 0;
+    }
 }

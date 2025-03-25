@@ -15,8 +15,8 @@ class FundController extends Controller
      */
     public function index()
     {
-        $data = Fund::all();
-        return view('user.fund', compact($data));
+        $data = Fund::with('category')->paginate(5);
+        return view('user.fund', compact('data'));
     }
 
     public function indexAdmin() {

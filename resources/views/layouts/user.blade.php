@@ -48,7 +48,7 @@
                         <a class="nav-link" href="{{ route('home') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('fund.index') }}">Donation List</a>
+                        <a class="nav-link" href="{{ route('fund.index') }}">Funding List</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('about') }}">About</a>
@@ -141,10 +141,8 @@
 <script>
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
-            if (entry.isIntersecting) {
+            if (entry.isIntersecting && entry.target.classList != "show") {
                 entry.target.classList.add("show");
-            } else {
-                entry.target.classList.remove("show");
             }
         });
     });
