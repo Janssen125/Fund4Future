@@ -118,4 +118,27 @@ class FundController extends Controller
     {
         //
     }
+
+    public function search(Request $request) {
+        $query = $request->input('query');
+        if (!$query) {
+            $data = Fund::paginate(5);
+            return view('user.partials.fund-search-item', compact('data'))->render();
+        }
+        if (!$query) {
+            return response()->json(['error' => 'No query provided'], 400);
+        }
+
+        $results = Fund::where('name', 'LIKE', "%{$query}%")
+                       ->orWhereHas('category', function ($q) use ($query) {
+                           $q->where('catName', 'LIKE', "%{$query}%");
+                       })
+                       ->with('category')
+                       ->get();
+
+        return view('user.partials.fund-search-item', ['data' => $results])->render();
+    }
+
+
+
 }

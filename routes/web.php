@@ -70,6 +70,8 @@ Route::post('/midtrans/topup', [MidtransController::class, 'createTransaction'])
 Route::post('/midtrans/notification', [MidtransController::class, 'handleNotification'])->name('midtrans.notification');
 Route::post('/midtrans/withdraw', [MidtransController::class, 'withdraw'])->name('midtrans.withdraw');
 
+Route::get('/search-funds', [FundController::class, 'search'])->name('search.funds');
+
 Route::get('/test', function() {
     return view('test.test');
 })->middleware('auth');

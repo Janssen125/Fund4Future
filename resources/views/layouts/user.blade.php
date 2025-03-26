@@ -138,6 +138,9 @@
         </div>
     </div>
 </footer>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{{ asset('js/' . (View::hasSection('jsName') ? trim(View::yieldContent('jsName')) : '') . '.js') }}">
+</script>
 <script>
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {

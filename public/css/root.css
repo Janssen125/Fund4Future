@@ -61,7 +61,12 @@ section {
     flex-direction: column;
 }
 
+:not(#navbarNav) > .btn {
+    border: none;
+}
+
 .btn:hover {
+    background-color: var(--secondary-green);
     transition: 0.3s ease-in-out;
 }
 

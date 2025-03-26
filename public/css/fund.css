@@ -25,6 +25,7 @@ input[type=search] {
 :not(.active) > .page-link:hover {
     background-color: var(--primary-green-opacity) !important;
     border-color: var(--primary-green);
+    color: var(--primary-green);
 }
 
 .page-link {

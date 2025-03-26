@@ -5,11 +5,14 @@
 @section('cssName')
     fund
 @endsection
+@section('jsName')
+    fund
+@endsection
 @section('content')
     <section class="container-color">
         <div class="container pb-5">
             <div class="row">
-                <div class="col">
+                <div class="col py-5">
                     <h1>Funding List</h1>
                 </div>
             </div>
@@ -25,39 +28,42 @@
                         </div>
                         <div class="w-100">
                             <input type="search" name="searchfund" class="w-100" id="searchbox"
-                                placeholder="Movie Project...">
+                                placeholder="Movie Project..." data-search-url="{{ route('search.funds') }}">
                         </div>
                     </form>
                 </div>
             </div>
-            @foreach ($data as $funding)
-                <div class="row py-2">
-                    <div class="col">
-                        <form action="" class="d-flex justify-content-center align-items-center p-4 w-75">
-                            <div class="container">
-                                <div class="row datarow">
-                                    <div class="col">
-                                        <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Pic" srcset=""
-                                            width=70 height=70>
-                                    </div>
-                                    <div class="col col-l">
-                                        <h5>{{ $funding->name }}</h5>
-                                        <p>{{ $funding->description }}</p>
-                                        <span
-                                            class="border border-success border-2 rounded-1 px-2">{{ $funding->category->catName }}</span>
-                                        <span>Funding Progress</span>
-                                        <span>{{ $funding->currAmount }} / {{ $funding->targetAmount }}</span>
-                                    </div>
-                                    <div class="col">
-                                        <a href="" class="btn btn-success primary-background">Details</a>
+            <div class="fund-container">
+                @foreach ($data as $funding)
+                    <div class="row py-2 fund-item" data-name="{{ strtolower($funding->name) }}"
+                        data-category="{{ strtolower($funding->category->catName) }}">
+                        <div class="col">
+                            <form action="" class="d-flex justify-content-center align-items-center p-4 w-75">
+                                <div class="container">
+                                    <div class="row datarow">
+                                        <div class="col">
+                                            <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Pic" srcset=""
+                                                width=70 height=70>
+                                        </div>
+                                        <div class="col col-l">
+                                            <h5>{{ $funding->name }}</h5>
+                                            <p>{{ $funding->description }}</p>
+                                            <span
+                                                class="border border-success border-2 rounded-1 px-2">{{ $funding->category->catName }}</span>
+                                            <span>Funding Progress</span>
+                                            <span>{{ $funding->currAmount }} / {{ $funding->targetAmount }}</span>
+                                        </div>
+                                        <div class="col">
+                                            <a href="" class="btn btn-success primary-background">Details</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            @endforeach
-            <div class="row">
+                @endforeach
+            </div>
+            <div class="row pagination-container">
                 <div class="col">
                     {{ $data->links('pagination::bootstrap-4') }}
                 </div>
@@ -65,4 +71,3 @@
         </div>
     </section>
 @endsection
-{{-- Halaman untuk Funding List user, user bisa lihat daftar penggalangan dana yang sedang berlangsung --}}

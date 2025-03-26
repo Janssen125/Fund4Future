@@ -7,9 +7,9 @@
 @endsection
 @section('content')
     <section class="hero container-color flex-sm-column w-100">
-        <div class="row dvh-100 w-100 justify-content-around hero-left">
+        <div class="row dvh-100 w-100 hero-left">
             <div class="col big-hero-left p-5">
-                <div class="container p-container">
+                <div class="container p-container ps-5">
                     <div class="row">
                         <div class="col col-l">
                             <p class="small-p">#1 fundraiser for technology</p>
