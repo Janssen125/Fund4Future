@@ -15,7 +15,7 @@ class FundController extends Controller
      */
     public function index()
     {
-        $data = Fund::with('category')->paginate(5);
+        $data = Fund::with(['category', 'fundDetail'])->paginate(5);
         return view('user.fund', compact('data'));
     }
 
@@ -82,8 +82,11 @@ class FundController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Fund::with(['category', 'fundDetail'])->findOrFail($id);
+
+        return view('user.fundDetail', compact('data'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -133,7 +136,7 @@ class FundController extends Controller
                        ->orWhereHas('category', function ($q) use ($query) {
                            $q->where('catName', 'LIKE', "%{$query}%");
                        })
-                       ->with('category')
+                       ->with(['category', 'fundDetail'])
                        ->get();
 
         return view('user.partials.fund-search-item', ['data' => $results])->render();

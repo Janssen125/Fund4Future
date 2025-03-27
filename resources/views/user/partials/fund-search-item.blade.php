@@ -16,7 +16,8 @@
                 <div class="container show">
                     <div class="row datarow show">
                         <div class="col show">
-                            <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Pic" width=70 height=70>
+                            <img src="{{ $funding->fundDetail->first()->imageOrVideo ? asset('uploads/' . $funding->fundDetail->first()->imageOrVideo) : asset('img/LogoFund4Future.png') }}"
+                                alt="Fund Image" class="fundimage">
                         </div>
                         <div class="col col-l show">
                             <h5>{{ $funding->name }}</h5>
@@ -28,7 +29,8 @@
                             <span>{{ $funding->currAmount }} / {{ $funding->targetAmount }}</span>
                         </div>
                         <div class="col show">
-                            <a href="" class="btn btn-success primary-background">Details</a>
+                            <a href="{{ route('fund.show', $funding->id) }}"
+                                class="btn btn-success primary-background">Details</a>
                         </div>
                     </div>
                 </div>
