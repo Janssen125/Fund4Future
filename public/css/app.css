@@ -5130,7 +5130,7 @@ fieldset:disabled .btn {
     color: var(--bs-progress-bar-color);
     text-align: center;
     white-space: nowrap;
-    background-color: var(--bs-progress-bar-bg);
+    background-color: var(--primary-green);
     transition: var(--bs-progress-bar-transition);
 }
 @media (prefers-reduced-motion: reduce) {

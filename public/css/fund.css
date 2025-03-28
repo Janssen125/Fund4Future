@@ -38,6 +38,17 @@ input[type=search] {
     height: 100%;
 }
 
+.commentform {
+    border: none;
+    width: 100%;
+}
+.commentform textarea {
+    border: none;
+    background-color: transparent;
+    width:100%;
+    outline: none;
+}
+
 @media screen and (max-width: 960px)  {
     .datarow {
         flex-direction: column !important;
