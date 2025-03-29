@@ -10,7 +10,7 @@
 @endsection
 @section('content')
     <div class="container">
-        <div class="row">
+        <div class="row min-height-75">
             <div class="col col-6">
                 <div id="fundCarousel{{ $data->id }}" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
@@ -67,7 +67,6 @@
         <div class="row py-3">
             <div class="col">
                 <div class="container">
-                    <hr>
                     <div class="row">
                         <div class="col col-1">
                             <img src="{{ asset('img/LogoFund4Future.png') }}" alt="" srcset="" width=40
@@ -144,198 +143,35 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row py-3">
+                    <div class="row">
                         <div class="col col-1">
-                            <img src="{{ asset('img/LogoFund4Future.png') }}" alt="" srcset="" width=40
-                                height=40>
                         </div>
-                        <div class="col col-l col-11">
-                            <form action="" method="post" class="commentform">
-                                <textarea name="comment" id="" placeholder="Add Comment"></textarea>
-                            </form>
+                        <div class="col col-11">
+                            <div class="row w-100">
+                                <div class="col col-1">
+                                    <img src="{{ asset('img/LogoFund4Future.png') }}" alt="" srcset=""
+                                        width=30 height=30>
+                                </div>
+                                <div class="col col-l col-11">
+                                    <form action="" method="post" class="commentform">
+                                        <textarea name="comment" id="" placeholder="Add Reply"></textarea>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="container">
-                    <hr>
-                    <div class="row">
-                        <div class="col col-1">
-                            <img src="{{ asset('img/LogoFund4Future.png') }}" alt="" srcset="" width=40
-                                height=40>
-                        </div>
-                        <div class="col col-l col-11">
-                            <div class="row">
-                                <div class="col">
-                                    <h3>Username</h3>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia corrupti mollitia quis
-                                        maxime? Doloremque, consequatur laborum fugit, sequi illo, aperiam provident esse
-                                        sapiente quod quisquam nemo porro culpa quaerat vel.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col col-1">
-                        </div>
-                        <div class="col col-11">
-                            <div class="row">
-                                <div class="col col-1">
-                                    <img src="{{ asset('img/LogoFund4Future.png') }}" alt="" srcset=""
-                                        width=40 height=40>
-                                </div>
-                                <div class="col col-l col-11">
-                                    <div class="row">
-                                        <div class="col">
-                                            <h4>Username</h4>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia corrupti
-                                                mollitia quis
-                                                maxime? Doloremque, consequatur laborum fugit, sequi illo, aperiam provident
-                                                esse
-                                                sapiente quod quisquam nemo porro culpa quaerat vel.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col col-1">
-                        </div>
-                        <div class="col col-11">
-                            <div class="row">
-                                <div class="col col-1">
-                                    <img src="{{ asset('img/LogoFund4Future.png') }}" alt="" srcset=""
-                                        width=40 height=40>
-                                </div>
-                                <div class="col col-l col-11">
-                                    <div class="row">
-                                        <div class="col">
-                                            <h4>Username</h4>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia corrupti
-                                                mollitia quis
-                                                maxime? Doloremque, consequatur laborum fugit, sequi illo, aperiam provident
-                                                esse
-                                                sapiente quod quisquam nemo porro culpa quaerat vel.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row py-3">
-                        <div class="col col-1">
-                            <img src="{{ asset('img/LogoFund4Future.png') }}" alt="" srcset="" width=40
-                                height=40>
-                        </div>
-                        <div class="col col-l col-11">
-                            <form action="" method="post" class="commentform">
-                                <textarea name="comment" id="" placeholder="Add Comment"></textarea>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="container">
-                    <hr>
-                    <div class="row">
-                        <div class="col col-1">
-                            <img src="{{ asset('img/LogoFund4Future.png') }}" alt="" srcset="" width=40
-                                height=40>
-                        </div>
-                        <div class="col col-l col-11">
-                            <div class="row">
-                                <div class="col">
-                                    <h3>Username</h3>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia corrupti mollitia quis
-                                        maxime? Doloremque, consequatur laborum fugit, sequi illo, aperiam provident esse
-                                        sapiente quod quisquam nemo porro culpa quaerat vel.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col col-1">
-                        </div>
-                        <div class="col col-11">
-                            <div class="row">
-                                <div class="col col-1">
-                                    <img src="{{ asset('img/LogoFund4Future.png') }}" alt="" srcset=""
-                                        width=40 height=40>
-                                </div>
-                                <div class="col col-l col-11">
-                                    <div class="row">
-                                        <div class="col">
-                                            <h4>Username</h4>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia corrupti
-                                                mollitia quis
-                                                maxime? Doloremque, consequatur laborum fugit, sequi illo, aperiam provident
-                                                esse
-                                                sapiente quod quisquam nemo porro culpa quaerat vel.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col col-1">
-                        </div>
-                        <div class="col col-11">
-                            <div class="row">
-                                <div class="col col-1">
-                                    <img src="{{ asset('img/LogoFund4Future.png') }}" alt="" srcset=""
-                                        width=40 height=40>
-                                </div>
-                                <div class="col col-l col-11">
-                                    <div class="row">
-                                        <div class="col">
-                                            <h4>Username</h4>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia corrupti
-                                                mollitia quis
-                                                maxime? Doloremque, consequatur laborum fugit, sequi illo, aperiam provident
-                                                esse
-                                                sapiente quod quisquam nemo porro culpa quaerat vel.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row py-3">
-                        <div class="col col-1">
-                            <img src="{{ asset('img/LogoFund4Future.png') }}" alt="" srcset="" width=40
-                                height=40>
-                        </div>
-                        <div class="col col-l col-11">
-                            <form action="" method="post" class="commentform">
-                                <textarea name="comment" id="" placeholder="Add Comment"></textarea>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row py-3">
+            <div class="col col-1">
+                <img src="{{ asset('img/LogoFund4Future.png') }}" alt="" srcset="" width=40 height=40>
+            </div>
+            <div class="col col-l col-11">
+                <form action="" method="post" class="commentform">
+                    <textarea name="comment" id="" placeholder="Add Comment"></textarea>
+                </form>
             </div>
         </div>
     </div>

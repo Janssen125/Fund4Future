@@ -42,11 +42,18 @@ input[type=search] {
     border: none;
     width: 100%;
 }
+
 .commentform textarea {
-    border: none;
+    border-radius: 1rem;
+    padding: 1rem;
     background-color: transparent;
     width:100%;
+    height: min-content;
     outline: none;
+}
+
+.min-height-75 {
+    min-height: 75dvh;
 }
 
 @media screen and (max-width: 960px)  {
