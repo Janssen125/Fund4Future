@@ -65,6 +65,7 @@ Route::resource('category', CategoryController::class);
 Route::resource('fund', FundController::class);
 Route::resource('mail', MailController::class);
 Route::resource('user', UserController::class);
+Route::resource('comments', CommentController::class);
 
 Route::post('/midtrans/topup', [MidtransController::class, 'createTransaction'])->name('midtrans.topup');
 Route::post('/midtrans/notification', [MidtransController::class, 'handleNotification'])->name('midtrans.notification');

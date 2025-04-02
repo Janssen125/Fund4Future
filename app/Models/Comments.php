@@ -16,7 +16,7 @@ class Comments extends Model
     ];
 
     public function reply() {
-        return $this->hasMany(Reply::class);
+        return $this->hasMany(Replies::class);
     }
 
     public function user() {

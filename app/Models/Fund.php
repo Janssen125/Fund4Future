@@ -33,6 +33,6 @@ class Fund extends Model
     }
 
     public function comment() {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comments::class);
     }
 }

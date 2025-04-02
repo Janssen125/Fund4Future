@@ -22,6 +22,20 @@ class CreateCommentsTable extends Migration
             $table->text('comment');
             $table->timestamps();
         });
+
+        DB::table('comments')->insert([[
+            'user_id' => 1,
+            'fund_id' => 1,
+            'comment' => 'This is a comment from user 1 to fund 1',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ],[
+            'user_id' => 2,
+            'fund_id' => 1,
+            'comment' => 'This is a comment from user 2 to fund 1',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]]);
     }
 
     /**

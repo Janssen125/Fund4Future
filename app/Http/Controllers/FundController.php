@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Fund;
 use App\Models\FundDetail;
+use App\Models\Comments;
 
 class FundController extends Controller
 {
@@ -82,7 +83,7 @@ class FundController extends Controller
      */
     public function show($id)
     {
-        $data = Fund::with(['category', 'fundDetail'])->findOrFail($id);
+        $data = Fund::with(['category', 'fundDetail', 'comment.user', 'comment.reply.user'])->findOrFail($id);
 
         return view('user.fundDetail', compact('data'));
     }

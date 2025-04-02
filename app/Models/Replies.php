@@ -10,8 +10,8 @@ class Replies extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
         'comment_id',
+        'user_id',
         'replyText',
     ];
 
