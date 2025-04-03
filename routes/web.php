@@ -22,6 +22,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 |
 */
 
+// We don't talk about this route
 Route::get('/', function () {
     return redirect()->route('home');
 });
@@ -54,25 +55,32 @@ Route::post('/email/resend', function (Request $request) {
     return back()->with('message', 'Verification email sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
 
-
+// Home Route
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/about', [App\Http\Controllers\HomeController::class, 'about'])->name('about');
 Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
 Route::get('/contact', [App\Http\Controllers\HomeController::class, 'contact'])->name('contact')->middleware('auth');
 Route::get('/logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('logout');
 
+// CRUD routes
 Route::resource('category', CategoryController::class);
 Route::resource('fund', FundController::class);
 Route::resource('mail', MailController::class);
 Route::resource('user', UserController::class);
 Route::resource('comments', CommentController::class);
 
+// Midtrans routes
 Route::post('/midtrans/topup', [MidtransController::class, 'createTransaction'])->name('midtrans.topup');
 Route::post('/midtrans/notification', [MidtransController::class, 'handleNotification'])->name('midtrans.notification');
 Route::post('/midtrans/withdraw', [MidtransController::class, 'withdraw'])->name('midtrans.withdraw');
 
-Route::get('/search-funds', [FundController::class, 'search'])->name('search.funds');
 
+// Custom routes
+Route::get('/search-funds', [FundController::class, 'search'])->name('search.funds');
+Route::post('/comments/reply', [CommentController::class, 'reply'])->name('comments.reply');
+
+
+// Test MidTrans
 Route::get('/test', function() {
     return view('test.test');
 })->middleware('auth');

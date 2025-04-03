@@ -38,12 +38,14 @@ input[type=search] {
     height: 100%;
 }
 
-.commentform {
+.commentform,
+.replyform {
     border: none;
     width: 100%;
 }
 
-.commentform textarea {
+.commentform textarea,
+.replyform textarea {
     border-radius: 1rem;
     padding: 1rem;
     background-color: transparent;
@@ -51,6 +53,7 @@ input[type=search] {
     height: min-content;
     outline: none;
 }
+
 
 .min-height-75 {
     min-height: 75dvh;

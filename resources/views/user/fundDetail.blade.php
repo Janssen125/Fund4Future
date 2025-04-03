@@ -90,12 +90,12 @@
                             <div class="row">
                                 <div class="col col-1"></div>
                                 <div class="col col-l col-11">
-                                    <div class="row">
+                                    <div class="row w-100">
                                         <div class="col col-1">
                                             <img src="{{ asset('img/LogoFund4Future.png') }}" alt="" width="40"
                                                 height="40">
                                         </div>
-                                        <div class="col col-l col-11 px-5">
+                                        <div class="col col-l col-11">
                                             <div class="row">
                                                 <div class="col">
                                                     <h4>{{ $reply->user->name ?? 'Anonymous' }}</h4>
@@ -111,27 +111,63 @@
                                 </div>
                             </div>
                         @endforeach
+                        @if (!auth()->guest())
+                            <div class="row">
+                                <div class="col col-1"></div>
+                                <div class="col col-l col-11">
+                                    <div class="row w-100">
+                                        <div class="col col-1">
+                                            <img src="{{ asset('img/LogoFund4Future.png') }}" alt="" width="30"
+                                                height="30">
+                                        </div>
+                                        <div class="col col-l col-11">
+                                            <form action="{{ route('comments.reply') }}" method="post" class="replyform">
+                                                @csrf
+                                                <textarea name="replyText" placeholder="Add Reply"></textarea>
+                                                <input type="hidden" name="comments_id" value="{{ $comment->id }}">
+                                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                                <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                         <hr>
                     @endforeach
-                    <div class="row">
-                        <div class="col col-1"></div>
-                        <div class="col col-11">
-                            <div class="row w-100">
-                                <div class="col col-1">
-                                    <img src="{{ asset('img/LogoFund4Future.png') }}" alt="" width="30"
-                                        height="30">
-                                </div>
-                                <div class="col col-l col-11">
-                                    <form action="{{ route('comments.store') }}" method="post" class="commentform">
-                                        @csrf
-                                        <textarea name="comment" placeholder="Add Comment"></textarea>
-                                        <input type="hidden" name="fund_id" value="{{ $data->id }}">
-                                        <button type="submit" class="btn btn-primary mt-2">Submit</button>
-                                    </form>
+                    @if (auth()->guest())
+                        <div class="row">
+                            <div class="col col-1"></div>
+                            <div class="col col-11">
+                                <a href="{{ route('login') }}">Please login to add a comment</a>
+                            </div>
+                        </div>
+                    @else
+                        <div class="row">
+                            <div class="col col-l">
+                                <h3>Add Comment</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-11">
+                                <div class="row w-100">
+                                    <div class="col col-1">
+                                        <img src="{{ asset('img/LogoFund4Future.png') }}" alt="" width="40"
+                                            height="40">
+                                    </div>
+                                    <div class="col col-l col-11">
+                                        <form action="{{ route('comments.store') }}" method="post" class="commentform">
+                                            @csrf
+                                            <textarea name="comment" placeholder="Add Comment"></textarea>
+                                            <input type="hidden" name="fund_id" value="{{ $data->id }}">
+                                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                            <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>

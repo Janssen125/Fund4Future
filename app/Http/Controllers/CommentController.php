@@ -82,19 +82,7 @@ class CommentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'user_id' => 'required',
-            'comment_id' =>'required',
-            'replyText' => 'required'
-        ]);
-
-        Replies::create([
-            'user_id' => $request->user_id,
-            'comment_id' => $request->comment_id,
-            'replyText' => $request->replyText
-        ]);
-
-        return redirect()->back()->with('success', 'Reply has been added!');
+        //
     }
 
     /**
@@ -110,5 +98,22 @@ class CommentController extends Controller
         $fund->delete();
 
         return redirect()->route('category.index')->with('success', 'Fund deleted successfully!');
+    }
+
+    public function reply(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required',
+            'comments_id' => 'required',
+            'replyText' => 'required'
+        ]);
+
+        Replies::create([
+            'user_id' => $request->user_id,
+            'comments_id' => $request->comments_id,
+            'replyText' => $request->replyText
+        ]);
+
+        return redirect()->back()->with('success', 'Reply has been added!');
     }
 }
