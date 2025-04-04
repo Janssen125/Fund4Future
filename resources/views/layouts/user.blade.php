@@ -58,7 +58,19 @@
                     </li>
                 </ul>
                 @if (Auth::check())
-                    <a class="btn btn-outline-success ms-lg-3" href="{{ route('logout') }}">Logout</a>
+                    <div class="dropdown" id="navbarButton">
+                        <button class="btn btn-outline-success ms-lg-3 dropdown-toggle" type="button" id="userDropdown"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ Auth::user()->name }}!
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="{{ route('profile') }}">Profile Setting</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
+                        </ul>
+                    </div>
                 @else
                     <a class="btn btn-outline-success ms-lg-3" href="{{ route('login') }}">Start Funding</a>
                 @endif

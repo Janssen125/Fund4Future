@@ -31,9 +31,8 @@ class HomeController extends Controller
         return view('user.about');
     }
 
-    public function profile($id) {
-        $data = User::findOrFail($id);
-        return view('user.profile', compact($data));
+    public function profile() {
+        return view('user.profile');
     }
 
     public function contact() {

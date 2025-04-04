@@ -205,12 +205,12 @@
             </div>
 
         </div>
-        <div class="button-container d-flex justify-content-center p-5">
+        <div class="button-container p-5">
             <a href=""><button type="button" class="btn btn-success btn-color-primary">View More</button></a>
         </div>
     </section>
-    <section class="our-goals container d-flex justify-content-center align-center flex-column p-5">
-        <div class="header-container d-flex justify-content-center">
+    <section class="our-goals container flex-column">
+        <div class="header-container">
             <h4 class="fw-bold text-primary-color">Our Goals</h4>
         </div>
         <div class="p-container">
