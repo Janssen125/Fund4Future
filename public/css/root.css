@@ -61,8 +61,13 @@ section {
     flex-direction: column;
 }
 
-:not(#navbarButton) > .btn {
+button, .btn {
     border: none;
+}
+
+#navbarButton .btn,
+#navbarButton button {
+    border: 1px solid var(--primary-green);
 }
 
 .btn:hover {

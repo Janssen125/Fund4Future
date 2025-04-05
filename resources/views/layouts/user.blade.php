@@ -57,42 +57,47 @@
                         <a class="nav-link" href="{{ route('contact') }}">Contact Us</a>
                     </li>
                 </ul>
-                @if (Auth::check())
-                    <div class="dropdown" id="navbarButton">
-                        <button class="btn btn-outline-success ms-lg-3 dropdown-toggle" type="button" id="userDropdown"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ Auth::user()->name }}!
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" href="{{ route('profile') }}">Profile Setting</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
-                        </ul>
-                    </div>
-                @else
-                    <a class="btn btn-outline-success ms-lg-3" href="{{ route('login') }}">Start Funding</a>
-                @endif
+                <div id="navbarButton">
+                    @if (Auth::check())
+                        <div class="dropdown">
+                            <button class="btn btn-outline-success ms-lg-3 dropdown-toggle" type="button"
+                                id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ Auth::user()->name }}!
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href="{{ route('profile') }}">Profile Setting</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
+                            </ul>
+                        </div>
+                    @else
+                        <a class="btn btn-outline-success ms-lg-3" href="{{ route('login') }}">Start Funding</a>
+                    @endif
+                </div>
             </div>
         </div>
     </nav>
 </header>
 
 <body>
-    @yield('content')
-    <div id="notification"
-        class="toast align-items-center text-white bg-success primary-background position-fixed bottom-0 end-0 m-3 p-3"
-        role="alert" aria-live="assertive" aria-atomic="true" style="display: none;">
-        <div class="d-flex">
-            <div class="toast-body" id="notification-message">
-                @if (session('message'))
-                    {{ session('message') }}
-                @endif
+    <main>
+        @yield('content')
+        <div id="notification"
+            class="toast align-items-center text-white bg-success primary-background position-fixed bottom-0 end-0 m-3 p-3"
+            role="alert" aria-live="assertive" aria-atomic="true" style="display: none;">
+            <div class="d-flex">
+                <div class="toast-body" id="notification-message">
+                    @if (session('message'))
+                        {{ session('message') }}
+                    @endif
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                    onclick="hideNotification()"></button>
             </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" onclick="hideNotification()"></button>
         </div>
-    </div>
+    </main>
 </body>
 
 <!-- Footer Section -->
