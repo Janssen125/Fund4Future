@@ -1,24 +1,96 @@
 main {
     width: 100%;
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
+    background-color: var(--primary-green-opacity);
 }
 aside {
-    width: 25%;
-    height: 100vh;
+    width: 30%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
+
+aside > div > div > div:first-child {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 2rem 0 2rem 2rem;
+}
+aside > div > div > div:nth-child(2) {
+    max-width: 1px;
+}
+
 section {
-    width: 75%;
-    height: 100vh;
+    width: 70%;
+    display: flex;
+    justify-content: start !important;
+    align-items: center;
+    flex-direction: column;
+    padding: 4rem 4rem 0 4rem;
+    min-height: 90dvh !important;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+}
+form > div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+}
+
+.balfund > div {
+    text-wrap: nowrap;
+}
+
+.profiletop > div{
+    padding: 1rem 0;
+}
+
+.customborder {
+    border: 1px solid var(--primary-green);
+    height: 80dvh;
+}
+
+.profile {
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    padding: 1rem;
+    border-bottom: 1px solid lightslategrey;
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.menu ul li {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid lightslategrey;
+}
+
+.menu ul li a{
+    text-decoration: none;
+    color: black;
+    font-size: larger;
 }
