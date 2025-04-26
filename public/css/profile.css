@@ -7,7 +7,7 @@ main {
     background-color: var(--primary-green-opacity);
 }
 aside {
-    width: 30%;
+    width: 40%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,20 +19,26 @@ aside > div > div > div:first-child {
     display: flex;
     justify-content: start;
     align-items: center;
-    padding: 2rem 0 2rem 2rem;
+    margin: 2rem 0 2rem 2rem;
+    border-radius: 2rem;
+    padding-bottom: 2rem ;
 }
 aside > div > div > div:nth-child(2) {
     max-width: 1px;
+    margin-left: 3rem;
 }
 
 section {
-    width: 70%;
+    width: 60%;
     display: flex;
     justify-content: start !important;
     align-items: center;
     flex-direction: column;
-    padding: 4rem 4rem 0 4rem;
+    padding: 4rem;
     min-height: 90dvh !important;
+    margin: 1rem 3rem;
+    border-radius: 2rem;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 }
 
 form {
@@ -70,7 +76,6 @@ form > div {
     align-items: center;
     flex-direction: column;
     padding: 1rem;
-    border-bottom: 1px solid lightslategrey;
 }
 
 .menu ul {
@@ -86,11 +91,21 @@ form > div {
     justify-content: start;
     align-items: center;
     padding: 1rem;
-    border-bottom: 1px solid lightslategrey;
+    transition: 0.3s ease-in-out;
+}
+.menu ul li:hover {
+    background-color: var(--primary-green-opacity);
+    cursor: pointer;
 }
 
 .menu ul li a{
     text-decoration: none;
     color: black;
     font-size: larger;
+}
+
+@media screen and (max-width: 1280px) {
+    .customborder {
+        display: none;
+    }
 }

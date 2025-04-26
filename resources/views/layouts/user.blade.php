@@ -62,7 +62,7 @@
                         <div class="dropdown">
                             <button class="btn btn-outline-success ms-lg-3 dropdown-toggle" type="button"
                                 id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                {{ Auth::user()->name }}!
+                                {{ Auth::user()->name }}
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                 <li><a class="dropdown-item" href="{{ route('profile') }}">Profile Setting</a></li>

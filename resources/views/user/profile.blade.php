@@ -9,7 +9,7 @@
     <aside>
         <div class="container">
             <div class="row">
-                <div class="col">
+                <div class="col bg-body-tertiary">
                     <div class="profile">
                         <div class="container">
                             <div class="row">
@@ -34,14 +34,14 @@
                     </div>
                     <div class="menu">
                         <ul>
-                            <li><a href="">Profile</a></li>
+                            <li><a href="{{ route('profile') }}">Profile</a></li>
                             <li><a href="">Change Password</a></li>
                             <li><a href="">Funding List</a></li>
                             <li><a href="">Funding Transaction History</a></li>
                             <li><a href="">Funding History</a></li>
                             <li><a href="">Settings</a></li>
                             <li><a href="">Help</a></li>
-                            <li><a href="">Logout</a></li>
+                            <li><a href="{{ route('logout') }}">Logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
             </div>
         </div>
     </aside>
-    <section>
+    <section class="bg-body-tertiary">
         <div class="container">
             <div class="row">
                 <div class="col col-l">
