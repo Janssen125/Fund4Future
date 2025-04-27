@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Fund;
 
 class HomeController extends Controller
 {
@@ -24,7 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('user.dashboard');
+        $projects = Fund::with('fundDetail')->orderBy('created_at', 'desc')->take(5)->get();
+
+        return view('user.dashboard', compact('projects'));
     }
 
     public function about() {

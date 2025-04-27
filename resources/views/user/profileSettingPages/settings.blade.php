@@ -55,7 +55,7 @@
         <div class="container">
             <div class="row">
                 <div class="col col-l">
-                    <h1>Profile</h1>
+                    <h1>Settings</h1>
                 </div>
             </div>
             <div class="row">

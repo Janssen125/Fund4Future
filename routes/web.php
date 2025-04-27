@@ -7,6 +7,7 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\MidtransController;
+use App\Http\Controllers\ProfileSettingController;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -68,6 +69,13 @@ Route::resource('fund', FundController::class);
 Route::resource('mail', MailController::class);
 Route::resource('user', UserController::class);
 Route::resource('comments', CommentController::class);
+
+// Profile Setting routes
+Route::get('/profile/fundingList', [ProfileSettingController::class, 'fundingList'])->name('profileFundingList');
+Route::get('/profile/transactionHistory', [ProfileSettingController::class, 'fundingTransactionHistory'])->name('profileTransactionHistory');
+Route::get('/profile/fundingHistory', [ProfileSettingController::class, 'fundingHistory'])->name('profileFundingHistory');
+Route::get('/profile/settings', [ProfileSettingController::class, 'settings'])->name('profileSettings');
+Route::get('/profile/help', [ProfileSettingController::class, 'help'])->name('profileHelp');
 
 // Midtrans routes
 Route::post('/midtrans/topup', [MidtransController::class, 'createTransaction'])->name('midtrans.topup');

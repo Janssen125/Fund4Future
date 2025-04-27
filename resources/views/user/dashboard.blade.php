@@ -41,72 +41,52 @@
             <div class="h-container-1 d-flex justify-content-center">
                 <h4 class="pb-3">Discover Ongoing Progress</h4>
             </div>
-            <div class="card-container d-flex justify-content-around">
-                <div class="card m-1">
-                    <img src="{{ asset('img/LogoFund4Future.png') }}" class="card-img-top" alt="..." width=100
-                        height=200>
-                    <div class="card-body p-4">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lksdjf asdfa asd fas asdf asdf
-                            asdfasdf asdf asdf dsaf sdfsadf sadf asdf asdf asd asdfas dfasdf asdf asdfasdf asdfa
-                            sdfasdfasdfas dfasd fasdf asdfasdf</p>
-                        <h6 class>Raised</h6>
-                        <div class="under-card d-flex justify-content-between">
-                            <div class="progress w-60">
-                                <div class="progress-bar bg-primary-green" role="progressbar" aria-valuenow="70"
-                                    aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                                    50%
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    @foreach ($projects as $project)
+                        <div class="swiper-slide">
+                            <div class="card m-1">
+                                @if ($project->fundDetail->isNotEmpty())
+                                    @foreach ($project->fundDetail as $detail)
+                                        @if ($loop->first)
+                                            @if ($detail->types === 'video')
+                                                <video class="carousel-video imagesOrVideo" width="100%" controls>
+                                                    <source src="{{ asset('uploads/' . $detail->imageOrVideo) }}"
+                                                        type="video/mp4">
+                                                    Your browser does not support the video tag.
+                                                </video>
+                                            @else
+                                                <img src="{{ asset('uploads/' . $detail->imageOrVideo) }}"
+                                                    class="d-block w-100 imagesOrVideo" alt="Fund Image"
+                                                    style="max-height: 300px; object-fit: cover;">
+                                            @endif
+                                        @endif
+                                    @endforeach
+                                @else
+                                    <img src="{{ asset('img/default-image.png') }}" class="d-block w-100"
+                                        alt="Default Image" style="max-height: 300px; object-fit: cover;">
+                                @endif
+                                <div class="card-body p-4">
+                                    <h5 class="card-title">{{ $project->name }}</h5>
+                                    <p class="card-text">{{ Str::limit($project->description, 150) }}</p>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div class="progress w-75" style="height: 20px;">
+                                            <div class="progress-bar" role="progressbar"
+                                                style="width: {{ ($project->currAmount * 100) / $project->targetAmount }}%;"
+                                                aria-valuenow="{{ ($project->currAmount * 100) / $project->targetAmount }}"
+                                                aria-valuemin="0" aria-valuemax="100">
+                                                {{ round(($project->currAmount / $project->targetAmount) * 100) }}%
+                                            </div>
+                                        </div>
+                                        <a href="{{ route('fund.show', $project->id) }}" class="btn btn-primary ms-3">View
+                                            Details</a>
+                                    </div>
+                                    <p class="mt-2">Raised: Rp{{ number_format($project->currAmount, 2) }} /
+                                        Rp{{ number_format($project->targetAmount, 2) }}</p>
                                 </div>
                             </div>
-                            <div class="readmore-btn">
-                                <a class="btn btn-success btn-color-primary" href="#" role="button">Read More</a>
-                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="card m-1">
-                    <img src="{{ asset('img/LogoFund4Future.png') }}" class="card-img-top" alt="..." width=100
-                        height=200>
-                    <div class="card-body p-4">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lksdjf asdfa asd fas asdf asdf
-                            asdfasdf asdf asdf dsaf sdfsadf sadf asdf asdf asd asdfas dfasdf asdf asdfasdf asdfa
-                            sdfasdfasdfas dfasd fasdf asdfasdf</p>
-                        <h6 class>Raised</h6>
-                        <div class="under-card d-flex justify-content-between">
-                            <div class="progress w-60">
-                                <div class="progress-bar bg-primary-green" role="progressbar" aria-valuenow="70"
-                                    aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                                    50%
-                                </div>
-                            </div>
-                            <div class="readmore-btn">
-                                <a class="btn btn-success btn-color-primary" href="#" role="button">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card m-1">
-                    <img src="{{ asset('img/LogoFund4Future.png') }}" class="card-img-top" alt="..." width=100
-                        height=200>
-                    <div class="card-body p-4">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lksdjf asdfa asd fas asdf asdf
-                            asdfasdf asdf asdf dsaf sdfsadf sadf asdf asdf asd asdfas dfasdf asdf asdfasdf asdfa
-                            sdfasdfasdfas dfasd fasdf asdfasdf</p>
-                        <h5 class>Raised</h5>
-                        <div class="under-card d-flex justify-content-between">
-                            <div class="progress w-60">
-                                <div class="progress-bar bg-primary-green" role="progressbar" aria-valuenow="70"
-                                    aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                                    50%
-                                </div>
-                            </div>
-                            <div class="readmore-btn">
-                                <a class="btn btn-success btn-color-primary" href="#" role="button">Read More</a>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -138,8 +118,7 @@
                 </div>
             </div>
             <div class="card m-1">
-                <img src="{{ asset('img/LogoFund4Future.png') }}" class="card-img-top" alt="..." width=100
-                    height=200>
+                <img src="{{ asset('img/LogoFund4Future.png') }}" class="card-img-top" alt="..." width=100 height=200>
                 <div class="card-body p-4">
                     <h5 class="card-title">Card title</h5>
                     <p class="card-text">Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lksdjf asdfa asd fas asdf asdf
@@ -160,8 +139,7 @@
                 </div>
             </div>
             <div class="card m-1">
-                <img src="{{ asset('img/LogoFund4Future.png') }}" class="card-img-top" alt="..." width=100
-                    height=200>
+                <img src="{{ asset('img/LogoFund4Future.png') }}" class="card-img-top" alt="..." width=100 height=200>
                 <div class="card-body p-4">
                     <h5 class="card-title">Card title</h5>
                     <p class="card-text">Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lksdjf asdfa asd fas asdf asdf
@@ -206,7 +184,8 @@
 
         </div>
         <div class="button-container p-5">
-            <a href=""><button type="button" class="btn btn-success btn-color-primary">View More</button></a>
+            <a href="{{ route('fund.index') }}"><button type="button" class="btn btn-success btn-color-primary">View
+                    More</button></a>
         </div>
     </section>
     <section class="our-goals container flex-column">
