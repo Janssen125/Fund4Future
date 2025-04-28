@@ -22,6 +22,79 @@ class CreateFundHistoriesTable extends Migration
             $table->foreign('funder_id')->references('id')->on('users')->onDelete('set null')->onUpdate('cascade');
             $table->timestamps();
         });
+
+        DB::table('fund_histories')->insert([
+            [
+                'fund_id' => rand(1, 10),
+                'amount' => rand(1000, 100000),
+                'funder_id' => rand(1, 2),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'fund_id' => rand(1, 10),
+                'amount' => rand(1000, 100000),
+                'funder_id' => rand(1, 2),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'fund_id' => rand(1, 10),
+                'amount' => rand(1000, 100000),
+                'funder_id' => rand(1, 2),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'fund_id' => rand(1, 10),
+                'amount' => rand(1000, 100000),
+                'funder_id' => rand(1, 2),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'fund_id' => rand(1, 10),
+                'amount' => rand(1000, 100000),
+                'funder_id' => rand(1, 2),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'fund_id' => rand(1, 10),
+                'amount' => rand(1000, 100000),
+                'funder_id' => rand(1, 2),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'fund_id' => rand(1, 10),
+                'amount' => rand(1000, 100000),
+                'funder_id' => rand(1, 2),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'fund_id' => rand(1, 10),
+                'amount' => rand(1000, 100000),
+                'funder_id' => rand(1, 2),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'fund_id' => rand(1, 10),
+                'amount' => rand(1000, 100000),
+                'funder_id' => rand(1, 2),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'fund_id' => rand(1, 10),
+                'amount' => rand(1000, 100000),
+                'funder_id' => rand(1, 2),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
     }
 
     /**
@@ -33,4 +106,6 @@ class CreateFundHistoriesTable extends Migration
     {
         Schema::dropIfExists('fund_histories');
     }
+
+
 }

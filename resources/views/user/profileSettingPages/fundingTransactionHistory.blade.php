@@ -5,6 +5,9 @@
 @section('cssName')
     profile
 @endsection
+@section('jsName')
+    datatables
+@endsection
 @section('content')
     <aside>
         <div class="container">
@@ -58,39 +61,38 @@
                     <h1>Funding Transaction History</h1>
                 </div>
             </div>
-            <div class="row">
+            <div class="row py-3">
                 <div class="col">
-                    <div class="profiletop">
-                        <div class="row">
-                            <div class="col">
-                                <img src="{{ asset('img/LogoFund4Future.png') }}" alt="profile picture" width=100
-                                    height=100>
-                            </div>
+                    @if ($fundHistories->isEmpty())
+                        <p>You have no transaction history yet.</p>
+                    @else
+                        <div class="w-100">
+                            <table id="dataTable" class="table table-hover align-middle show">
+                                <thead class="table-light show">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Fund Name</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($fundHistories as $index => $history)
+                                        <tr>
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>{{ $history->fund->name }}</td>
+                                            <td>Rp{{ number_format($history->amount, 2) }}</td>
+                                            <td>{{ $history->created_at->format('d M Y') }}</td>
+                                            <td>
+                                                <span class="badge bg-success">Completed</span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="row balfund">
-                            <div class="col">Balance: </div>
-                            <div class="col">Total Funded: </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <form action="" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" name="name"
-                                value="{{ Auth::user()->name }}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email"
-                                value="{{ Auth::user()->email }}">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Update Profile</button>
-                    </form>
+                    @endif
                 </div>
             </div>
         </div>

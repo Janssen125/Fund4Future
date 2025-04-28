@@ -3,16 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Fund;
+use App\Models\FundHistory;
 
 class ProfileSettingController extends Controller
 {
     public function fundingList()
     {
-        return view('user.profileSettingPages.fundingList');
+        $fundings = Fund::where('owner_id', auth()->user()->id)->get();
+        return view('user.profileSettingPages.fundingList', compact('fundings'));
     }
 
-    public function fundingTransactionHistory() {
-        return view('user.profileSettingPages.fundingTransactionHistory');
+    public function fundingTransactionHistory()
+    {
+        $fundHistories = FundHistory::where('funder_id', auth()->user()->id)->get();
+        return view('user.profileSettingPages.fundingTransactionHistory', compact('fundHistories'));
     }
 
     public function fundingHistory() {
