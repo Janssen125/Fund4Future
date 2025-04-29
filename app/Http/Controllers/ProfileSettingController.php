@@ -10,7 +10,7 @@ class ProfileSettingController extends Controller
 {
     public function fundingList()
     {
-        $fundings = Fund::where('owner_id', auth()->user()->id)->get();
+        $fundings = Fund::where('owner_id', auth()->user()->id)->whereIn('approvalStatus', ['pending', 'approved'])->get();
         return view('user.profileSettingPages.fundingList', compact('fundings'));
     }
 
@@ -21,7 +21,8 @@ class ProfileSettingController extends Controller
     }
 
     public function fundingHistory() {
-        return view('user.profileSettingPages.fundingHistory');
+        $fundings = Fund::where('owner_id', auth()->user()->id)->whereIn('approvalStatus', ['declined', 'finished'])->get();
+        return view('user.profileSettingPages.fundingHistory', compact('fundings'));
     }
 
     public function settings() {

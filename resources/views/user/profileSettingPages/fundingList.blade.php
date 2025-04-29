@@ -58,14 +58,14 @@
                     <h1>Funding List</h1>
                 </div>
             </div>
-            <div class="row">
+            <div class="row listRow">
                 <div class="col">
                     @if ($fundings->isEmpty())
                         <p>You have not created any funds yet.</p>
                     @else
-                        <div class="row">
+                        <div class="row justify-content-start">
                             @foreach ($fundings as $funding)
-                                <div class="col-md-4 mb-4">
+                                <div class="col-md-4 mb-4 align-items-start">
                                     <div class="card">
                                         <div class="card-body">
                                             <h5 class="card-title">{{ $funding->name }}</h5>
@@ -73,7 +73,12 @@
                                                 <strong>Funding ID:</strong> {{ $funding->id }}<br>
                                                 <strong>Amount:</strong> Rp{{ number_format($funding->currAmount, 2) }} /
                                                 Rp{{ number_format($funding->targetAmount, 2) }}<br>
-                                                <strong>Status:</strong> {{ $funding->approvalStatus }}
+                                                <strong>Status:</strong>
+                                                @if ($funding->approvalStatus == 'approved')
+                                                    <span class="badge badge-success">{{ $funding->approvalStatus }}</span>
+                                                @else
+                                                    <span class="badge badge-warning">{{ $funding->approvalStatus }}</span>
+                                                @endif
                                             </p>
                                             <a href="{{ route('fund.show', $funding->id) }}" class="btn btn-primary">View
                                                 Details</a>

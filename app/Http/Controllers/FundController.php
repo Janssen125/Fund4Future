@@ -16,7 +16,7 @@ class FundController extends Controller
      */
     public function index()
     {
-        $data = Fund::with(['category', 'fundDetail'])->paginate(5);
+        $data = Fund::with(['category', 'fundDetail'])->where('approvalStatus', 'approved')->paginate(5);
         return view('user.fund', compact('data'));
     }
 

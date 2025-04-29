@@ -4999,6 +4999,18 @@ fieldset:disabled .btn {
     display: none;
 }
 
+.badge-success {
+    background-color: var(--bs-success);
+}
+
+.badge-danger {
+    background-color: var(--bs-danger);
+}
+
+.badge-warning {
+    background-color: var(--bs-warning);
+}
+
 .btn .badge {
     position: relative;
     top: -1px;

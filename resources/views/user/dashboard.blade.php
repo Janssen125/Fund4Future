@@ -71,7 +71,7 @@
                                     <p class="card-text">{{ Str::limit($project->description, 150) }}</p>
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div class="progress w-75" style="height: 20px;">
-                                            <div class="progress-bar" role="progressbar"
+                                            <div class="progress-bar show" role="progressbar"
                                                 style="width: {{ ($project->currAmount * 100) / $project->targetAmount }}%;"
                                                 aria-valuenow="{{ ($project->currAmount * 100) / $project->targetAmount }}"
                                                 aria-valuemin="0" aria-valuemax="100">

@@ -104,6 +104,12 @@ form > div {
     font-size: larger;
 }
 
+.listRow > *{
+    width: 100%;
+    justify-content: start !important;
+    align-items: start !important;
+}
+
 @media screen and (max-width: 1280px) {
     .customborder {
         display: none;
