@@ -23,7 +23,7 @@ class CreateFundsTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null')->onUpdate('cascade');
             $table->bigInteger('currAmount');
             $table->bigInteger('targetAmount');
-            $table->enum('approvalStatus', [['pending', 'approved', 'pending', 'finished'][rand(0, 3) % 4], 'approved', 'declined', 'finished'])->default('pending');
+            $table->enum('approvalStatus', ['pending', 'approved', 'declined', 'finished'])->default('pending');
             $table->unsignedBigInteger('approvedOrDeclinedBy')->nullable();
             $table->foreign('approvedOrDeclinedBy')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
@@ -36,7 +36,7 @@ class CreateFundsTable extends Migration
             'category_id' => 1,
             'currAmount' => 10000,
             'targetAmount' => 100000,
-            'approvalStatus' => [['pending', 'approved', 'pending', 'finished'][rand(0, 3) % 4], 'approved', ['pending', 'approved', 'pending', 'finished'][rand(0, 3) % 4], 'finished'][rand(0, 3) % 4],
+            'approvalStatus' => ['pending', 'approved', 'declined', 'finished'][rand(0, 3) % 4],
             'approvedOrDeclinedBy' => 1,
             'created_at' => now(),
             'updated_at' => now(),
@@ -47,7 +47,7 @@ class CreateFundsTable extends Migration
             'category_id' => 1,
             'currAmount' => 10000,
             'targetAmount' => 100000,
-            'approvalStatus' => ['pending', 'approved', 'pending', 'finished'][rand(0, 3) % 4],
+            'approvalStatus' => ['pending', 'approved', 'declined', 'finished'][rand(0, 3) % 4],
             'approvedOrDeclinedBy' => 1,
             'created_at' => now(),
             'updated_at' => now(),
@@ -58,7 +58,7 @@ class CreateFundsTable extends Migration
             'category_id' => 2,
             'currAmount' => 10000,
             'targetAmount' => 100000,
-            'approvalStatus' => ['pending', 'approved', 'pending', 'finished'][rand(0, 3) % 4],
+            'approvalStatus' => ['pending', 'approved', 'declined', 'finished'][rand(0, 3) % 4],
             'approvedOrDeclinedBy' => 1,
             'created_at' => now(),
             'updated_at' => now(),
@@ -69,7 +69,7 @@ class CreateFundsTable extends Migration
             'category_id' => 2,
             'currAmount' => 10000,
             'targetAmount' => 100000,
-            'approvalStatus' => ['pending', 'approved', 'pending', 'finished'][rand(0, 3) % 4],
+            'approvalStatus' => ['pending', 'approved', 'declined', 'finished'][rand(0, 3) % 4],
             'approvedOrDeclinedBy' => 1,
             'created_at' => now(),
             'updated_at' => now(),
@@ -80,7 +80,7 @@ class CreateFundsTable extends Migration
             'category_id' => 2,
             'currAmount' => 10000,
             'targetAmount' => 100000,
-            'approvalStatus' => ['pending', 'approved', 'pending', 'finished'][rand(0, 3) % 4],
+            'approvalStatus' => ['pending', 'approved', 'declined', 'finished'][rand(0, 3) % 4],
             'approvedOrDeclinedBy' => 1,
             'created_at' => now(),
             'updated_at' => now(),
@@ -91,7 +91,7 @@ class CreateFundsTable extends Migration
             'category_id' => 1,
             'currAmount' => 10000,
             'targetAmount' => 100000,
-            'approvalStatus' => ['pending', 'approved', 'pending', 'finished'][rand(0, 3) % 4],
+            'approvalStatus' => ['pending', 'approved', 'declined', 'finished'][rand(0, 3) % 4],
             'approvedOrDeclinedBy' => 1,
             'created_at' => now(),
             'updated_at' => now(),
@@ -102,7 +102,7 @@ class CreateFundsTable extends Migration
             'category_id' => 1,
             'currAmount' => 10000,
             'targetAmount' => 100000,
-            'approvalStatus' => ['pending', 'approved', 'pending', 'finished'][rand(0, 3) % 4],
+            'approvalStatus' => ['pending', 'approved', 'declined', 'finished'][rand(0, 3) % 4],
             'approvedOrDeclinedBy' => 1,
             'created_at' => now(),
             'updated_at' => now(),
@@ -113,7 +113,7 @@ class CreateFundsTable extends Migration
             'category_id' => 1,
             'currAmount' => 10000,
             'targetAmount' => 100000,
-            'approvalStatus' => ['pending', 'approved', 'pending', 'finished'][rand(0, 3) % 4],
+            'approvalStatus' => ['pending', 'approved', 'declined', 'finished'][rand(0, 3) % 4],
             'approvedOrDeclinedBy' => 1,
             'created_at' => now(),
             'updated_at' => now(),
@@ -124,7 +124,7 @@ class CreateFundsTable extends Migration
             'category_id' => 1,
             'currAmount' => 10000,
             'targetAmount' => 100000,
-            'approvalStatus' => ['pending', 'approved', 'pending', 'finished'][rand(0, 3) % 4],
+            'approvalStatus' => ['pending', 'approved', 'declined', 'finished'][rand(0, 3) % 4],
             'approvedOrDeclinedBy' => 1,
             'created_at' => now(),
             'updated_at' => now(),
@@ -135,7 +135,7 @@ class CreateFundsTable extends Migration
             'category_id' => 2,
             'currAmount' => 10000,
             'targetAmount' => 100000,
-            'approvalStatus' => ['pending', 'approved', 'pending', 'finished'][rand(0, 3) % 4],
+            'approvalStatus' => ['pending', 'approved', 'declined', 'finished'][rand(0, 3) % 4],
             'approvedOrDeclinedBy' => 1,
             'created_at' => now(),
             'updated_at' => now(),
