@@ -1,0 +1,9 @@
+header {
+    background-color: snow;
+}
+
+.logo {
+    aspect-ratio: 1/1;
+    height: 2rem;
+    width: 2rem;
+}

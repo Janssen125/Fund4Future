@@ -27,19 +27,26 @@
 <header class="sticky-top dvw-100">
     <nav class="navbar navbar-expand-lg bg-body-tertiary dvw-100">
         <div class="container-fluid mx-4">
-            <div class="left-side d-flex justify-content-start align-items-center">
-                <div class="thepic">
-                    <a class="navbar-brand" href="#">
-                        <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Bootstrap" width="45" height="50">
-                    </a>
-                </div>
-                @guest
-                    Welcome, Guest
-                @else
-                    <div class="border-start px-3 d-flex justify-content-start align-items-center">
-                        <span class="cooltypinganimation">Hello {{ Auth::user()->name }}!</span>
+            <div class="left-side col col-l">
+                <div class="row">
+                    <div class="col col-l">
+                        <div class="thepic">
+                            <a class="navbar-brand" href="#">
+                                <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Bootstrap" width="45"
+                                    height="50">
+                            </a>
+                        </div>
                     </div>
-                @endguest
+                    <div class="col col-l">
+                        @guest
+                            Welcome, Guest
+                        @else
+                            <div class="border-start px-3 col col-l">
+                                <span class="cooltypinganimation">Hello {{ Auth::user()->name }}!</span>
+                            </div>
+                        @endguest
+                    </div>
+                </div>
             </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,19 +78,18 @@
                                 <li><a class="dropdown-item" href="{{ route('profile') }}">Profile Setting</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
-                                    @if(Auth::user()->role == 'admin')
+                                    @if (Auth::user()->role == 'admin')
                                 <li><a class="dropdown-item" href="{{ route('admin.index') }}">Dashboard</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                @endif
-                                <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
-                            </ul>
-                        </div>
-                    @else
-                        <a class="btn btn-outline-success ms-lg-3" href="{{ route('login') }}">Start Funding</a>
                     @endif
+                    <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
+                    </ul>
                 </div>
+            @else
+                <a class="btn btn-outline-success ms-lg-3" href="{{ route('login') }}">Start Funding</a>
+                @endif
             </div>
         </div>
     </nav>
