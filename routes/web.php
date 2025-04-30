@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FundController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\MidtransController;
 use App\Http\Controllers\ProfileSettingController;
@@ -68,6 +69,7 @@ Route::resource('category', CategoryController::class);
 Route::resource('fund', FundController::class);
 Route::resource('mail', MailController::class);
 Route::resource('user', UserController::class);
+Route::resource('admin', AdminController::class);
 Route::resource('comments', CommentController::class);
 
 // Profile Setting routes

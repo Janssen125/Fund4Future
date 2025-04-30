@@ -71,7 +71,12 @@
                                 <li><a class="dropdown-item" href="{{ route('profile') }}">Profile Setting</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
+                                    @if(Auth::user()->role == 'admin')
+                                <li><a class="dropdown-item" href="{{ route('admin.index') }}">Dashboard</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
                                 </li>
+                                @endif
                                 <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
                             </ul>
                         </div>
