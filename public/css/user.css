@@ -18,6 +18,20 @@ div {
     animation: typing 3s steps(12, end) forwards, cursor .7s steps(12, end) infinite;
 }
 
+.container-fluid > div {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: row;
+}
+
+.left-side > div{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
 @keyframes typing {
     from { width: 0; }
     to { width: 100%; }

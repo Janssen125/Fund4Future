@@ -27,26 +27,21 @@
 <header class="sticky-top dvw-100">
     <nav class="navbar navbar-expand-lg bg-body-tertiary dvw-100">
         <div class="container-fluid mx-4">
-            <div class="left-side col col-l">
-                <div class="row">
-                    <div class="col col-l">
-                        <div class="thepic">
-                            <a class="navbar-brand" href="#">
-                                <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Bootstrap" width="45"
-                                    height="50">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col col-l">
-                        @guest
-                            Welcome, Guest
-                        @else
-                            <div class="border-start px-3 col col-l">
-                                <span class="cooltypinganimation">Hello {{ Auth::user()->name }}!</span>
-                            </div>
-                        @endguest
-                    </div>
+            <div class="left-side">
+                <div class="thepic">
+                    <a class="navbar-brand" href="{{ route('home') }}">
+                        <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Bootstrap" width="45" height="50">
+                    </a>
                 </div>
+                @guest
+                    <div class="border-start px-3">
+                        <span class="cooltypinganimation">Welcome, Guest</span>
+                    </div>
+                @else
+                    <div class="border-start px-3">
+                        <span class="cooltypinganimation">Hello, {{ Auth::user()->name }}!</span>
+                    </div>
+                @endguest
             </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

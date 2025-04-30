@@ -25,9 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $projects = Fund::with('fundDetail')->orderBy('created_at', 'desc')->take(5)->get();
-
-        return view('user.dashboard', compact('projects'));
+        $projects = Fund::with('fundDetail')->where('approvalStatus', 'approved')->orderBy('created_at', 'desc')->take(5)->get();
+        $recommended = Fund::with('fundDetail')->where('approvalStatus', 'approved')->orderBy('created_at', 'asc')->take(4)->get();
+        return view('user.dashboard', compact(['projects', 'recommended']));
     }
 
     public function about() {

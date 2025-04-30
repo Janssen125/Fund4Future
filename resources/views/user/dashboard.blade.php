@@ -91,101 +91,46 @@
             </div>
         </div>
     </section>
-    <section class="container our-recommendation">
-        <div class="container d-flex justify-content-center">
-            <h4>Our Recommendation</h4>
-        </div>
-        <div class="container grid-container p-3">
-            <div class="card m-1">
-                <img src="{{ asset('img/LogoFund4Future.png') }}" class="card-img-top" alt="..." width=100 height=200>
-                <div class="card-body p-4">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lksdjf asdfa asd fas asdf asdf
-                        asdfasdf asdf asdf dsaf sdfsadf sadf asdf asdf asd asdfas dfasdf asdf asdfasdf asdfa sdfasdfasdfas
-                        dfasd fasdf asdfasdf</p>
-                    <h5 class>Raised</h5>
-                    <div class="under-card d-flex justify-content-between">
-                        <div class="progress w-60">
-                            <div class="progress-bar bg-primary-green" role="progressbar" aria-valuenow="70"
-                                aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                                50%
+    <section class="recommended-projects">
+        <div class="container recommended-container p-5">
+            <div class="h-container-1 d-flex justify-content-center">
+                <h4 class="pb-3">Discover Ongoing Progress</h4>
+            </div>
+            <div class="row">
+                @foreach ($recommended as $project)
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <img src="{{ asset('uploads/' . ($project->fundDetail->first()->imageOrVideo ?? 'default-image.png')) }}"
+                                class="card-img-top" alt="{{ $project->name }}"
+                                style="max-height: 200px; object-fit: cover;">
+                            <div class="card-body p-4">
+                                <h5 class="card-title">{{ $project->name }}</h5>
+                                <p class="card-text">{{ Str::limit($project->description, 150) }}</p>
+                                <h6>Raised</h6>
+                                <div class="under-card d-flex justify-content-between">
+                                    <div class="progress w-60">
+                                        @php
+                                            $progress =
+                                                $project->targetAmount > 0
+                                                    ? ($project->currAmount / $project->targetAmount) * 100
+                                                    : 0;
+                                        @endphp
+                                        <div class="progress-bar bg-primary-green" role="progressbar"
+                                            aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100"
+                                            style="width: {{ $progress }}%;">
+                                            {{ round($progress) }}%
+                                        </div>
+                                    </div>
+                                    <div class="readmore-btn">
+                                        <a class="btn btn-success btn-color-primary"
+                                            href="{{ route('fund.show', $project->id) }}" role="button">Read More</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="readmore-btn">
-                            <a class="btn btn-success btn-color-primary" href="#" role="button">Read More</a>
-                        </div>
                     </div>
-                </div>
+                @endforeach
             </div>
-            <div class="card m-1">
-                <img src="{{ asset('img/LogoFund4Future.png') }}" class="card-img-top" alt="..." width=100 height=200>
-                <div class="card-body p-4">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lksdjf asdfa asd fas asdf asdf
-                        asdfasdf asdf asdf dsaf sdfsadf sadf asdf asdf asd asdfas dfasdf asdf asdfasdf asdfa sdfasdfasdfas
-                        dfasd fasdf asdfasdf</p>
-                    <h5 class>Raised</h5>
-                    <div class="under-card d-flex justify-content-between">
-                        <div class="progress w-60">
-                            <div class="progress-bar bg-primary-green" role="progressbar" aria-valuenow="70"
-                                aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                                50%
-                            </div>
-                        </div>
-                        <div class="readmore-btn">
-                            <a class="btn btn-success btn-color-primary" href="#" role="button">Read More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card m-1">
-                <img src="{{ asset('img/LogoFund4Future.png') }}" class="card-img-top" alt="..." width=100 height=200>
-                <div class="card-body p-4">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lksdjf asdfa asd fas asdf asdf
-                        asdfasdf asdf asdf dsaf sdfsadf sadf asdf asdf asd asdfas dfasdf asdf asdfasdf asdfa sdfasdfasdfas
-                        dfasd fasdf asdfasdf</p>
-                    <h5 class>Raised</h5>
-                    <div class="under-card d-flex justify-content-between">
-                        <div class="progress w-60">
-                            <div class="progress-bar bg-primary-green" role="progressbar" aria-valuenow="70"
-                                aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                                50%
-                            </div>
-                        </div>
-                        <div class="readmore-btn">
-                            <a class="btn btn-success btn-color-primary" href="#" role="button">Read More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card m-1">
-                <img src="{{ asset('img/LogoFund4Future.png') }}" class="card-img-top" alt="..." width=100
-                    height=200>
-                <div class="card-body p-4">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lksdjf asdfa asd fas asdf asdf
-                        asdfasdf asdf asdf dsaf sdfsadf sadf asdf asdf asd asdfas dfasdf asdf asdfasdf asdfa sdfasdfasdfas
-                        dfasd fasdf asdfasdf</p>
-                    <h5 class>Raised</h5>
-                    <div class="under-card d-flex justify-content-between">
-                        <div class="progress w-60">
-                            <div class="progress-bar bg-primary-green" role="progressbar" aria-valuenow="70"
-                                aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                                50%
-                            </div>
-                        </div>
-                        <div class="readmore-btn">
-                            <a class="btn btn-success btn-color-primary" href="#" role="button">Read More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div class="button-container p-5">
-            <a href="{{ route('fund.index') }}"><button type="button" class="btn btn-success btn-color-primary">View
-                    More</button></a>
         </div>
     </section>
     <section class="our-goals container flex-column">
