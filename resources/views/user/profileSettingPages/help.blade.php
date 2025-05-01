@@ -34,14 +34,30 @@
                     </div>
                     <div class="menu">
                         <ul>
-                            <li><a href="{{ route('profile') }}">Profile</a></li>
-                            <li><a href="{{ route('password.request') }}">Change Password</a></li>
-                            <li><a href="{{ route('profileFundingList') }}">Funding List</a></li>
-                            <li><a href="{{ route('profileTransactionHistory') }}">Funding Transaction History</a></li>
-                            <li><a href="{{ route('profileFundingHistory') }}">Funding History</a></li>
-                            <li><a href="{{ route('profileSettings') }}">Settings</a></li>
-                            <li><a href="{{ route('profileHelp') }}">Help</a></li>
-                            <li><a href="{{ route('logout') }}">Logout</a></li>
+                            <a href="{{ route('profile') }}">
+                                <li>Profile</li>
+                            </a>
+                            <a href="{{ route('password.request') }}">
+                                <li>Change Password</li>
+                            </a>
+                            <a href="{{ route('profileFundingList') }}">
+                                <li>Funding List</li>
+                            </a>
+                            <a href="{{ route('profileTransactionHistory') }}">
+                                <li>Funding Transaction History</li>
+                            </a>
+                            <a href="{{ route('profileFundingHistory') }}">
+                                <li>Funding History</li>
+                            </a>
+                            <a href="{{ route('profileSettings') }}">
+                                <li>Settings</li>
+                            </a>
+                            <a href="{{ route('profileHelp') }}">
+                                <li>Help</li>
+                            </a>
+                            <a href="{{ route('logout') }}">
+                                <li>Logout</li>
+                            </a>
                         </ul>
                     </div>
                 </div>
@@ -58,39 +74,130 @@
                     <h1>Help</h1>
                 </div>
             </div>
-            <div class="row">
+            <div class="row py-3">
                 <div class="col">
-                    <div class="profiletop">
-                        <div class="row">
-                            <div class="col">
-                                <img src="{{ asset('img/LogoFund4Future.png') }}" alt="profile picture" width=100
-                                    height=100>
+                    <div class="accordion" id="helpAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    How to create a fund?
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                data-bs-parent="#helpAccordion">
+                                <div class="accordion-body">
+                                    To create a fund, go to the "Create Fund" page, fill in the required details, and submit
+                                    your fund for approval.
+                                </div>
                             </div>
                         </div>
-                        <div class="row balfund">
-                            <div class="col">Balance: </div>
-                            <div class="col">Total Funded: </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    How to track my funding progress?
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                data-bs-parent="#helpAccordion">
+                                <div class="accordion-body">
+                                    You can track your funding progress on the "Funding List" page, where you can see the
+                                    current amount raised and the target amount.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    How to withdraw funds?
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                                data-bs-parent="#helpAccordion">
+                                <div class="accordion-body">
+                                    To withdraw funds, go to the "Withdraw Funds" page, select the fund you want to withdraw
+                                    from, and follow the instructions.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    How to withdraw funds?
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                                data-bs-parent="#helpAccordion">
+                                <div class="accordion-body">
+                                    To withdraw funds, go to the "Withdraw Funds" page, select the fund you want to withdraw
+                                    from, and follow the instructions.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFive">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                    How to withdraw funds?
+                                </button>
+                            </h2>
+                            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
+                                data-bs-parent="#helpAccordion">
+                                <div class="accordion-body">
+                                    To withdraw funds, go to the "Withdraw Funds" page, select the fund you want to withdraw
+                                    from, and follow the instructions.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingSix">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                    How to withdraw funds?
+                                </button>
+                            </h2>
+                            <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix"
+                                data-bs-parent="#helpAccordion">
+                                <div class="accordion-body">
+                                    To withdraw funds, go to the "Withdraw Funds" page, select the fund you want to withdraw
+                                    from, and follow the instructions.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingSeven">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                    How to withdraw funds?
+                                </button>
+                            </h2>
+                            <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven"
+                                data-bs-parent="#helpAccordion">
+                                <div class="accordion-body">
+                                    To withdraw funds, go to the "Withdraw Funds" page, select the fund you want to withdraw
+                                    from, and follow the instructions.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingEight">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                    How to withdraw funds?
+                                </button>
+                            </h2>
+                            <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight"
+                                data-bs-parent="#helpAccordion">
+                                <div class="accordion-body">
+                                    To withdraw funds, go to the "Withdraw Funds" page, select the fund you want to withdraw
+                                    from, and follow the instructions.
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <form action="" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" name="name"
-                                value="{{ Auth::user()->name }}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email"
-                                value="{{ Auth::user()->email }}">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Update Profile</button>
-                    </form>
                 </div>
             </div>
         </div>

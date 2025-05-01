@@ -34,14 +34,30 @@
                     </div>
                     <div class="menu">
                         <ul>
-                            <li><a href="{{ route('profile') }}">Profile</a></li>
-                            <li><a href="{{ route('password.request') }}">Change Password</a></li>
-                            <li><a href="{{ route('profileFundingList') }}">Funding List</a></li>
-                            <li><a href="{{ route('profileTransactionHistory') }}">Funding Transaction History</a></li>
-                            <li><a href="{{ route('profileFundingHistory') }}">Funding History</a></li>
-                            <li><a href="{{ route('profileSettings') }}">Settings</a></li>
-                            <li><a href="{{ route('profileHelp') }}">Help</a></li>
-                            <li><a href="{{ route('logout') }}">Logout</a></li>
+                            <a href="{{ route('profile') }}">
+                                <li>Profile</li>
+                            </a>
+                            <a href="{{ route('password.request') }}">
+                                <li>Change Password</li>
+                            </a>
+                            <a href="{{ route('profileFundingList') }}">
+                                <li>Funding List</li>
+                            </a>
+                            <a href="{{ route('profileTransactionHistory') }}">
+                                <li>Funding Transaction History</li>
+                            </a>
+                            <a href="{{ route('profileFundingHistory') }}">
+                                <li>Funding History</li>
+                            </a>
+                            <a href="{{ route('profileSettings') }}">
+                                <li>Settings</li>
+                            </a>
+                            <a href="{{ route('profileHelp') }}">
+                                <li>Help</li>
+                            </a>
+                            <a href="{{ route('logout') }}">
+                                <li>Logout</li>
+                            </a>
                         </ul>
                     </div>
                 </div>

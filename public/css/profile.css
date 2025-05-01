@@ -85,7 +85,7 @@ form > div {
     width: 100%;
 }
 
-.menu ul li {
+.menu ul a li {
     width: 100%;
     display: flex;
     justify-content: start;
@@ -93,12 +93,12 @@ form > div {
     padding: 1rem;
     transition: 0.3s ease-in-out;
 }
-.menu ul li:hover {
+.menu ul a li:hover {
     background-color: var(--primary-green-opacity);
     cursor: pointer;
 }
 
-.menu ul li a{
+.menu ul a{
     text-decoration: none;
     color: black;
     font-size: larger;
@@ -108,6 +108,10 @@ form > div {
     width: 100%;
     justify-content: start !important;
     align-items: start !important;
+}
+
+.accordion {
+    width: 100%;
 }
 
 @media screen and (max-width: 1280px) {
