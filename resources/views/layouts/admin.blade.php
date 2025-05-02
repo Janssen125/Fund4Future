@@ -17,16 +17,22 @@
 <header class="sticky-top dvw-100">
     <nav class="navbar navbar-expand-lg dvw-100">
         <div class="container-fluid mx-4">
-            <div class="left-side d-flex justify-content-start align-items-center">
-                <form class="d-flex rounded-2" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
+            <div class="left-side d-flex justify-content-start align-items-center w-50 gap-3">
+                <div class="burger-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                    </svg>
+                </div>
+                <form class="d-flex w-100 rounded-2" role="search">
+                    <input class="form-control me-2" type="search" placeholder="What would you like to search..." aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Q</button>
                 </form>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black"
-                    class="bi bi-bell-fill" viewBox="0 0 16 16">
-                    <path
-                        d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5 5 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901" />
-                </svg>
+                <a href="">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black"
+                        class="bi bi-bell-fill" viewBox="0 0 16 16">
+                        <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5 5 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901" />
+                    </svg>
+                </a>
             </div>
         </div>
         <div class="right-side">
