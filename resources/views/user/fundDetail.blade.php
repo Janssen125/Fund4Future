@@ -43,21 +43,78 @@
                     @endif
                 </div>
             </div>
-            <div class="col col-l col-6">
-                <h2>{{ $data->name }}</h2>
-                <p>{{ $data->description }}</p>
-                <p><strong>Category:</strong> {{ $data->category->catName }}</p>
-                <p><strong>Funding Progress:</strong> {{ $data->currAmount }} / {{ $data->targetAmount }}</p>
-                <div class="progress w-100">
-                    <div class="progress-bar show" role="progressbar"
-                        style="width: {{ ($data->currAmount / $data->targetAmount) * 100 }}%;"
-                        aria-valuenow="{{ ($data->currAmount / $data->targetAmount) * 100 }}" aria-valuemin="0"
-                        aria-valuemax="100">
-                        {{ round(($data->currAmount / $data->targetAmount) * 100) }}%
+            <div class="col col-l col-6 right-content">
+                <div class="row">
+                    <div class="col">
+                        <h2>{{ $data->name }}</h2>
                     </div>
                 </div>
-                <a href="" class="btn btn-secondary w-100 p-3 m-3">Share</a>
-                <a href="" class="btn btn-success primary-background w-100 p-3 m-3">Fund Now</a>
+                <div class="row">
+                    <div class="col">
+                        <p>{{ $data->description }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p><strong>Category:</strong> {{ $data->category->catName }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p><strong>Funding Progress:</strong> {{ $data->currAmount }} / {{ $data->targetAmount }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="progress">
+                            <div class="progress-bar show px-1" role="progressbar"
+                                style="width: {{ ($data->currAmount / $data->targetAmount) * 100 }}%;"
+                                aria-valuenow="{{ ($data->currAmount / $data->targetAmount) * 100 }}" aria-valuemin="0"
+                                aria-valuemax="100">
+                                {{ round(($data->currAmount / $data->targetAmount) * 100) }}%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <a href="" class="btn btn-secondary w-100 p-3 my-3">Share</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <form action="{{ route('process.funds') }}" method="POST">
+                            @csrf
+                            <div class="btn-group w-100" role="group" aria-label="Funding Amounts">
+                                <input type="radio" class="btn-check" name="fundAmount" id="amount1" value="10000"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary" for="amount1">Rp10.000</label>
+
+                                <input type="radio" class="btn-check" name="fundAmount" id="amount2" value="25000"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary" for="amount2">Rp25.000</label>
+
+                                <input type="radio" class="btn-check" name="fundAmount" id="amount3" value="50000"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary" for="amount3">Rp50.000</label>
+
+                                <input type="radio" class="btn-check" name="fundAmount" id="amount4" value="75000"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary" for="amount4">Rp75.000</label>
+
+                                <input type="radio" class="btn-check" name="fundAmount" id="amount5" value="100000"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary" for="amount5">Rp100.000</label>
+
+                                <input type="radio" class="btn-check" name="fundAmount" id="amount6" value="500000"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary" for="amount6">Rp500.000</label>
+                            </div>
+                            <button type="submit" id="fundNowButton"
+                                class="btn btn-success primary-background w-100 p-3 my-3" disabled>Fund Now</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -92,8 +149,8 @@
                                 <div class="col col-l col-11">
                                     <div class="row w-100">
                                         <div class="col col-1">
-                                            <img src="{{ asset('img/LogoFund4Future.png') }}" alt="" width="40"
-                                                height="40">
+                                            <img src="{{ asset('img/LogoFund4Future.png') }}" alt=""
+                                                width="40" height="40">
                                         </div>
                                         <div class="col col-l col-11">
                                             <div class="row">
@@ -117,11 +174,12 @@
                                 <div class="col col-l col-11">
                                     <div class="row w-100">
                                         <div class="col col-1">
-                                            <img src="{{ asset('img/LogoFund4Future.png') }}" alt="" width="30"
-                                                height="30">
+                                            <img src="{{ asset('img/LogoFund4Future.png') }}" alt=""
+                                                width="30" height="30">
                                         </div>
                                         <div class="col col-l col-11">
-                                            <form action="{{ route('comments.reply') }}" method="post" class="replyform">
+                                            <form action="{{ route('comments.reply') }}" method="post"
+                                                class="replyform">
                                                 @csrf
                                                 <textarea name="replyText" placeholder="Add Reply"></textarea>
                                                 <input type="hidden" name="comments_id" value="{{ $comment->id }}">

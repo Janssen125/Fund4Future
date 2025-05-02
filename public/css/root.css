@@ -13,6 +13,7 @@
 .primary-background,
 .main-container {
     background-color: var(--primary-green);
+    transition: 0.3s ease-in-out;
 }
 
 .grid-container {
@@ -91,6 +92,10 @@ button, .btn {
     flex-direction: row;
     align-items: center;
     justify-content: center;
+}
+
+.primary-background:disabled {
+    background-color: var(--primary-green-opacity);
 }
 
 

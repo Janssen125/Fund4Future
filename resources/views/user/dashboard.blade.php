@@ -106,7 +106,8 @@
                             <div class="card-body p-4">
                                 <h5 class="card-title">{{ $project->name }}</h5>
                                 <p class="card-text">{{ Str::limit($project->description, 150) }}</p>
-                                <h6>Raised</h6>
+                                <h6 class="mt-2">Raised: Rp{{ number_format($project->currAmount, 2) }} /
+                                    Rp{{ number_format($project->targetAmount, 2) }}</h6>
                                 <div class="under-card d-flex justify-content-between">
                                     <div class="progress w-60">
                                         @php
@@ -115,7 +116,7 @@
                                                     ? ($project->currAmount / $project->targetAmount) * 100
                                                     : 0;
                                         @endphp
-                                        <div class="progress-bar bg-primary-green" role="progressbar"
+                                        <div class="progress-bar bg-primary-green show px-1" role="progressbar"
                                             aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100"
                                             style="width: {{ $progress }}%;">
                                             {{ round($progress) }}%

@@ -21,4 +21,15 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
     });
+
+    const fundNowButton = document.getElementById('fundNowButton');
+    const fundAmountInputs = document.querySelectorAll('input[name="fundAmount"]');
+
+    fundAmountInputs.forEach(input => {
+        input.addEventListener('change', function () {
+            if (this.checked) {
+                fundNowButton.disabled = false;
+            }
+        });
+    });
 });

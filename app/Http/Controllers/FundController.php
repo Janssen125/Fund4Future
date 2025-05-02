@@ -143,6 +143,15 @@ class FundController extends Controller
         return view('user.partials.fund-search-item', ['data' => $results])->render();
     }
 
+    public function processFund(Request $request)
+{
+    $request->validate([
+        'fundAmount' => 'required|numeric|min:10000',
+    ]);
 
+    $fundAmount = $request->input('fundAmount');
+
+    return redirect()->back()->with('success', "You have funded Rp" . number_format($fundAmount, 2));
+}
 
 }

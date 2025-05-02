@@ -70,23 +70,26 @@
                                 {{ Auth::user()->name }}
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                <li><a class="dropdown-item" href="{{ route('profile') }}">Profile Setting</a></li>
-                                <li>
+                                <a class="dropdown-item" href="{{ route('profile') }}">
+                                    <li>Account</li>
+                                </a>
+                                <hr class="dropdown-divider">
+                                @if (Auth::user()->role == 'admin')
+                                    <a class="dropdown-item" href="{{ route('admin.index') }}">
+                                        <li>Dashboard</li>
+                                    </a>
                                     <hr class="dropdown-divider">
-                                    @if (Auth::user()->role == 'admin')
-                                <li><a class="dropdown-item" href="{{ route('admin.index') }}">Dashboard</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
+                                @endif
+                                <a class="dropdown-item" href="{{ route('logout') }}">
+                                    <li>Logout</li>
+                                </a>
+                            </ul>
+                        </div>
+                    @else
+                        <a class="btn btn-outline-success ms-lg-3" href="{{ route('login') }}">Start Funding</a>
                     @endif
-                    <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
-                    </ul>
                 </div>
-            @else
-                <a class="btn btn-outline-success ms-lg-3" href="{{ route('login') }}">Start Funding</a>
-                @endif
             </div>
-        </div>
     </nav>
 </header>
 

@@ -87,6 +87,7 @@ Route::post('/midtrans/withdraw', [MidtransController::class, 'withdraw'])->name
 
 // Custom routes
 Route::get('/search-funds', [FundController::class, 'search'])->name('search.funds');
+Route::get('/process-fund', [FundController::class, 'processFund'])->name('process.funds');
 Route::post('/comments/reply', [CommentController::class, 'reply'])->name('comments.reply');
 
 

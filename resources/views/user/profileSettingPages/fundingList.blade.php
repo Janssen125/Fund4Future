@@ -98,6 +98,7 @@
                                             </p>
                                             <a href="{{ route('fund.show', $funding->id) }}" class="btn btn-primary">View
                                                 Details</a>
+                                            <a href="#" class="btn btn-primary">Chat</a>
                                         </div>
                                     </div>
                                 </div>
