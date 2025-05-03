@@ -87,6 +87,10 @@ button, .btn {
     align-items: start;
 }
 
+.col-r {
+    align-items: end;
+}
+
 .row {
     display: flex;
     flex-direction: row;

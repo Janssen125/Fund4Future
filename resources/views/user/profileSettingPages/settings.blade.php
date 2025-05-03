@@ -74,54 +74,31 @@
                     <h1>Settings</h1>
                 </div>
             </div>
+            <hr>
             <div class="row py-3">
                 <div class="col col-l">
-                    TBA
+                    Email Notification
                 </div>
-                <div class="col col-l">
-                    The Switch
+                <div class="col col-r">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="emailNotificationSwitch">
+                        <label class="form-check-label" for="emailNotificationSwitch"></label>
+                    </div>
                 </div>
             </div>
+            <hr>
             <div class="row py-3">
                 <div class="col col-l">
-                    TBA
+                    Dark Mode
                 </div>
-                <div class="col col-l">
-                    The Switch
-                </div>
-            </div>
-            <div class="row py-3">
-                <div class="col col-l">
-                    TBA
-                </div>
-                <div class="col col-l">
-                    The Switch
+                <div class="col col-r">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="darkModeSwitch">
+                        <label class="form-check-label" for="darkModeSwitch"></label>
+                    </div>
                 </div>
             </div>
-            <div class="row py-3">
-                <div class="col col-l">
-                    TBA
-                </div>
-                <div class="col col-l">
-                    The Switch
-                </div>
-            </div>
-            <div class="row py-3">
-                <div class="col col-l">
-                    TBA
-                </div>
-                <div class="col col-l">
-                    The Switch
-                </div>
-            </div>
-            <div class="row py-3">
-                <div class="col col-l">
-                    TBA
-                </div>
-                <div class="col col-l">
-                    The Switch
-                </div>
-            </div>
+            <hr>
         </div>
     </section>
 @endsection

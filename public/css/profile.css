@@ -114,6 +114,16 @@ form > div {
     width: 100%;
 }
 
+.form-check-input[type="checkbox"] {
+    width: 2.6rem;
+    height: 1.3rem;
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-green);
+    border-color: var(--primary-green);
+}
+
 @media screen and (max-width: 1280px) {
     .customborder {
         display: none;

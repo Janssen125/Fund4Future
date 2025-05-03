@@ -132,6 +132,10 @@
                                     Us</a>
                             </li>
                             <li>
+                                <a href="{{ route('fund.index') }}"
+                                    class="text-decoration-none text-white fs-3">Funding List</a>
+                            </li>
+                            <li>
                                 <a href="{{ route('contact') }}" class="text-decoration-none text-white fs-3">Contact
                                     Us</a>
                             </li>
