@@ -5,9 +5,6 @@
 @section('cssName')
     profile
 @endsection
-@section('jsName')
-    datatables
-@endsection
 @section('content')
     <aside>
         <div class="container">
@@ -76,42 +73,53 @@
     <section class="bg-body-tertiary">
         <div class="container">
             <div class="row">
-                <div class="col col-l">
-                    <h1>Funding Transaction History</h1>
+                <div class="col col-l py-1">
+                    <h1>Top Up Balance</h1>
                 </div>
             </div>
-            <div class="row py-3">
-                <div class="col">
-                    @if ($fundHistories->isEmpty())
-                        <p>You have no transaction history yet.</p>
-                    @else
-                        <div class="w-100">
-                            <table id="dataTable" class="table table-hover align-middle show">
-                                <thead class="table-light show">
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Fund Name</th>
-                                        <th>Amount</th>
-                                        <th>Date</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($fundHistories as $index => $history)
-                                        <tr>
-                                            <td>{{ $index + 1 }}</td>
-                                            <td>{{ $history->fund->name }}</td>
-                                            <td>Rp{{ number_format($history->amount, 2) }}</td>
-                                            <td>{{ $history->created_at->format('d M Y') }}</td>
-                                            <td>
-                                                <span class="badge bg-success">Completed</span>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+            <div class="row mt-5">
+                <div class="col ">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="{{ route('midtrans.topup') }}" method="POST">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="topupAmount" class="form-label">Select Amount</label>
+                                    <div class="btn-group w-100" role="group" aria-label="Top Up Amounts">
+                                        <input type="radio" class="btn-check" name="amount" id="amount1" value="10000"
+                                            autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="amount1">Rp10.000</label>
+
+                                        <input type="radio" class="btn-check" name="amount" id="amount2" value="25000"
+                                            autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="amount2">Rp25.000</label>
+
+                                        <input type="radio" class="btn-check" name="amount" id="amount3" value="50000"
+                                            autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="amount3">Rp50.000</label>
+
+                                        <input type="radio" class="btn-check" name="amount" id="amount4" value="75000"
+                                            autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="amount4">Rp75.000</label>
+
+                                        <input type="radio" class="btn-check" name="amount" id="amount5" value="100000"
+                                            autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="amount5">Rp100.000</label>
+
+                                        <input type="radio" class="btn-check" name="amount" id="amount6" value="500000"
+                                            autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="amount6">Rp500.000</label>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="customAmount" class="form-label">Or Enter Custom Amount</label>
+                                    <input type="number" class="form-control" id="customAmount" name="customAmount"
+                                        placeholder="Enter custom amount (min: 10000)">
+                                </div>
+                                <button type="submit" class="btn btn-success primary-background w-100">Top Up</button>
+                            </form>
                         </div>
-                    @endif
+                    </div>
                 </div>
             </div>
         </div>

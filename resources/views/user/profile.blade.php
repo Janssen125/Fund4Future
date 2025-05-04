@@ -49,6 +49,9 @@
                             <a href="{{ route('profileFundingHistory') }}">
                                 <li>Funding History</li>
                             </a>
+                            <a href="{{ route('topup') }}">
+                                <li>Add Balance</li>
+                            </a>
                             <a href="{{ route('profileSettings') }}">
                                 <li>Settings</li>
                             </a>
@@ -84,8 +87,12 @@
                             </div>
                         </div>
                         <div class="row balfund">
-                            <div class="col">Balance: </div>
-                            <div class="col">Total Funded: </div>
+                            <div class="col">
+                                <div>
+                                    Balance : <b>Rp{{ number_format(Auth::user()->balance, 0, ',', '.') }}</b> <a
+                                        href="{{ route('topup') }}" class="btn btn-primary ms-2">Add Balance</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

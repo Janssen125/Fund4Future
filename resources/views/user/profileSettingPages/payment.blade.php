@@ -5,9 +5,6 @@
 @section('cssName')
     profile
 @endsection
-@section('jsName')
-    datatables
-@endsection
 @section('content')
     <aside>
         <div class="container">
@@ -73,48 +70,75 @@
             </div>
         </div>
     </aside>
-    <section class="bg-body-tertiary">
+    <section class="bg-body-tertiary py-5">
         <div class="container">
             <div class="row">
-                <div class="col col-l">
-                    <h1>Funding Transaction History</h1>
+                <div class="col col-l py-1">
+                    <h1>Payment</h1>
                 </div>
             </div>
-            <div class="row py-3">
-                <div class="col">
-                    @if ($fundHistories->isEmpty())
-                        <p>You have no transaction history yet.</p>
-                    @else
-                        <div class="w-100">
-                            <table id="dataTable" class="table table-hover align-middle show">
-                                <thead class="table-light show">
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Fund Name</th>
-                                        <th>Amount</th>
-                                        <th>Date</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($fundHistories as $index => $history)
-                                        <tr>
-                                            <td>{{ $index + 1 }}</td>
-                                            <td>{{ $history->fund->name }}</td>
-                                            <td>Rp{{ number_format($history->amount, 2) }}</td>
-                                            <td>{{ $history->created_at->format('d M Y') }}</td>
-                                            <td>
-                                                <span class="badge bg-success">Completed</span>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+
+            <div class="row mt-5">
+                <div class="col ">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <p class="">Amount to Pay</p>
+                                <p class="fw-bold">Rp{{ number_format($amount, 0, ',', '.') }}</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-muted">Click the button below to proceed with the payment.</p>
+                                <button id="pay-button" class="btn btn-success primary-background btn-lg px-5">Pay
+                                    Now</button>
+                            </div>
                         </div>
-                    @endif
+                        <div class="card-footer text-center text-muted">
+                            <small>Need help? <a href="{{ route('contact') }}" class="text-primary">Contact
+                                    Support</a></small>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>
+    <script type="text/javascript">
+        document.getElementById('pay-button').onclick = function() {
+            window.snap.pay("{{ $snapToken }}", {
+                onSuccess: function(result) {
+                    alert("Payment successful!");
+
+                    fetch("{{ route('midtrans.notification') }}", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                            },
+                            body: JSON.stringify(result)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            alert("Server Response: " + JSON.stringify(data));
+                        })
+                        .catch(error => {
+                            alert("Error sending data to server.");
+                        });
+
+                    location.href = "{{ route('profile') }}";
+
+                },
+                onPending: function(result) {
+                    alert("Waiting for payment...");
+                },
+                onError: function(result) {
+                    alert("Payment failed!");
+                },
+                onClose: function() {
+                    alert("Payment popup closed without finishing the payment.");
+                }
+            });
+        };
+    </script>
 @endsection
 {{-- Halaman untuk Profile user, user bisa lihat, preview dan edit profilenya disini --}}

@@ -21,8 +21,15 @@ class MidtransController extends Controller
     public function createTransaction(Request $request)
     {
         $request->validate([
-            'amount' => 'required|numeric|min:1' // Min Rp 1000
+            'amount' => 'nullable|numeric|min:10000',
+            'customAmount' => 'nullable|numeric|min:10000',
         ]);
+
+        $amount = $request->amount ?? $request->customAmount;
+
+        if(!$amount) {
+            return redirect()->back()->with('error', 'Please enter a valid amount.');
+        }
 
         $user = Auth::user();
 
@@ -58,13 +65,12 @@ class MidtransController extends Controller
 
         $snapToken = Snap::getSnapToken($params);
 
-        return view('test.payment', compact('snapToken'));
+        return view('user.profileSettingPages.payment', compact(['snapToken', 'amount']));
     }
 
 
     public function handleNotification(Request $request)
     {
-        // Retrieve Midtrans notification data
         $order_id = $request->input('order_id');
         $status_code = $request->input('status_code');
         $status_message = $request->input('status_message');
@@ -75,15 +81,11 @@ class MidtransController extends Controller
         $transaction_time = $request->input('transaction_time');
         $finish_redirect_url = $request->input('finish_redirect_url');
 
-        // Optionally validate the request if needed (e.g., signature verification)
-        // If you're not validating signature, skip that part
-
-        // Check if the required fields exist in the notification
         if (!$order_id || !$status_code || !$transaction_id || !$gross_amount || !$payment_type) {
             return response()->json(['message' => 'Invalid notification data'], 400);
         }
         $user_id = Auth::user()->id;
-        // Insert into the database
+
         $topUpTransaction = TopUpTransaction::create([
             'user_id' => $user_id,
             'order_id' => $order_id,
@@ -96,6 +98,15 @@ class MidtransController extends Controller
             'transaction_time' => $transaction_time,
             'finish_redirect_url' => $finish_redirect_url,
         ]);
+
+        $user = User::find($user_Id);
+        if ($user) {
+            $user->balance += $gross_amount;
+            $user->save();
+        }
+        else {
+            return response()->json(['message' => 'User not found'], 404);
+        }
 
         return response()->json(['message' => 'Notification successfully processed'], 200);
     }

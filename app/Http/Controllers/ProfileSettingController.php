@@ -25,6 +25,10 @@ class ProfileSettingController extends Controller
         return view('user.profileSettingPages.fundingHistory', compact('fundings'));
     }
 
+    public function topup() {
+        return view('user.profileSettingPages.topup');
+    }
+
     public function settings() {
         return view('user.profileSettingPages.settings');
     }

@@ -76,6 +76,7 @@ Route::resource('comments', CommentController::class);
 Route::get('/profile/fundingList', [ProfileSettingController::class, 'fundingList'])->name('profileFundingList');
 Route::get('/profile/transactionHistory', [ProfileSettingController::class, 'fundingTransactionHistory'])->name('profileTransactionHistory');
 Route::get('/profile/fundingHistory', [ProfileSettingController::class, 'fundingHistory'])->name('profileFundingHistory');
+Route::get('/profile/topup', [ProfileSettingController::class, 'topup'])->name('topup');
 Route::get('/profile/settings', [ProfileSettingController::class, 'settings'])->name('profileSettings');
 Route::get('/profile/help', [ProfileSettingController::class, 'help'])->name('profileHelp');
 
