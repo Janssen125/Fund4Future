@@ -94,7 +94,13 @@
                                                 Rp{{ number_format($funding->targetAmount, 2) }}<br>
                                                 <strong>Status:</strong>
                                                 @if ($funding->approvalStatus == 'approved')
-                                                    <span class="badge badge-success">{{ $funding->approvalStatus }}</span>
+                                                    @if ($funding->currAmount >= $funding->targetAmount)
+                                                        <span class="badge badge-success">Withdrawal in Progress (Chat to
+                                                            continue)</span>
+                                                    @else
+                                                        <span
+                                                            class="badge badge-success">{{ $funding->approvalStatus }}</span>
+                                                    @endif
                                                 @else
                                                     <span class="badge badge-warning">{{ $funding->approvalStatus }}</span>
                                                 @endif

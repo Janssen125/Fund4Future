@@ -171,6 +171,7 @@
         </div>
     </div>
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
@@ -204,8 +205,8 @@
 <script>
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
-            if (entry.isIntersecting && entry.target.classList != "show") {
-                entry.target.classList.add("show");
+            if (entry.isIntersecting && entry.target.classList != "animateshow") {
+                entry.target.classList.add("animateshow");
             }
         });
     });
@@ -230,6 +231,12 @@
     function hideNotification() {
         document.getElementById('notification').style.display = 'none';
     }
+</script>
+<script>
+    AOS.init({
+        useClassNames: true,
+        animatedClassName: 'animateshow',
+    });
 </script>
 @if (session('message'))
     <script>

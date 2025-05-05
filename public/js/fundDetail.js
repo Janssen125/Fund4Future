@@ -32,4 +32,11 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const modal = document.getElementById('fundModal');
+        modal.addEventListener('show.bs.modal', function () {
+            modal.style.zIndex = '1055'; // Ensure modal is above the backdrop
+        });
+    });
 });

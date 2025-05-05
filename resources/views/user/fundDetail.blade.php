@@ -10,6 +10,11 @@
 @endsection
 @section('content')
     <div class="container">
+        @if (session('message'))
+            <div class="alert alert-success w-100 text-success">
+                {{ session('message') }}
+            </div>
+        @endif
         <div class="row min-height-75">
             <div class="col col-6">
                 <div id="fundCarousel{{ $data->id }}" class="carousel slide" data-bs-ride="carousel">
@@ -61,13 +66,14 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <p><strong>Funding Progress:</strong> {{ $data->currAmount }} / {{ $data->targetAmount }}</p>
+                        <p><strong>Funding Progress:</strong> Rp.{{ number_format($data->currAmount, 2) }} /
+                            Rp.{{ number_format($data->targetAmount, 2) }}</p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <div class="progress">
-                            <div class="progress-bar show px-1" role="progressbar"
+                            <div class="progress-bar animateshow px-1" role="progressbar"
                                 style="width: {{ ($data->currAmount / $data->targetAmount) * 100 }}%;"
                                 aria-valuenow="{{ ($data->currAmount / $data->targetAmount) * 100 }}" aria-valuemin="0"
                                 aria-valuemax="100">
@@ -83,36 +89,43 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <form action="{{ route('process.funds') }}" method="POST">
-                            @csrf
-                            <div class="btn-group w-100" role="group" aria-label="Funding Amounts">
-                                <input type="radio" class="btn-check" name="fundAmount" id="amount1" value="10000"
-                                    autocomplete="off">
-                                <label class="btn btn-outline-primary" for="amount1">Rp10.000</label>
-
-                                <input type="radio" class="btn-check" name="fundAmount" id="amount2" value="25000"
-                                    autocomplete="off">
-                                <label class="btn btn-outline-primary" for="amount2">Rp25.000</label>
-
-                                <input type="radio" class="btn-check" name="fundAmount" id="amount3" value="50000"
-                                    autocomplete="off">
-                                <label class="btn btn-outline-primary" for="amount3">Rp50.000</label>
-
-                                <input type="radio" class="btn-check" name="fundAmount" id="amount4" value="75000"
-                                    autocomplete="off">
-                                <label class="btn btn-outline-primary" for="amount4">Rp75.000</label>
-
-                                <input type="radio" class="btn-check" name="fundAmount" id="amount5" value="100000"
-                                    autocomplete="off">
-                                <label class="btn btn-outline-primary" for="amount5">Rp100.000</label>
-
-                                <input type="radio" class="btn-check" name="fundAmount" id="amount6" value="500000"
-                                    autocomplete="off">
-                                <label class="btn btn-outline-primary" for="amount6">Rp500.000</label>
+                        @if ($data->currAmount >= $data->targetAmount)
+                            <div class="alert alert-success w-100 text-success">
+                                Fund Target FullFilled!!! Thank you for funding 🙏🙏
                             </div>
-                            <button type="submit" id="fundNowButton"
-                                class="btn btn-success primary-background w-100 p-3 my-3" disabled>Fund Now</button>
-                        </form>
+                        @else
+                            <form action="{{ route('process.funds') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="fund_id" value="{{ $data->id }}">
+                                <div class="btn-group w-100" role="group" aria-label="Funding Amounts">
+                                    <input type="radio" class="btn-check" name="fundAmount" id="amount1" value="10000"
+                                        autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="amount1">Rp10.000</label>
+
+                                    <input type="radio" class="btn-check" name="fundAmount" id="amount2" value="25000"
+                                        autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="amount2">Rp25.000</label>
+
+                                    <input type="radio" class="btn-check" name="fundAmount" id="amount3" value="50000"
+                                        autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="amount3">Rp50.000</label>
+
+                                    <input type="radio" class="btn-check" name="fundAmount" id="amount4" value="75000"
+                                        autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="amount4">Rp75.000</label>
+
+                                    <input type="radio" class="btn-check" name="fundAmount" id="amount5" value="100000"
+                                        autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="amount5">Rp100.000</label>
+
+                                    <input type="radio" class="btn-check" name="fundAmount" id="amount6"
+                                        value="500000" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="amount6">Rp500.000</label>
+                                </div>
+                                <button type="submit" id="fundNowButton"
+                                    class="btn btn-success primary-background w-100 p-3 my-3" disabled>Fund Now</button>
+                            </form>
+                        @endif
                     </div>
                 </div>
             </div>

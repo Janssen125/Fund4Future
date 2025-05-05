@@ -51,7 +51,8 @@
                                             <span
                                                 class="border border-success border-2 rounded-1 px-2">{{ $funding->category->catName }}</span>
                                             <span>Funding Progress</span>
-                                            <span>{{ $funding->currAmount }} / {{ $funding->targetAmount }}</span>
+                                            <span>Rp.{{ number_format($funding->currAmount, 2) }} /
+                                                Rp.{{ number_format($funding->targetAmount, 2) }}</span>
                                         </div>
                                         <div class="col">
                                             <a href="{{ route('fund.show', $funding->id) }}"

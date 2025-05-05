@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Fund;
 use App\Models\FundDetail;
+use App\Models\FundHistory;
 use App\Models\Comments;
 
 class FundController extends Controller
@@ -16,7 +17,7 @@ class FundController extends Controller
      */
     public function index()
     {
-        $data = Fund::with(['category', 'fundDetail'])->where('approvalStatus', 'approved')->paginate(5);
+        $data = Fund::with(['category', 'fundDetail'])->where('approvalStatus', 'approved')->whereColumn('currAmount', '<', 'targetAmount')->paginate(5);
         return view('user.fund', compact('data'));
     }
 
@@ -144,14 +145,29 @@ class FundController extends Controller
     }
 
     public function processFund(Request $request)
-{
-    $request->validate([
-        'fundAmount' => 'required|numeric|min:10000',
-    ]);
+    {
+        $request->validate([
+            'fund_id' => 'required|exists:funds,id', // Ensure fund_id exists in the funds table
+            'fundAmount' => 'required|numeric|min:10000',
+        ]);
 
-    $fundAmount = $request->input('fundAmount');
+        $fundAmount = $request->input('fundAmount');
+        $fund_id = $request->input('fund_id');
 
-    return redirect()->back()->with('success', "You have funded Rp" . number_format($fundAmount, 2));
-}
+        $fund = Fund::find($fund_id);
+
+        if ($fund) {
+            $fund->currAmount += $fundAmount;
+            $fund->save();
+
+            FundHistory::create([
+                'fund_id' => $fund_id,
+                'amount' => $fundAmount,
+                'funder_id' => auth()->id(),
+            ]);
+        }
+
+        return redirect()->back()->with('message', "You have funded Rp" . number_format($fundAmount, 2));
+    }
 
 }
