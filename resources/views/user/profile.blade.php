@@ -24,8 +24,8 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col col-l">
-                                            {{ Auth::user()->email }}
+                                        <div class="col col-l fs-7">
+                                            <i>{{ Auth::user()->email }}</i>
                                         </div>
                                     </div>
                                 </div>
