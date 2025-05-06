@@ -71,7 +71,7 @@
                                     <p class="card-text">{{ Str::limit($project->description, 150) }}</p>
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div class="progress w-75" style="height: 20px;">
-                                            <div class="progress-bar animateshow" role="progressbar"
+                                            <div class="progress-bar show" role="progressbar"
                                                 style="width: {{ ($project->currAmount * 100) / $project->targetAmount }}%;"
                                                 aria-valuenow="{{ ($project->currAmount * 100) / $project->targetAmount }}"
                                                 aria-valuemin="0" aria-valuemax="100">
@@ -116,7 +116,7 @@
                                                     ? ($project->currAmount / $project->targetAmount) * 100
                                                     : 0;
                                         @endphp
-                                        <div class="progress-bar bg-primary-green animateshow px-1" role="progressbar"
+                                        <div class="progress-bar bg-primary-green show px-1" role="progressbar"
                                             aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100"
                                             style="width: {{ $progress }}%;">
                                             {{ round($progress) }}%
