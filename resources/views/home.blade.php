@@ -14,8 +14,6 @@
                             </div>
                         @endif
 
-                        Hehe i just changed some stuff in the home.blade.php file
-
                         {{ __('You are logged in!') }}
                     </div>
                 </div>
