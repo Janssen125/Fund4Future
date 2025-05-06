@@ -14,8 +14,6 @@
                             </div>
                         @endif
 
-                        is this the new branch?
-
                         {{ __('You are logged in!') }}
                     </div>
                 </div>
