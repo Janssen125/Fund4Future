@@ -205,8 +205,8 @@
 <script>
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
-            if (entry.isIntersecting && entry.target.classList != "animateshow") {
-                entry.target.classList.add("animateshow");
+            if (entry.isIntersecting && entry.target.classList != "show") {
+                entry.target.classList.add("show");
             }
         });
     });
@@ -231,12 +231,6 @@
     function hideNotification() {
         document.getElementById('notification').style.display = 'none';
     }
-</script>
-<script>
-    AOS.init({
-        useClassNames: true,
-        animatedClassName: 'animateshow',
-    });
 </script>
 @if (session('message'))
     <script>

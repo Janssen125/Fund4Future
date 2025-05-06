@@ -73,7 +73,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="progress">
-                            <div class="progress-bar animateshow px-1" role="progressbar"
+                            <div class="progress-bar show px-1" role="progressbar"
                                 style="width: {{ ($data->currAmount / $data->targetAmount) * 100 }}%;"
                                 aria-valuenow="{{ ($data->currAmount / $data->targetAmount) * 100 }}" aria-valuemin="0"
                                 aria-valuemax="100">
