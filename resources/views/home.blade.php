@@ -15,8 +15,9 @@
                         @endif
 
                         is this the new branch?
+                        no, i just conflict this file hehehehehehehehehehehe
 
-                        {{ __('You are logged in!') }}
+                        {{ __('ConFLICKEIOHAIUDKJHAISKJDBSA') }}
                     </div>
                 </div>
             </div>
