@@ -16,6 +16,8 @@
 
                         is this the new branch?
 
+                        yes it is
+
                         {{ __('You are logged in!') }}
                     </div>
                 </div>
