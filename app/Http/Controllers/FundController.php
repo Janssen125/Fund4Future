@@ -148,13 +148,21 @@ class FundController extends Controller
     {
         $request->validate([
             'fund_id' => 'required|exists:funds,id', // Ensure fund_id exists in the funds table
-            'fundAmount' => 'required|numeric|min:10000',
+            'fundAmount' => 'nullable|numeric|min:10000',
+            'customAmount' => 'nullable|numeric|min:10000',
         ]);
 
-        $fundAmount = $request->input('fundAmount');
-        $fund_id = $request->input('fund_id');
+        $fundAmount = $request->customAmount ?? $request->fundAmount;
 
-        $fund = Fund::find($fund_id);
+        if (!$fundAmount) {
+            return redirect()->back()->with('error', 'Please select or enter a valid amount.');
+        }
+
+        if(auth()->user()->balance < $fundAmount) {
+            return redirect()->back()->with('error', 'Insufficient balance.');
+        }
+
+        $fund = Fund::find($request->fund_id);
 
         if ($fund) {
             $fund->currAmount += $fundAmount;

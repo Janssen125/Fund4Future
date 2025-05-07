@@ -200,6 +200,23 @@
                 },
             },
         });
+        const userDropdown = document.getElementById('userDropdown');
+        const dropdownMenu = document.querySelector('.dropdown-menu.dropdown-menu-end');
+
+        userDropdown.addEventListener('click', function() {
+            if (dropdownMenu.classList.contains('show')) {
+                dropdownMenu.classList.remove('show');
+            } else {
+                dropdownMenu.classList.add('show');
+            }
+        });
+
+        document.addEventListener('click', function(event) {
+            if (!userDropdown.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                dropdownMenu.classList.remove('show');
+            }
+        });
+
     });
 </script>
 <script>

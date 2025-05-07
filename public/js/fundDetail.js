@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const fundNowButton = document.getElementById('fundNowButton');
     const fundAmountInputs = document.querySelectorAll('input[name="fundAmount"]');
+    const customAmountInput = document.getElementById('customAmountInput');
 
     fundAmountInputs.forEach(input => {
         input.addEventListener('change', function () {
@@ -32,11 +33,27 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
+    customAmountInput.addEventListener('input', function () {
+        if (this.value && parseInt(this.value) >= 10000) {
+            fundNowButton.disabled = false;
+            fundAmountInputs.forEach(input => input.checked = false);
+        } else {
+            fundNowButton.disabled = true;
+        }
+    });
 
-    document.addEventListener('DOMContentLoaded', function () {
-        const modal = document.getElementById('fundModal');
-        modal.addEventListener('show.bs.modal', function () {
-            modal.style.zIndex = '1055'; // Ensure modal is above the backdrop
+    const shareButton = document.getElementById('shareButton');
+    const linkToCopy = shareButton.getAttribute('data-link');
+
+    shareButton.addEventListener('click', function () {
+        navigator.clipboard.writeText(linkToCopy).then(() => {
+            shareButton.textContent = "Copied to clipboard!";
+
+            setTimeout(() => {
+                shareButton.textContent = "Share";
+            }, 2000);
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
         });
     });
 });

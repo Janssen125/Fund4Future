@@ -14,6 +14,10 @@
             <div class="alert alert-success w-100 text-success">
                 {{ session('message') }}
             </div>
+        @elseif (session('error'))
+            <div class="alert alert-danger w-100 text-danger">
+                {{ session('error') }}
+            </div>
         @endif
         <div class="row min-height-75">
             <div class="col col-6">
@@ -84,7 +88,8 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <a href="" class="btn btn-secondary w-100 p-3 my-3">Share</a>
+                        <button id="shareButton" class="btn btn-secondary w-100 p-3 my-3"
+                            data-link="{{ url()->current() }}">Share</button>
                     </div>
                 </div>
                 <div class="row">
@@ -114,13 +119,18 @@
                                         autocomplete="off">
                                     <label class="btn btn-outline-primary" for="amount4">Rp75.000</label>
 
-                                    <input type="radio" class="btn-check" name="fundAmount" id="amount5" value="100000"
-                                        autocomplete="off">
+                                    <input type="radio" class="btn-check" name="fundAmount" id="amount5"
+                                        value="100000" autocomplete="off">
                                     <label class="btn btn-outline-primary" for="amount5">Rp100.000</label>
 
                                     <input type="radio" class="btn-check" name="fundAmount" id="amount6"
                                         value="500000" autocomplete="off">
                                     <label class="btn btn-outline-primary" for="amount6">Rp500.000</label>
+                                </div>
+                                <div class="mt-3">
+                                    <label for="customAmount" class="form-label">Or Enter Custom Amount</label>
+                                    <input type="number" class="form-control" id="customAmount" name="customAmount"
+                                        placeholder="Enter custom amount ( min: Rp10.000 )">
                                 </div>
                                 <button type="submit" id="fundNowButton"
                                     class="btn btn-success primary-background w-100 p-3 my-3" disabled>Fund Now</button>
