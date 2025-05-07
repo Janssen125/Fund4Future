@@ -51,3 +51,7 @@ a{
     justify-content: center;
     align-items: center;
 }
+
+.notification-box{
+    background-color: black;
+}

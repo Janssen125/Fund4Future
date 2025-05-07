@@ -1,0 +1,7 @@
+.deleteOption {
+    display: none;
+}
+
+.deleteOption.active {
+    display: block;
+}
