@@ -1,0 +1,10 @@
+@extends('layouts.admin')
+@section('title')
+    Dashboard
+@endsection
+@section('cssName')
+admindashboard
+@endsection
+@section('jsName')
+admin/navbar
+@endsection

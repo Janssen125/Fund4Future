@@ -67,7 +67,7 @@
             </li>
             <li>
                 <div class="link-container">
-                    <a href="">Notifications</a>
+                    <a href="{{ route('admin.notification') }}">Notifications</a>
                 </div>
             </li>
             <li>
@@ -77,7 +77,7 @@
             </li>
             <li>
                 <div class="link-container">
-                    <a href="">Activity Log</a>
+                    <a href="{{ route('admin.activity') }}">Activity Log</a>
                 </div>
             </li>
             <li>
