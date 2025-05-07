@@ -5,13 +5,16 @@
 @section('cssName')
 admindashboard
 @endsection
+@section('jsName')
+admin/navbar
+@endsection
 @section('content')
 <section class="dashboard-section dvh-150">
     <div class="dashboard-text">
         <h1 class="p-5">Admin Dashboard</h1>
     </div>
     <div class="funding-list-section d-flex mx-5 gap-5">
-        <div class="funding-list w-75 bg-light rounded-3">
+        <div class="funding-list w-75 bg-light rounded-3 card">
             <div class="funding-list-box m-4">
                 <div class="funding-list-text">
                     <h3>Request Funding List</h2>
@@ -68,16 +71,16 @@ admindashboard
                 </div>
             </div>
         </div>
-        <div class="notification-list bg-light rounded-3">
-            <div class="notification-box">
+        <div class="notification-list bg-light rounded-3 card w-25">
+            <div class="notification-box d-flex justify-content-center">
                 <div class="notification-list-text">
-                    <h2>Notification</h2>
+                    <h2 class="my-4">Notification</h2>
                 </div>
             </div>
         </div>
     </div>
     <div class="convertfunding-section d-flex mx-5 my-5 gap-5">
-        <div class="convertfunding-list w-75 bg-light rounded-3">
+        <div class="convertfunding-list w-75 bg-light rounded-3 card">
             <div class="convertfunding-list-box m-4">
                 <div class="convertfunding-list-text">
                     <h3>Request Convert Funding</h2>
@@ -161,10 +164,10 @@ admindashboard
                 </div>
             </div>
         </div>
-        <div class="notification-list bg-light rounded-3">
-            <div class="notification-box">
+        <div class="notification-list bg-light rounded-3 card w-25">
+            <div class="notification-box d-flex justify-content-center">
                 <div class="notification-list-text">
-                    <h2>Activity Log</h2>
+                    <h2 class="my-4">Activity Log</h2>
                 </div>
             </div>
         </div>

@@ -48,11 +48,51 @@
             </div>
         </div>
     </nav>
+    <nav class="off-screen-nav">
+        <ul>
+            <li>
+                <div class="link-container">
+                    <a href="">Dashboard</a>
+                </div>
+            </li>
+            <li>
+                <div class="link-container">
+                    <a href="">Ticketing System</a>
+                </div>
+            </li>
+            <li>
+                <div class="link-container">
+                    <a href="">Edit Profile</a>
+                </div>
+            </li>
+            <li>
+                <div class="link-container">
+                    <a href="">Notifications</a>
+                </div>
+            </li>
+            <li>
+                <div class="link-container">
+                    <a href="">Mail</a>
+                </div>
+            </li>
+            <li>
+                <div class="link-container">
+                    <a href="">Activity Log</a>
+                </div>
+            </li>
+            <li>
+                <div class="link-container">
+                    <a href="">Settings</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
 </header>
 
 <body>
     @yield('content')
 </body>
-
+<script src="{{ asset('js/' . (View::hasSection('jsName') ? trim(View::yieldContent('jsName')) : '') . '.js') }}">
+</script>
 </html>
 {{-- Ini buat templatenya administrator page (tampilannya staff dan admin) --}}
