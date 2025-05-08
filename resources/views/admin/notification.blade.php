@@ -19,7 +19,7 @@ admin/deleteNotification
             </div> 
             <!-- Cards -->
             <div class="my-card card my-4 d-flex flex-row align-items-center" style="width: 60rem;">
-                <button class="deleteOption">Delete</button>
+                <button type="button" class=" deleteOption btn btn-danger">Delete</button>
                 <div class="ms-5">
                     <img src="" alt="">
                 </div>
@@ -40,7 +40,50 @@ admin/deleteNotification
                     </div>
                 </div>
             </div>
-            
+            <div class="my-card card my-4 d-flex flex-row align-items-center" style="width: 60rem;">
+                <button type="button" class=" deleteOption btn btn-danger">Delete</button>
+                <div class="ms-5">
+                    <img src="" alt="">
+                </div>
+                <div class="card-body d-flex justify-content-around align-items-center">  
+                    <div class="admin-identity">
+                        <h5 class="admin-name">Admin123</h5>
+                        <p>Administrator</p>
+                    </div>                  
+                    <div class="title-container">
+                        <p class="title">This is title</p>
+                    </div>
+                    <div class="details-container">
+                        <p class="detail">This is details</p>
+                    </div>
+                    <div class="date-time">
+                        <p class="date">April 21, 2023</p>
+                        <p class="time">10:12 AM</p>
+                    </div>
+                </div>
+            </div>
+            <div class="my-card card my-4 d-flex flex-row align-items-center" style="width: 60rem;">
+                <button type="button" class=" deleteOption btn btn-danger">Delete</button>
+                <div class="ms-5">
+                    <img src="" alt="">
+                </div>
+                <div class="card-body d-flex justify-content-around align-items-center">  
+                    <div class="admin-identity">
+                        <h5 class="admin-name">Admin123</h5>
+                        <p>Administrator</p>
+                    </div>                  
+                    <div class="title-container">
+                        <p class="title">This is title</p>
+                    </div>
+                    <div class="details-container">
+                        <p class="detail">This is details</p>
+                    </div>
+                    <div class="date-time">
+                        <p class="date">April 21, 2023</p>
+                        <p class="time">10:12 AM</p>
+                    </div>
+                </div>
+            </div>
             
             
              <div class="pagination d-flex justify-content-center">

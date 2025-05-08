@@ -3,5 +3,6 @@
 }
 
 .deleteOption.active {
+    margin-left: 40px;
     display: block;
 }

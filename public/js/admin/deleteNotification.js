@@ -1,5 +1,24 @@
+const hamburger = document.querySelector(".burger-icon");
+const menu = document.querySelector(".off-screen-nav");
+hamburger.addEventListener("click", () => {
+    console.log("Tes");
+    // hamburger.classList.toggle('active');
+    menu.classList.toggle("active");
+});
+
 const deleteBtn = document.querySelector(".delete-btn");
-const deleteOption = document.querySelector(".deleteOption");
+const deleteOption = document.getElementsByClassName("deleteOption");
 deleteBtn.addEventListener("click", () => {
-    deleteOption.classList.toggle("active");
+    for(let i = 0; i < deleteOption.length; i++){
+        deleteOption[i].classList.toggle("active");
+        console.log(deleteOption[i]);
+    }
+});
+
+// Add event listeners to each deleteOption button
+Array.from(deleteOption).forEach((button) => {
+    button.addEventListener("click", (event) => {
+        const card = button.closest(".my-card"); // Find the closest parent with the class 'my-card'
+        card.remove(); // Remove the card element
+    });
 });
