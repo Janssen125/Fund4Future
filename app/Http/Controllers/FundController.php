@@ -158,9 +158,14 @@ class FundController extends Controller
             return redirect()->back()->with('error', 'Please select or enter a valid amount.');
         }
 
-        if(auth()->user()->balance < $fundAmount) {
+        $user = auth()->user();
+
+        if($user->balance < $fundAmount) {
             return redirect()->back()->with('error', 'Insufficient balance.');
         }
+
+        $user->balance -= $fundAmount;
+        $user->save();
 
         $fund = Fund::find($request->fund_id);
 

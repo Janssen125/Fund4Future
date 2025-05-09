@@ -9,6 +9,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\MidtransController;
 use App\Http\Controllers\ProfileSettingController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -29,7 +30,9 @@ Route::get('/', function () {
     return redirect()->route('home');
 });
 
-Auth::routes(['verify' => true]);
+Auth::routes(['verify' => true, 'reset' => true]);
+
+Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 Route::get('/admin', function () {
     return view('admin.dashboard');
