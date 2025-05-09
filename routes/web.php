@@ -34,10 +34,6 @@ Auth::routes(['verify' => true, 'reset' => true]);
 
 Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
-Route::get('/admin', function () {
-    return view('admin.dashboard');
-})->middleware('auth');
-
 Route::middleware(['auth', 'verified'])->get('/emailverifiedsuccess', function () {
     return view('/');
 })->name('emailverifiedsuccess');
@@ -66,6 +62,12 @@ Route::get('/about', [App\Http\Controllers\HomeController::class, 'about'])->nam
 Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
 Route::get('/contact', [App\Http\Controllers\HomeController::class, 'contact'])->name('contact')->middleware('auth');
 Route::get('/logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('logout');
+
+// Admin Route
+Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.home')->middleware('auth');
+Route::get('/activity', [App\Http\Controllers\AdminController::class, 'activity'])->name('admin.activity')->middleware('auth');
+Route::get('/notification', [App\Http\Controllers\AdminController::class, 'notification'])->name('admin.notification')->middleware('auth');
+
 
 // CRUD routes
 Route::resource('category', CategoryController::class);

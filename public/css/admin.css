@@ -1,4 +1,4 @@
-section{
+section {
     overflow-x: hidden;
 }
 header {
@@ -11,7 +11,44 @@ header {
     width: 2rem;
 }
 
-.dashboard-section{
-    background-color: #00A9A5;
-    
+.dashboard-section {
+    background-color: snow;
 }
+
+.off-screen-nav {
+    background-color: #00A9A5;
+    height: 95vh;
+    width: 30%;
+    position: fixed;
+    top: 10;
+    left: -450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    transition: 0.3s ease;
+}
+
+.off-screen-nav.active {
+    left: -50px;
+}
+
+li {
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+.link-container {
+    background-color: #cceeed;
+    padding: 15px;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+

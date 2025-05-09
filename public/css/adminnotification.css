@@ -1,0 +1,8 @@
+.deleteOption {
+    display: none;
+}
+
+.deleteOption.active {
+    margin-left: 40px;
+    display: block;
+}
