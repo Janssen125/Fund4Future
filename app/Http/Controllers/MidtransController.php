@@ -7,6 +7,8 @@ use Midtrans\Snap;
 use App\Models\TopUpTransaction;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class MidtransController extends Controller
 {
@@ -99,7 +101,7 @@ class MidtransController extends Controller
             'finish_redirect_url' => $finish_redirect_url,
         ]);
 
-        $user = User::find($user_Id);
+        $user = User::find($user_id);
         if ($user) {
             $user->balance += $gross_amount;
             $user->save();
@@ -108,7 +110,7 @@ class MidtransController extends Controller
             return response()->json(['message' => 'User not found'], 404);
         }
 
-        return response()->json(['message' => 'Notification successfully processed'], 200);
+        return response()->json(['message' => 'Balance Succesfully Updated!!'], 200);
     }
 
 

@@ -57,6 +57,11 @@ form > div {
     flex-direction: column;
 }
 
+a {
+    text-decoration: none;
+    color: black;
+}
+
 .balfund > div {
     text-wrap: nowrap;
 }

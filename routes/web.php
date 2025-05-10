@@ -84,6 +84,9 @@ Route::get('/profile/transactionHistory', [ProfileSettingController::class, 'fun
 Route::get('/profile/fundingHistory', [ProfileSettingController::class, 'fundingHistory'])->name('profileFundingHistory');
 Route::get('/profile/topup', [ProfileSettingController::class, 'topup'])->name('topup');
 Route::get('/profile/settings', [ProfileSettingController::class, 'settings'])->name('profileSettings');
+Route::get('/profile/verifyProfile', [ProfileSettingController::class, 'advancedData'])->name('verifyProfile');
+Route::post('/profile/verifyProcess', [ProfileSettingController::class, 'saveNikAndKtp'])->name('saveNikAndKtp');
+Route::put('/profile/updateName', [ProfileSettingController::class, 'updateName'])->name('updateName');
 Route::get('/profile/help', [ProfileSettingController::class, 'help'])->name('profileHelp');
 
 // Midtrans routes

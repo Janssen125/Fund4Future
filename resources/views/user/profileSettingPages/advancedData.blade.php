@@ -5,6 +5,9 @@
 @section('cssName')
     profile
 @endsection
+@section('jsName')
+    advancedData
+@endsection
 @section('content')
     <aside>
         <div class="container">
@@ -72,67 +75,51 @@
     </aside>
     <section class="bg-body-tertiary">
         <div class="container">
-            <div class="row pb-5">
-                <div class="col col-l">
-                    <h1>Settings</h1>
+            <div class="row">
+                <div class="col col-l py-1">
+                    <h1>Verify Your Account</h1>
                 </div>
             </div>
-            <hr>
-            <div class="row py-3">
-                <div class="col col-l">
-                    Email Notification
-                </div>
-                <div class="col col-r">
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="emailNotificationSwitch">
-                        <label class="form-check-label" for="emailNotificationSwitch"></label>
+            <div class="row listRow">
+                <div class="col">
+                    <div class="row">
+                        <div class="col col-l">
+                            <p>To verify your account, please upload a photo of your ID card (KTP) and a selfie with your
+                                ID card.</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-l">
+                            <form action="{{ route('saveNikAndKtp') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="nik" class="form-label">NIK</label>
+                                    <input type="text" class="form-control" id="nik" name="nik"
+                                        value="{{ old('nik', auth()->user()->nik) }}" maxlength="16" required>
+                                    @error('nik')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ktp_img" class="form-label">Upload KTP (Image or PDF)</label>
+                                    <input type="file" class="form-control" id="ktp_img" name="ktp_img" required>
+                                    @error('ktp_img')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <!-- Preview Section -->
+                                <div class="mb-3" id="previewSection" style="display: none;">
+                                    <h5>Preview:</h5>
+                                    <div id="previewContent"></div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-            <hr>
-            <div class="row py-3">
-                <div class="col col-l">
-                    @if (Auth::user()->email_verified_at)
-                        <span class="text-success">Your email is verified</span>
-                    @else
-                        <span class="text-danger">Your email is not verified</span>
-                        <a href="{{ route('verification.notice') }}">Verify Your Email</a>
-                    @endif
-                </div>
-                <div class="col col-r">
-                    {{ Auth::user()->email }}
-                </div>
-            </div>
-            <hr>
-            <div class="row py-3">
-                <div class="col col-l">
-                    @if (Auth::user()->nik)
-                        <span class="text-success">Your profile is verified</span>
-                    @else
-                        <div class="row w-50 pb-4">
-                            <div class="col">
-                                <span class="text-danger">Your profile is not verified</span>
-                            </div>
-                            <div class="col">
-                                <a href="{{ route('verifyProfile') }}" class="btn btn-primary">Verify Your Profile
-                                    Here</a>
-                            </div>
-                    @endif
-                </div>
-            </div>
-            <hr>
-            <div class="row py-3">
-                <div class="col col-l">
-                    Dark Mode
-                </div>
-                <div class="col col-r">
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="darkModeSwitch">
-                        <label class="form-check-label" for="darkModeSwitch"></label>
-                    </div>
-                </div>
-            </div>
-            <hr>
         </div>
     </section>
 @endsection
