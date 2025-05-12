@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->date('dob');
             $table->enum('role', ['admin', 'user', 'staff'])->default('user');
             $table->bigInteger('balance')->default(0);
+            $table->string('userImg')->nullable();
             $table->bigInteger('nik')->nullable();
             $table->string('ktpImg')->nullable();
             $table->rememberToken();
@@ -36,6 +37,7 @@ class CreateUsersTable extends Migration
             'dob' => '2001-01-01',
             'role' => 'admin',
             'balance' => 1000000,
+            'userImg' => 'AssetAdmin.png',
             'created_at' => now(),
             'updated_at' => now(),
         ],[
@@ -46,6 +48,7 @@ class CreateUsersTable extends Migration
             'dob' => '2001-01-01',
             'role' => 'user',
             'balance' => 1000000,
+            'userImg' => 'AssetUser.png',
             'created_at' => now(),
             'updated_at' => now(),
         ]]);

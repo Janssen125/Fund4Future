@@ -14,7 +14,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col">
-                                    <img src="{{ asset('img/LogoFund4Future.png') }}" alt="profile picture" width=60
+                                    <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="profile picture" width=60
                                         height=60>
                                 </div>
                                 <div class="col col-l">

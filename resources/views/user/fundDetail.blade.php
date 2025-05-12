@@ -39,12 +39,12 @@
                     </div>
 
                     @if ($data->fundDetail->count() > 1)
-                        <button class="carousel-control-prev" type="button"
+                        <button class="carousel-control-prev custom-carousel-btn" type="button"
                             data-bs-target="#fundCarousel{{ $data->id }}" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
-                        <button class="carousel-control-next" type="button"
+                        <button class="carousel-control-next custom-carousel-btn" type="button"
                             data-bs-target="#fundCarousel{{ $data->id }}" data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
@@ -99,42 +99,49 @@
                                 Fund Target FullFilled!!! Thank you for funding 🙏🙏
                             </div>
                         @else
-                            <form action="{{ route('process.funds') }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="fund_id" value="{{ $data->id }}">
-                                <div class="btn-group w-100" role="group" aria-label="Funding Amounts">
-                                    <input type="radio" class="btn-check" name="fundAmount" id="amount1" value="10000"
-                                        autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="amount1">Rp10.000</label>
-
-                                    <input type="radio" class="btn-check" name="fundAmount" id="amount2" value="25000"
-                                        autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="amount2">Rp25.000</label>
-
-                                    <input type="radio" class="btn-check" name="fundAmount" id="amount3" value="50000"
-                                        autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="amount3">Rp50.000</label>
-
-                                    <input type="radio" class="btn-check" name="fundAmount" id="amount4" value="75000"
-                                        autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="amount4">Rp75.000</label>
-
-                                    <input type="radio" class="btn-check" name="fundAmount" id="amount5"
-                                        value="100000" autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="amount5">Rp100.000</label>
-
-                                    <input type="radio" class="btn-check" name="fundAmount" id="amount6"
-                                        value="500000" autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="amount6">Rp500.000</label>
+                            @if (auth()->guest())
+                                <div class="alert alert-danger w-100 text-danger">
+                                    You need to login to fund this project
                                 </div>
-                                <div class="mt-3">
-                                    <label for="customAmount" class="form-label">Or Enter Custom Amount</label>
-                                    <input type="number" class="form-control" id="customAmount" name="customAmount"
-                                        placeholder="Enter custom amount ( min: Rp10.000 )">
-                                </div>
-                                <button type="submit" id="fundNowButton"
-                                    class="btn btn-success primary-background w-100 p-3 my-3" disabled>Fund Now</button>
-                            </form>
+                            @else
+                                <form action="{{ route('process.funds') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="fund_id" value="{{ $data->id }}">
+                                    <div class="btn-group w-100" role="group" aria-label="Funding Amounts">
+                                        <input type="radio" class="btn-check" name="fundAmount" id="amount1"
+                                            value="10000" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="amount1">Rp10.000</label>
+
+                                        <input type="radio" class="btn-check" name="fundAmount" id="amount2"
+                                            value="25000" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="amount2">Rp25.000</label>
+
+                                        <input type="radio" class="btn-check" name="fundAmount" id="amount3"
+                                            value="50000" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="amount3">Rp50.000</label>
+
+                                        <input type="radio" class="btn-check" name="fundAmount" id="amount4"
+                                            value="75000" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="amount4">Rp75.000</label>
+
+                                        <input type="radio" class="btn-check" name="fundAmount" id="amount5"
+                                            value="100000" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="amount5">Rp100.000</label>
+
+                                        <input type="radio" class="btn-check" name="fundAmount" id="amount6"
+                                            value="500000" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="amount6">Rp500.000</label>
+                                    </div>
+                                    <div class="mt-3">
+                                        <label for="customAmount" class="form-label">Or Enter Custom Amount</label>
+                                        <input type="number" class="form-control" id="customAmount" name="customAmount"
+                                            placeholder="Enter custom amount ( min: Rp10.000 )">
+                                    </div>
+                                    <button type="submit" id="fundNowButton"
+                                        class="btn btn-success primary-background w-100 p-3 my-3" disabled>Fund
+                                        Now</button>
+                                </form>
+                            @endif
                         @endif
                     </div>
                 </div>
@@ -150,8 +157,8 @@
                     @foreach ($data->comment as $comment)
                         <div class="row">
                             <div class="col col-1">
-                                <img src="{{ asset('img/LogoFund4Future.png') }}" alt="" width="40"
-                                    height="40">
+                                <img src="{{ asset('img/' . $comment->user->userImg) }}" alt="User Image"
+                                    class="img-fluid">
                             </div>
                             <div class="col col-l col-11">
                                 <div class="row">
@@ -167,13 +174,13 @@
                             </div>
                         </div>
                         @foreach ($comment->reply as $reply)
-                            <div class="row">
+                            <div class="row py-2">
                                 <div class="col col-1"></div>
                                 <div class="col col-l col-11">
                                     <div class="row w-100">
                                         <div class="col col-1">
-                                            <img src="{{ asset('img/LogoFund4Future.png') }}" alt=""
-                                                width="40" height="40">
+                                            <img src="{{ asset('img/' . $reply->user->userImg) }}" alt="User Image"
+                                                class="img-fluid">
                                         </div>
                                         <div class="col col-l col-11">
                                             <div class="row">
@@ -197,8 +204,8 @@
                                 <div class="col col-l col-11">
                                     <div class="row w-100">
                                         <div class="col col-1">
-                                            <img src="{{ asset('img/LogoFund4Future.png') }}" alt=""
-                                                width="30" height="30">
+                                            <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt=""
+                                                class="img-fluid">
                                         </div>
                                         <div class="col col-l col-11">
                                             <form action="{{ route('comments.reply') }}" method="post"
@@ -220,7 +227,8 @@
                         <div class="row">
                             <div class="col col-1"></div>
                             <div class="col col-11">
-                                <a href="{{ route('login') }}">Please login to add a comment</a>
+                                <a href="{{ route('login') }}" class="btn btn-primary primary-background">Please login to
+                                    add a comment</a>
                             </div>
                         </div>
                     @else
@@ -233,8 +241,8 @@
                             <div class="col col-11">
                                 <div class="row w-100">
                                     <div class="col col-1">
-                                        <img src="{{ asset('img/LogoFund4Future.png') }}" alt="" width="40"
-                                            height="40">
+                                        <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt=""
+                                            class="img-fluid">
                                     </div>
                                     <div class="col col-l col-11">
                                         <form action="{{ route('comments.store') }}" method="post" class="commentform">

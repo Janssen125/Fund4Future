@@ -14,7 +14,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col">
-                                    <img src="{{ asset('img/LogoFund4Future.png') }}" alt="profile picture" width=60
+                                    <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="profile picture" width=60
                                         height=60>
                                 </div>
                                 <div class="col col-l">
@@ -82,8 +82,8 @@
                     <div class="profiletop">
                         <div class="row">
                             <div class="col">
-                                <img src="{{ asset('img/LogoFund4Future.png') }}" alt="profile picture" width=100
-                                    height=100>
+                                <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="" width="100"
+                                    height="100">
                             </div>
                         </div>
                         <div class="row balfund">

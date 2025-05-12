@@ -88,6 +88,17 @@ input[type=search] {
     border: none;
 }
 
+.custom-carousel-btn {
+    height: 50px !important;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    height: 20px !important;
+    width: 20px !important;
+}
 
 @media screen and (max-width: 960px)  {
     .datarow {
