@@ -57,7 +57,7 @@
             </li>
             <li>
                 <div class="link-container">
-                    <a href="">Ticketing System</a>
+                    <a href="{{ route('admin.ticketing') }}">Ticketing System</a>
                 </div>
             </li>
             <li>

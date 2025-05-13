@@ -17,4 +17,8 @@ class AdminController extends Controller
     public function notification() {
         return view('admin.notification');
     }
+
+    public function ticketing() {
+        return view('admin.ticketing');
+    }
 }
