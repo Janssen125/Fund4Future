@@ -5,6 +5,9 @@
 @section('cssName')
     profile
 @endsection
+@section('jsName')
+    profile
+@endsection
 @section('content')
     <aside>
         <div class="container">
@@ -14,8 +17,13 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col">
-                                    <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="profile picture" width=60
-                                        height=60>
+                                    @if (auth()->user()->userImg == null)
+                                        <img src="{{ asset('img/AssetUser.png') }}" alt="profile picture" width="60"
+                                            height="60">
+                                    @else
+                                        <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="profile picture"
+                                            width=60 height=60>
+                                    @endif
                                 </div>
                                 <div class="col col-l">
                                     <div class="row">
@@ -82,8 +90,13 @@
                     <div class="profiletop">
                         <div class="row">
                             <div class="col">
-                                <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="" width="100"
-                                    height="100">
+                                @if (auth()->user()->userImg == null)
+                                    <img src="{{ asset('img/AssetUser.png') }}" alt="profile picture" width="100"
+                                        height="100">
+                                @else
+                                    <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="profile picture"
+                                        width=100 height=100>
+                                @endif
                             </div>
                         </div>
                         <div class="row balfund">
@@ -99,14 +112,32 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <form action="{{ route('updateName') }}" method="POST">
+                    <form action="{{ route('updateName') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
+
+                        <div class="mb-3 text-center">
+                            <label for="profile_picture" class="form-label">Profile Picture</label>
+                            <div class="mb-3">
+                                <img src="{{ asset('img/' . Auth::user()->userImg) }}" alt="Profile Picture"
+                                    class="img-thumbnail" style="max-width: 150px;">
+                            </div>
+                            <input type="file" class="form-control" id="profile_picture" name="profile_picture">
+                            @error('profile_picture')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
                             <input type="text" class="form-control" id="name" name="name"
                                 value="{{ Auth::user()->name }}">
                         </div>
+
+                        <div id="saveReminder" class="alert alert-warning d-none">
+                            You have unsaved changes. Please click "Update Profile" to save them.
+                        </div>
+
                         <button type="submit" class="btn btn-primary">Update Profile</button>
                     </form>
                 </div>

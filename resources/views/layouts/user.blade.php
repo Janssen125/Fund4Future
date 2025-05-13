@@ -32,7 +32,9 @@
                     <a class="navbar-brand" href="{{ route('home') }}">
                         @if (auth()->guest())
                             <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Bootstrap" width="45"
-                                height="50">
+                                height="45">
+                        @elseif(auth()->user()->userImg == null)
+                            <img src="{{ asset('img/AssetUser.png') }}" alt="Bootstrap" width="45" height="45">
                         @else
                             <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="" width="45"
                                 height="45">

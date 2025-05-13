@@ -32,6 +32,36 @@
                 @enderror
             </div>
             <div class="mb-3">
+                <label for="nohp" class="form-label">Phone Number</label>
+                <input type="text" class="form-control @error('nohp') is-invalid @enderror" name="nohp" id="nohp"
+                    value="{{ old('nohp') }}">
+                @error('nohp')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <label for="jk" class="form-label">Jenis Kelamin</label>
+                <div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input @error('jk') is-invalid @enderror" type="radio" name="jk"
+                            id="pria" value="pria" {{ old('jk') == 'pria' ? 'checked' : '' }}>
+                        <label class="form-check-label" for="pria">Pria</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input @error('jk') is-invalid @enderror" type="radio" name="jk"
+                            id="wanita" value="wanita" {{ old('jk') == 'wanita' ? 'checked' : '' }}>
+                        <label class="form-check-label" for="wanita">Wanita</label>
+                    </div>
+                    @error('jk')
+                        <span class="invalid-feedback d-block" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+            <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control @error('password') is-invalid @enderror" name="password"
                     id="password">

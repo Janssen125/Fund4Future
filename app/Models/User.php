@@ -24,7 +24,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'dob',
         'role',
         'nik',
-        'ktpImg'
+        'ktpImg',
+        'userImg',
+        'nohp',
+        'jk',
     ];
 
     /**

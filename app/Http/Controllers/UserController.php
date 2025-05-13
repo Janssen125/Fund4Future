@@ -42,22 +42,25 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'username' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
+            'nohp' => 'required|string|max:15|regex:/^[0-9]+$/',
+            'jk' => 'required|in:pria,wanita',
             'password' => 'required|string|min:8|confirmed',
-            'dob' => 'required|date|before_or_equal:' . now()->format('Y-m-d'),
+            'dob' => 'required|date|before_or_equal:' . now()->subYears(18)->format('Y-m-d'),
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        // Create the user
         $user = User::create([
             'name' => $request->username,
             'email' => $request->email,
+            'nohp' => $request->nohp,
+            'jk' => $request->jk,
+            'dob' => $request->dob,
             'email_verified_at' => now(),
             'password' => Hash::make($request->password),
-            'role' => 'user',
-            'dob' => $request->dob,
-            'balance' => 0,
         ]);
 
         Auth::login($user);

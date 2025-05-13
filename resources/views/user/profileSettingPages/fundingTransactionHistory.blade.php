@@ -17,8 +17,13 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col">
-                                    <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="profile picture" width=60
-                                        height=60>
+                                    @if (auth()->user()->userImg == null)
+                                        <img src="{{ asset('img/AssetUser.png') }}" alt="profile picture" width="60"
+                                            height="60">
+                                    @else
+                                        <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="profile picture"
+                                            width=60 height=60>
+                                    @endif
                                 </div>
                                 <div class="col col-l">
                                     <div class="row">
