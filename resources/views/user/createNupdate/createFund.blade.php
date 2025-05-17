@@ -1,6 +1,6 @@
 @extends('layouts.user')
 @section('title')
-    Profile
+    Create Fund
 @endsection
 @section('cssName')
     profile
@@ -78,57 +78,68 @@
     <section class="bg-body-tertiary">
         <div class="container">
             <div class="row">
-                <div class="col col-l py-1">
-                    <h1>Funding List</h1>
-                </div>
-                <div class="col col-r">
-                    <div class="row">
-                        <div class="col col-r">
-                            <a href="{{ route('profile.createFund') }}" class="btn btn-primary">Create Fund</a>
-                        </div>
-                    </div>
+                <div class="col col-l">
+                    <h1>Create Fund</h1>
                 </div>
             </div>
-            <div class="row listRow">
+            <div class="row">
                 <div class="col">
-                    @if ($fundings->isEmpty())
-                        <p>You have not created any funds yet.</p>
-                    @else
-                        <div class="row justify-content-start">
-                            @foreach ($fundings as $funding)
-                                <div class="col-md-4 mb-4 align-items-start">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{ $funding->name }}</h5>
-                                            <p class="card-text">
-                                                <strong>Funding ID:</strong> {{ $funding->id }}<br>
-                                                <strong>Amount:</strong> Rp{{ number_format($funding->currAmount, 2) }} /
-                                                Rp{{ number_format($funding->targetAmount, 2) }}<br>
-                                                <strong>Status:</strong>
-                                                @if ($funding->approvalStatus == 'approved')
-                                                    @if ($funding->currAmount >= $funding->targetAmount)
-                                                        <span class="badge badge-success">Withdrawal in Progress (Chat to
-                                                            continue)</span>
-                                                    @else
-                                                        <span
-                                                            class="badge badge-success">{{ $funding->approvalStatus }}</span>
-                                                    @endif
-                                                @else
-                                                    <span class="badge badge-warning">{{ $funding->approvalStatus }}</span>
-                                                @endif
-                                            </p>
-                                            <a href="{{ route('fund.show', $funding->id) }}" class="btn btn-primary">View
-                                                Details</a>
-                                            <a href="{{ route('chat') }}" class="btn btn-primary">Chat</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
+                    <form action="{{ route('fund.store') }}" method="POST">
+                        @csrf
+
+                        <!-- Fund Name -->
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Fund Name</label>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
+                                name="name" value="{{ old('name') }}" required>
+                            @error('name')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
-                    @endif
+
+                        <!-- Description -->
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description"
+                                rows="4" required>{{ old('description') }}</textarea>
+                            @error('description')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- Category -->
+                        <div class="mb-3">
+                            <label for="category_id" class="form-label">Category</label>
+                            <select class="form-select @error('category_id') is-invalid @enderror" id="category_id"
+                                name="category_id" required>
+                                <option value="" disabled selected>Select a category</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}"
+                                        {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('category_id')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- Target Amount -->
+                        <div class="mb-3">
+                            <label for="targetAmount" class="form-label">Target Amount</label>
+                            <input type="number" class="form-control @error('targetAmount') is-invalid @enderror"
+                                id="targetAmount" name="targetAmount" value="{{ old('targetAmount') }}" required>
+                            @error('targetAmount')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary">Create Fund</button>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
 @endsection
-{{-- Halaman untuk Profile user, user bisa lihat, preview dan edit profilenya disini --}}

@@ -89,6 +89,7 @@ Route::get('/profile/verifyProfile', [ProfileSettingController::class, 'advanced
 Route::post('/profile/verifyProcess', [ProfileSettingController::class, 'saveNikAndKtp'])->name('saveNikAndKtp');
 Route::put('/profile/updateName', [ProfileSettingController::class, 'updateName'])->name('updateName');
 Route::get('/profile/help', [ProfileSettingController::class, 'help'])->name('profileHelp');
+Route::get('/profile/createFund', [ProfileSettingController::class, 'createFund'])->name('profile.createFund');
 
 // Midtrans routes
 Route::post('/midtrans/topup', [MidtransController::class, 'createTransaction'])->name('midtrans.topup');

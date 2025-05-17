@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Fund;
 use App\Models\FundHistory;
+use App\Models\Category;
 
 class ProfileSettingController extends Controller
 {
@@ -72,5 +73,10 @@ class ProfileSettingController extends Controller
 
     public function help() {
         return view('user.profileSettingPages.help');
+    }
+
+    public function createFund() {
+        $categories = Category::all();
+        return view('user.createNupdate.createFund', compact('categories'));
     }
 }
