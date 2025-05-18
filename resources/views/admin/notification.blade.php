@@ -10,7 +10,7 @@ admin/deleteNotification
 @endsection
 
 @section('content')
-<section class="notification-background d-flex justify-content-center align-item-center bg-success">
+<section class="notification-background d-flex justify-content-center align-item-center" style="background-color: #00A9A5;">
     <div class="notification-box w-75 vh-125 bg-light d-flex justify-content-center ">
         <div class="card-list">
             <div class="top-part d-flex mt-4">

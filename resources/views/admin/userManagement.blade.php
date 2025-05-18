@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-    Ticketing
+    User Management
 @endsection
 @section('cssName')
 admindashboard
@@ -10,16 +10,10 @@ admin/navbar
 @endsection
 
 @section('content')
-<section class="ticketing-section d-flex justify-content-center align-items-center bg-success">
+    <section class="ticketing-section d-flex justify-content-center align-items-center bg-success">
     <div class="ticketing-container w-100 bg-light ">
         <div class="ticketing-nav d-flex justify-content-around mt-5">
-            <div class="search-input">
-                <input class="form-control form-control-lg" type="text" placeholder="Search" aria-label=".form-control-lg example">
-            </div>
-            <h1>Ticketing System</h1>
-            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    Sort By
-            </button>
+            <h1>User Management</h1>
             <ul class="dropdown-menu dropdown-menu-end">
                 <li><button class="dropdown-item" type="button">Action</button></li>
                 <li><button class="dropdown-item" type="button">Another action</button></li>
@@ -32,40 +26,34 @@ admin/navbar
                     <tr>
                         <th scope="col" style="background-color: #00A9A5; color: white;">No</th>
                         <th scope="col" style="background-color: #00A9A5; color: white;">ID User</th>
-                        <th scope="col" style="background-color: #00A9A5; color: white;">Funding Name</th>
-                        <th scope="col" style="background-color: #00A9A5; color: white;">Request Date</th>
-                        <th scope="col" style="background-color: #00A9A5; color: white;">Time Elapsed</th>
-                        <th scope="col" style="background-color: #00A9A5; color: white;">Status</th>
-                        <th scope="col" style="background-color: #00A9A5; color: white;">Handled By</th>
+                        <th scope="col" style="background-color: #00A9A5; color: white;">Email</th>
+                        <th scope="col" style="background-color: #00A9A5; color: white;">Role</th>
+                        <th scope="col" style="background-color: #00A9A5; color: white;">Details</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>9 hours</td>
-                    <td class="text-warning">Asking for update</td>
-                    <td>None</td>
-                    </tr>
-                    <tr>
-                    <th scope="row">2</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>9 hours</td>
-                    <td class="text-danger">Withdrawal Rejected</td>
-                    <td>None</td>
-                    </tr>
-                    <tr>
-                    <th scope="row">3</th>
-                    <td>Johnson Edging</td>
-                    <td>Goon Fest</td>
-                    <td>NOW</td>
-                    <td>69 hours</td>
-                    <td class="text-success">Approved</td>
-                    <td>Johnson</td>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto@gmail.com</td>
+                        <td>Idk</td>
+                        <td>
+                            <div class="icon-container d-flex justify-content-around align-items-center">
+                                <a href="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="bi bi-arrow-up-right-square" viewBox="0 0 16 16" style="color : #000000">
+                                        <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm5.854 8.803a.5.5 0 1 1-.708-.707L9.243 6H6.475a.5.5 0 1 1 0-1h3.975a.5.5 0 0 1 .5.5v3.975a.5.5 0 1 1-1 0V6.707z"/>
+                                    </svg>
+                                </a>
+                                <a href="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                                    </svg>
+                                </a>
+                                
+                            </div>
+                        </td>
+                        
                     </tr>
                 </tbody>
             </table>
