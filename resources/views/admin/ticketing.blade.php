@@ -30,13 +30,13 @@ admin/navbar
             <table class="table w-75 table-bordered ">
                 <thead>
                     <tr>
-                        <th class="table-success" scope="col">No</th>
-                        <th class="table-success" scope="col">ID User</th>
-                        <th class="table-success" scope="col">Funding Name</th>
-                        <th class="table-success" scope="col">Request Date</th>
-                        <th class="table-success" scope="col">Time Elapsed</th>
-                        <th class="table-success" scope="col">Status</th>
-                        <th class="table-success" scope="col">Handled By</th>
+                        <th scope="col" style="background-color: #00A9A5; color: white;">No</th>
+                        <th scope="col" style="background-color: #00A9A5; color: white;">ID User</th>
+                        <th scope="col" style="background-color: #00A9A5; color: white;">Funding Name</th>
+                        <th scope="col" style="background-color: #00A9A5; color: white;">Request Date</th>
+                        <th scope="col" style="background-color: #00A9A5; color: white;">Time Elapsed</th>
+                        <th scope="col" style="background-color: #00A9A5; color: white;">Status</th>
+                        <th scope="col" style="background-color: #00A9A5; color: white;">Handled By</th>
                     </tr>
                 </thead>
                 <tbody>
