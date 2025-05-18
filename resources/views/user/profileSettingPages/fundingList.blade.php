@@ -81,6 +81,13 @@
                 <div class="col col-l py-1">
                     <h1>Funding List</h1>
                 </div>
+                <div class="col col-r">
+                    <div class="row">
+                        <div class="col col-r">
+                            <a href="{{ route('profile.createFund') }}" class="btn btn-primary">Create Fund</a>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row listRow">
                 <div class="col">

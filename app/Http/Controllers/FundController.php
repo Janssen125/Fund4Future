@@ -47,9 +47,7 @@ class FundController extends Controller
         $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'owner_id' => 'required',
             'category_id' => 'required',
-            'currAmount' => 'required',
             'targetAmount' => 'required',
             'fund_details' => 'required|array',
             'fund_details.*.types' => 'required',
@@ -59,21 +57,36 @@ class FundController extends Controller
         $fund = Fund::create([
             'name' => $request->name,
             'description' => $request->description,
-            'owner_id' => $request->owner_id,
+            'owner_id' => auth()->user()->id,
             'category_id' => $request->category_id,
-            'currAmount' => $request->currAmount,
+            'currAmount' => 0,
             'targetAmount' => $request->targetAmount,
         ]);
 
         foreach ($request->fund_details as $detail) {
+            $filePath = null;
+
+            // Check if a file is uploaded
+            if (isset($detail['imageOrVideo']) && $detail['imageOrVideo']->isValid()) {
+                // Generate a unique filename
+                $fileName = time() . '_' . $detail['imageOrVideo']->getClientOriginalName();
+
+                // Move the file to the public/uploads directory
+                $detail['imageOrVideo']->move(public_path('uploads'), $fileName);
+
+                // Save the file path
+                $filePath = $fileName;
+            }
+
+            // Save the fund detail
             FundDetail::create([
                 'fund_id' => $fund->id,
                 'types' => $detail['types'],
-                'imageOrVideo' => $detail['imageOrVideo'],
+                'imageOrVideo' => $filePath,
             ]);
         }
 
-        return redirect()->back()->with('success', 'Fund added successfully!');
+        return redirect()->route('profileFundingList')->with('message', 'Fund added successfully!');
     }
 
     /**
