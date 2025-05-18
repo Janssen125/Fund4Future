@@ -21,4 +21,8 @@ class AdminController extends Controller
     public function ticketing() {
         return view('admin.ticketing');
     }
+
+    public function userManagement() {
+        return view('admin.userManagement');
+    }
 }
