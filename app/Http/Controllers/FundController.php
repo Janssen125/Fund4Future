@@ -160,7 +160,7 @@ class FundController extends Controller
     public function processFund(Request $request)
     {
         $request->validate([
-            'fund_id' => 'required|exists:funds,id', // Ensure fund_id exists in the funds table
+            'fund_id' => 'required|exists:funds,id',
             'fundAmount' => 'nullable|numeric|min:10000',
             'customAmount' => 'nullable|numeric|min:10000',
         ]);
@@ -187,7 +187,7 @@ class FundController extends Controller
             $fund->save();
 
             FundHistory::create([
-                'fund_id' => $fund_id,
+                'fund_id' => $fund->fund_id,
                 'amount' => $fundAmount,
                 'funder_id' => auth()->id(),
             ]);
