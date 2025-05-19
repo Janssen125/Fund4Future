@@ -103,6 +103,14 @@
                                 <div class="alert alert-danger w-100 text-danger">
                                     You need to login to fund this project
                                 </div>
+                            @elseif ($data->user_id == auth()->user()->id)
+                                <div class="alert alert-danger w-100 text-danger">
+                                    You cannot fund your own project
+                                </div>
+                            @elseif ($data->approvalStatus != 'approved')
+                                <div class="alert alert-warning w-100 text-danger">
+                                    This fund is not approved yet
+                                </div>
                             @else
                                 <form action="{{ route('process.funds') }}" method="POST">
                                     @csrf
