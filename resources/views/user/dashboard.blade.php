@@ -23,8 +23,13 @@
                     </div>
                     <div class="row">
                         <div class="col col-l button-container">
-                            <a href=""><button type="button" class="btn btn-success btn-color-primary">Start
+                            @if(!auth()->user())
+                            <a href="{{ route('login') }}"><button type="button" class="btn btn-success btn-color-primary">Start
                                     Funding</button></a>
+                            @else
+                            <a href="{{ route('fund.index') }}"><button type="button" class="btn btn-success btn-color-primary">Start
+                                    Funding</button></a>
+                            @endif
                         </div>
                     </div>
                 </div>
