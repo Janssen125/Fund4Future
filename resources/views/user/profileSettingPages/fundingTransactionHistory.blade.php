@@ -20,9 +20,12 @@
                                     @if (auth()->user()->userImg == null)
                                         <img src="{{ asset('img/AssetUser.png') }}" alt="profile picture" width="60"
                                             height="60">
+                                    @elseif(auth()->user()->userImg == 'AssetAdmin.png' || auth()->user()->userImg == 'AssetUser.png')
+                                        <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="Bootstrap"
+                                            width="60" height="60">
                                     @else
-                                        <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="profile picture"
-                                            width=60 height=60>
+                                        <img src="{{ asset('storage/img/' . auth()->user()->userImg) }}"
+                                            alt="profile picture" width=60 height=60>
                                     @endif
                                 </div>
                                 <div class="col col-l">
@@ -99,18 +102,25 @@
                                         <th>Amount</th>
                                         <th>Date</th>
                                         <th>Status</th>
+                                        <th>View</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($fundHistories as $index => $history)
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
-                                            <td>{{ $history->fund->name }}</td>
+                                            <td>{{ $history->fund ? $history->fund->name : 'Fund not found' }}</td>
                                             <td>Rp{{ number_format($history->amount, 2) }}</td>
                                             <td>{{ $history->created_at->format('d M Y') }}</td>
                                             <td>
                                                 <span class="badge bg-success">Completed</span>
                                             </td>
+                                            @if ($history->fund)
+                                                <td><a href="{{ route('fund.show', $history->fund->id) }}"
+                                                        class="btn btn-secondary">View</a></td>
+                                            @else
+                                                <td><a href="#" class="btn btn-secondary disabled">View</a></td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>

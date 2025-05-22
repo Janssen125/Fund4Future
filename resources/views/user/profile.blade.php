@@ -20,9 +20,12 @@
                                     @if (auth()->user()->userImg == null)
                                         <img src="{{ asset('img/AssetUser.png') }}" alt="profile picture" width="60"
                                             height="60">
+                                    @elseif(auth()->user()->userImg == 'AssetAdmin.png' || auth()->user()->userImg == 'AssetUser.png')
+                                        <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="Bootstrap"
+                                            width="60" height="60">
                                     @else
-                                        <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="profile picture"
-                                            width=60 height=60>
+                                        <img src="{{ asset('storage/img/' . auth()->user()->userImg) }}"
+                                            alt="profile picture" width=60 height=60>
                                     @endif
                                 </div>
                                 <div class="col col-l">
@@ -93,8 +96,11 @@
                                 @if (auth()->user()->userImg == null)
                                     <img src="{{ asset('img/AssetUser.png') }}" alt="profile picture" width="100"
                                         height="100">
+                                @elseif(auth()->user()->userImg == 'AssetAdmin.png' || auth()->user()->userImg == 'AssetUser.png')
+                                    <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="Bootstrap" width="100"
+                                        height="100">
                                 @else
-                                    <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="profile picture"
+                                    <img src="{{ asset('storage/img/' . auth()->user()->userImg) }}" alt="profile picture"
                                         width=100 height=100>
                                 @endif
                             </div>
@@ -119,8 +125,13 @@
                         <div class="mb-3 text-center">
                             <label for="profile_picture" class="form-label">Profile Picture</label>
                             <div class="mb-3">
-                                <img src="{{ asset('img/' . Auth::user()->userImg) }}" alt="Profile Picture"
-                                    class="img-thumbnail" style="max-width: 150px;">
+                                @if (auth()->user()->userImg == 'AssetAdmin.png' || auth()->user()->userImg == 'AssetUser.png')
+                                    <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="Bootstrap" width="60"
+                                        height="60">
+                                @else
+                                    <img src="{{ asset('storage/img/' . Auth::user()->userImg) }}" alt="Profile Picture"
+                                        class="img-thumbnail" style="max-width: 150px;">
+                                @endif
                             </div>
                             <input type="file" class="form-control" id="profile_picture" name="profile_picture">
                             @error('profile_picture')

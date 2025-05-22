@@ -17,9 +17,12 @@
                                     @if (auth()->user()->userImg == null)
                                         <img src="{{ asset('img/AssetUser.png') }}" alt="profile picture" width="60"
                                             height="60">
+                                    @elseif(auth()->user()->userImg == 'AssetAdmin.png' || auth()->user()->userImg == 'AssetUser.png')
+                                        <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="Bootstrap"
+                                            width="60" height="60">
                                     @else
-                                        <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="profile picture"
-                                            width=60 height=60>
+                                        <img src="{{ asset('storage/img/' . auth()->user()->userImg) }}"
+                                            alt="profile picture" width=60 height=60>
                                     @endif
                                 </div>
                                 <div class="col col-l">

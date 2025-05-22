@@ -15,13 +15,15 @@ class CreateChatsTable extends Migration
     {
         Schema::create('chats', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('staff_id');
+            $table->unsignedBigInteger('fund_id');
+            $table->foreign('fund_id')->references('id')->on('funds')->onDelete('cascade');
+            $table->unsignedBigInteger('staff_id')->nullable();
             $table->foreign('staff_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('funder_id');
             $table->foreign('funder_id')->references('id')->on('users')->onDelete('cascade');
-            $table->timestamp('created_at')->nullable();
             $table->timestamps();
         });
+
     }
 
     /**

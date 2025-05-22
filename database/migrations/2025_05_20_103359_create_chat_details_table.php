@@ -20,8 +20,7 @@ class CreateChatDetailsTable extends Migration
             $table->unsignedBigInteger('sender_id');
             $table->foreign('sender_id')->references('id')->on('users')->onDelete('cascade');
             $table->text('message');
-            $table->enum('type', ['text', 'image', 'video'])->default('text');
-            $table->timestamp('created_at')->nullable();
+            $table->enum('type', ['text', 'image', 'video', 'pdf', 'zip'])->default('text');
             $table->string('attachment')->nullable();
             $table->string('attachment_type')->nullable();
             $table->string('attachment_size')->nullable();

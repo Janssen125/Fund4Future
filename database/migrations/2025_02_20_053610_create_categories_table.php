@@ -18,17 +18,6 @@ class CreateCategoriesTable extends Migration
             $table->string("catName");
             $table->timestamps();
         });
-
-        DB::table('categories')->insert([[
-            'catName' => 'Movie',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ],[
-            'catName' => 'Games',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]]);
-
     }
 
     /**

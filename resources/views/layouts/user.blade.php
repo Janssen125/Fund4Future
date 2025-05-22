@@ -35,9 +35,12 @@
                                 height="45">
                         @elseif(auth()->user()->userImg == null)
                             <img src="{{ asset('img/AssetUser.png') }}" alt="Bootstrap" width="45" height="45">
-                        @else
-                            <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="" width="45"
+                        @elseif(auth()->user()->userImg == 'AssetAdmin.png' || auth()->user()->userImg == 'AssetUser.png')
+                            <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="Bootstrap" width="45"
                                 height="45">
+                        @else
+                            <img src="{{ asset('storage/img/' . auth()->user()->userImg) }}" alt=""
+                                width="45" height="45">
                         @endif
                     </a>
                 </div>
