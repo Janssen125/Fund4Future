@@ -37,6 +37,7 @@ admin/navbar
                         <th scope="col" style="background-color: #00A9A5; color: white;">Time Elapsed</th>
                         <th scope="col" style="background-color: #00A9A5; color: white;">Status</th>
                         <th scope="col" style="background-color: #00A9A5; color: white;">Handled By</th>
+                        <th scope="col" style="background-color: #00A9A5; color: white;">Details</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,6 +49,16 @@ admin/navbar
                     <td>9 hours</td>
                     <td class="text-warning">Asking for update</td>
                     <td>None</td>
+                    <td>
+                        <div class="icon-container d-flex justify-content-around align-items-center">
+                            <a href="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </td>
                     </tr>
                     <tr>
                     <th scope="row">2</th>
@@ -57,6 +68,16 @@ admin/navbar
                     <td>9 hours</td>
                     <td class="text-danger">Withdrawal Rejected</td>
                     <td>None</td>
+                    <td>
+                        <div class="icon-container d-flex justify-content-around align-items-center">
+                            <a href="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </td>
                     </tr>
                     <tr>
                     <th scope="row">3</th>
@@ -66,6 +87,16 @@ admin/navbar
                     <td>69 hours</td>
                     <td class="text-success">Approved</td>
                     <td>Johnson</td>
+                    <td>
+                        <div class="icon-container d-flex justify-content-around align-items-center">
+                            <a href="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </td>
                     </tr>
                 </tbody>
             </table>
