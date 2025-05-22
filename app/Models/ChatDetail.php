@@ -19,4 +19,9 @@ class ChatDetail extends Model
         'attachment_size',
         'attachment_name',
     ];
+
+    public function chat()
+    {
+        return $this->belongsTo(Chat::class);
+    }
 }

@@ -43,10 +43,6 @@ class HomeController extends Controller
         return view('user.contact');
     }
 
-    public function chat() {
-        return view('user.chat');
-    }
-
     public function logout(Request $request) {
         Auth::logout();
         $request->session()->invalidate();

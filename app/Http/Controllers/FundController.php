@@ -187,7 +187,7 @@ class FundController extends Controller
             $fund->save();
 
             FundHistory::create([
-                'fund_id' => $fund->fund_id,
+                'fund_id' => $fund->id,
                 'amount' => $fundAmount,
                 'funder_id' => auth()->id(),
             ]);

@@ -9,8 +9,29 @@ class Chat extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'fund_id',
         'staff_id',
         'funder_id',
         'created_at',
     ];
+
+    public function chatDetails()
+    {
+        return $this->hasMany(ChatDetail::class);
+    }
+
+    public function funder()
+    {
+        return $this->belongsTo(User::class, 'funder_id');
+    }
+
+    public function staff()
+    {
+        return $this->belongsTo(User::class, 'staff_id');
+    }
+
+    public function fund()
+    {
+        return $this->belongsTo(Fund::class);
+    }
 }

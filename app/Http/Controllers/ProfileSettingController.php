@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Fund;
 use App\Models\FundHistory;
 use App\Models\Category;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileSettingController extends Controller
 {
@@ -17,7 +18,7 @@ class ProfileSettingController extends Controller
 
     public function fundingTransactionHistory()
     {
-        $fundHistories = FundHistory::where('funder_id', auth()->user()->id)->get();
+        $fundHistories = FundHistory::with('fund')->where('funder_id', auth()->user()->id)->get();
         return view('user.profileSettingPages.fundingTransactionHistory', compact('fundHistories'));
     }
 
@@ -61,14 +62,28 @@ class ProfileSettingController extends Controller
         return redirect()->route('profileSettings')->with('success', 'NIK and KTP image have been saved successfully.');
     }
 
-    public function updateName(Request $request) {
+    public function updateName(Request $request)
+    {
         $request->validate([
             'name' => 'required|string|max:255',
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Validate profile picture
         ]);
+
         $user = auth()->user();
+
         $user->name = $request->name;
+
+        if ($request->hasFile('profile_picture')) {
+            if ($user->userImg && Storage::exists('img/' . $user->userImg)) {
+                Storage::delete('img/' . $user->userImg);
+            }
+            $profilePicturePath = $request->file('profile_picture')->store('img', 'public');
+            $user->userImg = basename($profilePicturePath);
+        }
+
         $user->save();
-        return redirect()->route('profile')->with('success', 'Name updated successfully.');
+
+        return redirect()->route('profile')->with('success', 'Profile updated successfully.');
     }
 
     public function help() {

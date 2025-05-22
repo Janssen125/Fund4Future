@@ -7,6 +7,7 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\MidtransController;
 use App\Http\Controllers\ProfileSettingController;
 use App\Http\Controllers\Auth\ResetPasswordController;
@@ -61,7 +62,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/about', [App\Http\Controllers\HomeController::class, 'about'])->name('about');
 Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
 Route::get('/contact', [App\Http\Controllers\HomeController::class, 'contact'])->name('contact')->middleware('auth');
-Route::get('/chat', [App\Http\Controllers\HomeController::class, 'chat'])->name('chat')->middleware('auth');
 Route::get('/logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('logout');
 
 // Admin Route
@@ -74,10 +74,12 @@ Route::get('/userManagement', [App\Http\Controllers\AdminController::class, 'use
 // CRUD routes
 Route::resource('category', CategoryController::class);
 Route::resource('fund', FundController::class);
-Route::resource('mail', MailController::class);
+Route::resource('mail', MailController::class)->middleware('auth');
 Route::resource('user', UserController::class);
-Route::resource('admin', AdminController::class);
+Route::resource('admin', AdminController::class)->middleware('auth');
 Route::resource('comments', CommentController::class);
+Route::resource('chats', ChatController::class)->middleware('auth');
+
 
 // Profile Setting routes
 Route::get('/profile/fundingList', [ProfileSettingController::class, 'fundingList'])->name('profileFundingList');
