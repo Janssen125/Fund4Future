@@ -1,0 +1,24 @@
+* {
+    height: max-content !important;
+}
+section {
+    justify-content: flex-start !important;
+}
+
+.container {
+    max-height: none !important;
+}
+
+textarea {
+    height: max-content !important;
+    max-height: 100px !important;
+    overflow: auto !important;
+    width: 100% !important;
+    resize: none !important;
+    padding: 1rem !important;
+    border-radius: 1rem;
+}
+
+form {
+    width: 100% !important;
+}
