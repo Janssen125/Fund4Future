@@ -15,8 +15,9 @@ How To Run?
 4. Create a new database in your XAMPP control panel and name it "fund4future" or any name that satisfied you
 5. Type "php artisan migrate" in "/Fund4Future"
 6. Type "php artisan db:seed" in "/Fund4Future"
-7. Type "php artisan serve" in "/Fund4Future"
-8. Open your web browser and navigate to "http://localhost:8000" to access the website
+7. Type "php artisan storage:link" in "/Fund4Future"
+8. Type "php artisan serve" in "/Fund4Future"
+9. Open your web browser and navigate to "http://localhost:8000" to access the website
 
 Or if we still have access to railway, you can use this link to open the project
 https://fund4future-production.up.railway.app/
