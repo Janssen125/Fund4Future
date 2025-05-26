@@ -1,0 +1,27 @@
+.img-fluid {
+    max-width: 8rem;
+}
+
+.img-small {
+    max-width: 4rem;
+}
+
+.container > .row {
+    align-items: start;
+    justify-content: start;
+}
+
+.overall-container .card {
+    padding: 1rem 2rem;
+    width: 100%;
+    margin: 0;
+    border: none;
+    box-shadow: #333 0px 0px 2px;
+    color: #333;
+}
+
+.icon {
+    position: absolute;
+    top: 25%;
+    right: 5%;
+}

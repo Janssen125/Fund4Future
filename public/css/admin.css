@@ -1,7 +1,17 @@
 section {
     overflow-x: hidden;
     width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+
+section > * {
+    width: 100%;
+}
+
 header {
     background-color: snow;
 }
@@ -43,10 +53,13 @@ nav {
 }
 
 .container {
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    padding: 0;
+    margin: 0;
 }
 
 .row {
