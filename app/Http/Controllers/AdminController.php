@@ -25,4 +25,12 @@ class AdminController extends Controller
     public function userManagement() {
         return view('admin.userManagement');
     }
+
+    public function createCategory() {
+        return view('admin.createNupdate.createCategory');
+    }
+
+    public function updateCategory() {
+        return view('admin.createNupdate.updateCategory');
+    }
 }

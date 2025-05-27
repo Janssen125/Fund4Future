@@ -10,8 +10,8 @@ admin/navbar
 @endsection
 
 @section('content')
-<section class="activity-background d-flex justify-content-center align-item-center bg-success">
-    <div class="activity-box w-75 vh-125 bg-light d-flex justify-content-center ">
+<section class="activity-background d-flex justify-content-center align-item-center" style="background-color: #00A9A5;">
+    <div class="activity-box w-75 vh-125 bg-light d-flex justify-content-center rounded-3">
         <div class="card-list">
             <div class="top-part d-flex mt-4">
                 <h1>Activity Log</h1>
@@ -105,7 +105,7 @@ admin/navbar
             
             
             
-             <div class="pagination d-flex justify-content-center">
+             <div class="pagination d-flex justify-content-center py-4">
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#00A9A5" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
                     <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1"/>
                 </svg>
