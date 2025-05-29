@@ -33,4 +33,8 @@ class AdminController extends Controller
     public function updateCategory() {
         return view('admin.createNupdate.updateCategory');
     }
+
+    public function fundList() {
+        return view('admin.fundList');
+    }
 }
