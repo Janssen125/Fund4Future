@@ -24,7 +24,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+            return view('admin.createNupdate.createCategory');
+
+
     }
 
     /**
@@ -65,7 +67,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        return view('admin.createNupdate.updateCategory', compact('category'));
     }
 
     /**

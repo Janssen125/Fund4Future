@@ -35,4 +35,12 @@ class Fund extends Model
     public function comment() {
         return $this->hasMany(Comments::class);
     }
+
+    public function owner() {
+        return $this->belongsTo(User::class, 'owner_id');
+    }
+
+    public function chat() {
+        return $this->hasOne(Chat::class, 'fund_id');
+    }
 }

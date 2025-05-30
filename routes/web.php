@@ -70,8 +70,6 @@ Route::get('/activity', [App\Http\Controllers\AdminController::class, 'activity'
 Route::get('/notification', [App\Http\Controllers\AdminController::class, 'notification'])->name('admin.notification')->middleware('auth');
 Route::get('/ticketing', [App\Http\Controllers\AdminController::class, 'ticketing'])->name('admin.ticketing')->middleware('auth');
 Route::get('/userManagement', [App\Http\Controllers\AdminController::class, 'userManagement'])->name('admin.userManagement')->middleware('auth');
-Route::get('/createCategory', [App\Http\Controllers\AdminController::class, 'createCategory'])->name('admin.createCategory')->middleware('auth');
-Route::get('/updateCategory', [App\Http\Controllers\AdminController::class, 'updateCategory'])->name('admin.updateCategory')->middleware('auth');
 Route::get('/fundList', [App\Http\Controllers\AdminController::class, 'fundList'])->name('admin.fundList')->middleware('auth');
 
 // CRUD routes

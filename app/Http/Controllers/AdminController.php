@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Fund;
 
 class AdminController extends Controller
 {
@@ -19,19 +20,12 @@ class AdminController extends Controller
     }
 
     public function ticketing() {
-        return view('admin.ticketing');
+        $funds = Fund::with(['owner', 'chat'])->get();
+        return view('admin.ticketing', compact('funds'));
     }
 
     public function userManagement() {
         return view('admin.userManagement');
-    }
-
-    public function createCategory() {
-        return view('admin.createNupdate.createCategory');
-    }
-
-    public function updateCategory() {
-        return view('admin.createNupdate.updateCategory');
     }
 
     public function fundList() {
