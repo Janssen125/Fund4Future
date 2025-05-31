@@ -15,7 +15,7 @@
                 <div class="card">
                     <div class="inside">
                         <h4>
-                            125
+                            {{ $totalUsers }}
                         </h4>
                         <p>
                             Jumlah User
@@ -33,7 +33,7 @@
                 <div class="card">
                     <div class="inside">
                         <h4>
-                            125
+                            {{ $ongoingFunds }}
                         </h4>
                         <p>
                             Jumlah Funding Ongoing
@@ -55,7 +55,7 @@
                 <div class="card">
                     <div class="inside">
                         <h4>
-                            125
+                            {{ $totalFunds }}
                         </h4>
                         <p>
                             Jumlah Funding
@@ -76,7 +76,7 @@
                 <div class="card">
                     <div class="inside">
                         <h4>
-                            125
+                            {{ $totalMails }}
                         </h4>
                         <p>
                             Jumlah Pesan
@@ -101,22 +101,35 @@
                         <h3>Request Funding List</h2>
                     </div>
                     <hr>
-                    <div class="col col-l">
-                        <div class="row p-3">
-                            <div class="col">
-                                <img src="{{ asset('img/BgImgAboutUs.jpg') }}" class="img-fluid" alt="...">
-                            </div>
-                            <div class="col">
-                                <div class="card-body">
-                                    <h5 class="card-title fw-bold">User Melvin</h5>
-                                    <p class="card-text">Fund Raised</p>
-                                    <div class="progress">
-                                        <div class="progress-bar w-75 show" role="progressbar" aria-valuenow="75"
-                                            aria-valuemin="0" aria-valuemax="100">75%</div>
+                    <div class="col">
+                        @foreach ($recentFundingRequests as $fund)
+                            <div class="row p-3 w-100">
+                                <div class="col col-2">
+                                    <img src="{{ $fund->fundDetail->first()->imageOrVideo ? asset('uploads/' . $fund->fundDetail->first()->imageOrVideo) : asset('img/LogoFund4Future.png') }}"
+                                        alt="Fund Image" class="img-fluid">
+                                </div>
+                                <div class="col col-2">
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold">{{ $fund->name }}</h5>
                                     </div>
                                 </div>
+                                <div class="col col-2">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $fund->owner->name }}</h5>
+                                    </div>
+                                </div>
+                                <div class="col col-2">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $fund->created_at->format('F d, Y h:i A') }}</h5>
+                                    </div>
+                                </div>
+                                <div class="col col-2">
+                                    <button type="button" class="btn btn-primary"
+                                        onclick="location.href='{{ route('fund.show', $fund->id) }}'">View</button>
+                                </div>
                             </div>
-                        </div>
+                            <hr class="w-100">
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -126,27 +139,33 @@
                         <h3>Notification</h2>
                     </div>
                     <hr>
-                    <div class="col col-l">
-                        <div class="row">
-                            <div class="col col-4">
-                                <img src="{{ asset('img/AssetUser.png') }}" class="img-fluid img-small" alt="...">
-                            </div>
-                            <div class="col col-8 col-l">
-                                <div class="card-body">
-                                    <h5 class="card-title fw-bold" style="white-space: nowrap">Melvin</h5>
-                                    <p class="card-text">13:00 Approval Request "Project"</p>
+                    <div class="col">
+                        @foreach ($recentNotifications as $notif)
+                            <div class="row p-3 mb-3 w-100">
+                                <div class="col col-2">
+                                    <h5 class="card-title fw-bold" style="white-space: nowrap">
+                                        {{ ucfirst($notif['type']) }}
+                                    </h5>
+                                </div>
+                                <div class="col col-10 col-l">
+                                    <div class="row">
+                                        <div class="col">
+                                            <p class="card-text">
+                                                {{ $notif['created_at']->format('F d, Y h:i A') }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <p class="card-text">
+                                                {{ Str::limit($notif['details'], 30, '...') }}
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col col-4">
-                                <img src="{{ asset('img/AssetUser.png') }}" class="img-fluid img-small" alt="...">
-                            </div>
-                            <div class="col col-8 col-l">
-                                <div class="card-body">
-                                    <h5 class="card-title fw-bold" style="white-space: nowrap">Melvin</h5>
-                                    <p class="card-text">12:44 New Chat</p>
-                                </div>
-                            </div>
-                        </div>
+                            <hr class="w-100">
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -161,23 +180,33 @@
                     </div>
                     <hr>
                     <div class="col col-l">
-                        <div class="row p-3 w-100">
-                            <div class="col col-3">
-                                <img src="{{ asset('img/AssetUser.png') }}" class="img-fluid img-small" alt="...">
-                            </div>
-                            <div class="col col-3 col-l">
-                                <div class="card-body">
-                                    <h5 class="card-title fw-bold" style="white-space: nowrap">Melvin</h5>
-                                    <p class="card-text">12:44 New Chat</p>
+                        @foreach ($recentChatButNotForNotificationPlease as $chat)
+                            <div class="row p-3 w-100">
+                                <div class="col col-3">
+                                    @if ($chat->funder->userImg == 'AssetAdmin.png' || $chat->funder->userImg == 'AssetUser.png')
+                                        <img src="{{ asset('img/' . $chat->funder->userImg) }}" alt="Fund Image"
+                                            class="img-fluid">
+                                    @else
+                                        <img src="{{ asset('storage/img/' . $chat->funder->userImg) }}" alt="Fund Image"
+                                            class="img-fluid">
+                                    @endif
+                                </div>
+                                <div class="col col-3 col-l">
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold" style="white-space: nowrap">
+                                            {{ $chat->funder->name }}</h5>
+                                        <p class="card-text">{{ $chat->created_at->format('F d, Y h:i A') }}</p>
+                                    </div>
+                                </div>
+                                <div class="col col-3">
+                                    <span class="badge badge-warning">{{ $chat->fund->approvalStatus }}</span>
+                                </div>
+                                <div class="col col-3">
+                                    <a href="{{ route('chats.show', $chat->id) }}" class="btn btn-primary">Chat</a>
                                 </div>
                             </div>
-                            <div class="col col-3">
-                                <span class="badge badge-warning">Pending</span>
-                            </div>
-                            <div class="col col-3">
-                                <button type="button" class="btn btn-primary">View</button>
-                            </div>
-                        </div>
+                            <hr class="w-100">
+                        @endforeach
                     </div>
                 </div>
             </div>

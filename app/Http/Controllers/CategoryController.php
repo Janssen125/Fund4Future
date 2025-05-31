@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\ActivityLog;
 
 class CategoryController extends Controller
 {
@@ -14,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('admin.category');
+        $categories = Category::all();
+        return view('admin.category', compact('categories'));
     }
 
     /**
@@ -25,8 +27,6 @@ class CategoryController extends Controller
     public function create()
     {
             return view('admin.createNupdate.createCategory');
-
-
     }
 
     /**
@@ -41,9 +41,16 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255'
         ]);
 
-        Fund::create([
-            'name' => $request->name
+        Category::create([
+            'catName' => $request->name
         ]);
+
+        ActivityLog::create([
+            'user_id' => auth()->id(),
+            'activity_type' => 'store',
+            'description' => "Created a new category: {$category->name}",
+        ]);
+
         return redirect()->route('category.index')->with('success', 'Fund created successfully!');
 
     }
@@ -84,12 +91,19 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255'
         ]);
 
-        $fund = Fund::findOrFail($id);
+        $cat = Category::findOrFail($id);
 
-        $fund->update([
-            'name' => $request->name
+        $cat->update([
+            'catName' => $request->name
         ]);
-        return redirect()->route('category.index')->with('success', 'Fund updated successfully!');
+
+        ActivityLog::create([
+            'user_id' => auth()->id(),
+            'activity_type' => 'update',
+            'description' => "Updated category name from '{$oldName}' to '{$category->name}'",
+        ]);
+
+        return redirect()->route('category.index')->with('success', 'Category updated successfully!');
     }
 
     /**
@@ -103,6 +117,12 @@ class CategoryController extends Controller
         $fund = Fund::findOrFail($id);
 
         $fund->delete();
+
+        ActivityLog::create([
+            'user_id' => auth()->id(),
+            'activity_type' => 'delete',
+            'description' => "Deleted category: {$categoryName}",
+        ]);
 
         return redirect()->route('category.index')->with('success', 'Fund deleted successfully!');
     }

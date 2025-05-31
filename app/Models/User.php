@@ -72,4 +72,8 @@ class User extends Authenticatable implements MustVerifyEmail
     public function topup() {
         return $this->hasMany(TopUpTransaction::class);
     }
+
+    public function activityLogs() {
+        return $this->hasMany(ActivityLog::class);
+    }
 }
