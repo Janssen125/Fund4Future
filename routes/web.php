@@ -114,3 +114,4 @@ Route::post('/test-midtrans', function (Request $request) {
     Log::info('📩 Test Midtrans Route:', ['data' => $request->all()]);
     return response()->json(['message' => 'Test route working!', 'data' => $request->all()], 200);
 });
+Route::get('/tempcat', function() {return view('admin/category');});
