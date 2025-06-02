@@ -25,7 +25,6 @@ footer {
     position: relative;
     bottom: 0;
     width: 100%;
-    z-index: 1000;
     font-size: 0.8rem;
     color: #333;
     box-shadow: #333 0px 0px 2px;
@@ -173,4 +172,13 @@ aside > ul > a {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#notification {
+    z-index: 1000;
+}
+
+.primary-background {
+    background-color: var(--primary-green);
+    color: white;
 }

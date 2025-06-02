@@ -180,7 +180,7 @@
                     </div>
                     <hr>
                     <div class="col col-l">
-                        @foreach ($recentChatButNotForNotificationPlease as $chat)
+                        @forelse ($recentChatButNotForNotificationPlease as $chat)
                             <div class="row p-3 w-100">
                                 <div class="col col-3">
                                     @if ($chat->funder->userImg == 'AssetAdmin.png' || $chat->funder->userImg == 'AssetUser.png')
@@ -206,69 +206,49 @@
                                 </div>
                             </div>
                             <hr class="w-100">
-                        @endforeach
+                        @empty
+                            <div class="row p-3 w-100">
+                                <div class="col">
+                                    <p class="text-center">No tickets found.</p>
+                                </div>
+                            </div>
+                        @endforelse
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="row m-3 justify-content-between w-100">
-            <div class="col">
-                <div class="row rounded-3 card w-100">
-                    <div class="col col-l p-3">
-                        <h3>Recent Activity Log</h2>
-                    </div>
-                    <hr>
-                    <div class="col col-l">
-                        <div class="row p-3 w-100">
-                            <div class="col">
-                                <div>
-                                    <b>26 May 2025 12:21 PM</b>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis quo corrupti
-                                        voluptates pariatur obcaecati corporis illum mollitia voluptate aut beatae, quae
-                                        expedita eveniet veritatis voluptatum qui sapiente ipsam doloribus esse!
-                                        Saepe perferendis quisquam officiis magni? Laborum sequi neque harum esse dolore
-                                        corrupti modi, nihil sint aspernatur repellat molestias distinctio possimus
-                                        doloribus laudantium? Eligendi adipisci nemo necessitatibus. Enim atque ab alias.
-                                        Enim autem error facere, voluptatum magni, numquam ipsa iste in dolore magnam
-                                        repellendus reiciendis itaque adipisci repellat nisi temporibus doloremque! Alias,
-                                        iure. Facere natus tempora, nihil voluptate animi vitae corrupti.
-                                        Laboriosam minima, voluptate porro obcaecati maiores illum perspiciatis quis cumque
-                                        odio atque natus dolorum officiis voluptas error? Praesentium quam impedit
-                                        cupiditate, quaerat optio consectetur rem quod mollitia modi dignissimos suscipit!
-                                        Quo perferendis maiores id fuga repudiandae officia, animi laudantium quos culpa
-                                        nihil laborum nisi natus, eaque molestias officiis quasi odio autem veniam, itaque
-                                        perspiciatis? Suscipit doloribus mollitia quia velit quisquam!</p>
-                                </div>
-                            </div>
+    @if (auth()->user()->role == 'admin')
+        <div class="container">
+            <div class="row m-3 justify-content-between w-100">
+                <div class="col">
+                    <div class="row rounded-3 card w-100">
+                        <div class="col col-l p-3">
+                            <h3>Recent Activity Log</h2>
                         </div>
-                        <div class="row p-3 w-100">
-                            <div class="col">
-                                <div>
-                                    <b>26 May 2025 12:21 PM</b>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis quo corrupti
-                                        voluptates pariatur obcaecati corporis illum mollitia voluptate aut beatae, quae
-                                        expedita eveniet veritatis voluptatum qui sapiente ipsam doloribus esse!
-                                        Saepe perferendis quisquam officiis magni? Laborum sequi neque harum esse dolore
-                                        corrupti modi, nihil sint aspernatur repellat molestias distinctio possimus
-                                        doloribus laudantium? Eligendi adipisci nemo necessitatibus. Enim atque ab alias.
-                                        Enim autem error facere, voluptatum magni, numquam ipsa iste in dolore magnam
-                                        repellendus reiciendis itaque adipisci repellat nisi temporibus doloremque! Alias,
-                                        iure. Facere natus tempora, nihil voluptate animi vitae corrupti.
-                                        Laboriosam minima, voluptate porro obcaecati maiores illum perspiciatis quis cumque
-                                        odio atque natus dolorum officiis voluptas error? Praesentium quam impedit
-                                        cupiditate, quaerat optio consectetur rem quod mollitia modi dignissimos suscipit!
-                                        Quo perferendis maiores id fuga repudiandae officia, animi laudantium quos culpa
-                                        nihil laborum nisi natus, eaque molestias officiis quasi odio autem veniam, itaque
-                                        perspiciatis? Suscipit doloribus mollitia quia velit quisquam!</p>
+                        <hr>
+                        <div class="col col-l">
+                            @forelse ($recentActivities as $activity)
+                                <div class="row p-3 w-100">
+                                    <div class="col col-l">
+                                        <div>
+                                            <b> {{ $activity->created_at->format('F d, Y h:i A') }}</b>
+                                            <p>{{ $activity->description }}</p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                            @empty
+                                <div class="row p-3 w-100">
+                                    <div class="col">
+                                        <p class="text-center">No recent activities found.</p>
+                                    </div>
+                                </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 @endsection
 {{-- Dashboard admin untuk melihat data data yang ada di webnya, seperti jumlah user, jumlah penggalangan, dll --}}

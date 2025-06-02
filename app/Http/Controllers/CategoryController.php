@@ -48,10 +48,10 @@ class CategoryController extends Controller
         ActivityLog::create([
             'user_id' => auth()->id(),
             'activity_type' => 'store',
-            'description' => "Created a new category: {$category->name}",
+            'description' => "Created a new category: {$request->name}",
         ]);
 
-        return redirect()->route('category.index')->with('success', 'Fund created successfully!');
+        return redirect()->route('category.index')->with('message', 'Fund created successfully!');
 
     }
 
@@ -100,10 +100,10 @@ class CategoryController extends Controller
         ActivityLog::create([
             'user_id' => auth()->id(),
             'activity_type' => 'update',
-            'description' => "Updated category name from '{$oldName}' to '{$category->name}'",
+            'description' => "Updated category with ID '{$request->id}' with this name '{$request->name}'",
         ]);
 
-        return redirect()->route('category.index')->with('success', 'Category updated successfully!');
+        return redirect()->route('category.index')->with('message', 'Category updated successfully!');
     }
 
     /**
@@ -114,16 +114,17 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $fund = Fund::findOrFail($id);
+        $category = Category::findOrFail($id);
 
-        $fund->delete();
 
         ActivityLog::create([
             'user_id' => auth()->id(),
             'activity_type' => 'delete',
-            'description' => "Deleted category: {$categoryName}",
+            'description' => "Deleted category: {$category->catName}",
         ]);
 
-        return redirect()->route('category.index')->with('success', 'Fund deleted successfully!');
+        $category->delete();
+
+        return redirect()->route('category.index')->with('message', 'Category deleted successfully!');
     }
 }

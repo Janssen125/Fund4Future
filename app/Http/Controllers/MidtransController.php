@@ -8,6 +8,7 @@ use App\Models\TopUpTransaction;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\ActivityLog;
 use Illuminate\Support\Facades\Log;
 
 class MidtransController extends Controller
@@ -109,6 +110,13 @@ class MidtransController extends Controller
         else {
             return response()->json(['message' => 'User not found'], 404);
         }
+
+        ActivityLog::create([
+            'user_id' => auth()->id(),
+            'activity_type' => 'Create Top-Up Transaction',
+            'description' => "User ID: {$user_id} topped up balance with transaction ID: {$transaction_id}, amount: {$gross_amount}, payment type: {$payment_type}",
+            'created_at' => now(),
+        ]);
 
         return response()->json(['message' => 'Balance Succesfully Updated!!'], 200);
     }

@@ -55,19 +55,46 @@
                                                 </a>
                                             </div>
                                             <div class="col">
-                                                <form action="{{ route('category.destroy', $category->id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-link p-0" title="Delete">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                            height="16" fill="#dc3545" class="bi bi-trash-fill"
-                                                            viewBox="0 0 16 16">
-                                                            <path
-                                                                d="M2.5 1a1 1 0 0 0-1 1v1h13V2a1 1 0 0 0-1-1H2.5zM1.5 4a.5.5 0 0 1 .5-.5h12a.5.5 0 0 1 .5.5v9a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V4z" />
-                                                        </svg>
-                                                    </button>
-                                                </form>
+                                                <button type="button" class="btn btn-link p-0" title="Delete"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#deleteModal-{{ $category->id }}">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="#dc3545" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M2.5 1a1 1 0 0 0-1 1v1h13V2a1 1 0 0 0-1-1H2.5zM1.5 4a.5.5 0 0 1 .5-.5h12a.5.5 0 0 1 .5.5v9a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V4z" />
+                                                    </svg>
+                                                </button>
+                                                <div class="modal fade" id="deleteModal-{{ $category->id }}" tabindex="-1"
+                                                    aria-labelledby="deleteModalLabel-{{ $category->id }}"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title"
+                                                                    id="deleteModalLabel-{{ $category->id }}">Confirm Delete
+                                                                </h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Are you sure you want to delete the category
+                                                                <strong>{{ $category->name }}</strong>?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Cancel</button>
+                                                                <form
+                                                                    action="{{ route('category.destroy', $category->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit"
+                                                                        class="btn btn-danger">Delete</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

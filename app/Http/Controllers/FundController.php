@@ -7,6 +7,7 @@ use App\Models\Fund;
 use App\Models\FundDetail;
 use App\Models\FundHistory;
 use App\Models\Comments;
+use App\Models\ActivityLog;
 
 class FundController extends Controller
 {
@@ -66,25 +67,28 @@ class FundController extends Controller
         foreach ($request->fund_details as $detail) {
             $filePath = null;
 
-            // Check if a file is uploaded
             if (isset($detail['imageOrVideo']) && $detail['imageOrVideo']->isValid()) {
-                // Generate a unique filename
                 $fileName = time() . '_' . $detail['imageOrVideo']->getClientOriginalName();
 
-                // Move the file to the public/uploads directory
                 $detail['imageOrVideo']->move(public_path('uploads'), $fileName);
 
-                // Save the file path
                 $filePath = $fileName;
             }
 
-            // Save the fund detail
             FundDetail::create([
                 'fund_id' => $fund->id,
                 'types' => $detail['types'],
                 'imageOrVideo' => $filePath,
             ]);
+
         }
+
+        ActivityLog::create([
+            'user_id' => auth()->id(),
+            'activity_type' => 'create',
+            'description' => "Created a new fund detail for fund ID: {$fund->id}",
+            'created_at' => now(),
+        ]);
 
         return redirect()->route('profileFundingList')->with('message', 'Fund added successfully!');
     }
@@ -192,6 +196,15 @@ class FundController extends Controller
                 'funder_id' => auth()->id(),
             ]);
         }
+
+        ActivityLog::create([
+            'user_id' => auth()->id(),
+            'activity_type' => 'User Fund',
+            'description' => auth()->id() . "funds to fund ID: {$fund->id}",
+            'created_at' => now(),
+        ]);
+
+
 
         return redirect()->back()->with('message', "You have funded Rp" . number_format($fundAmount, 2));
     }

@@ -7,7 +7,9 @@ use App\Models\Fund;
 use App\Models\Mail;
 use App\Models\Chat;
 use App\Models\User;
+use App\Models\ActivityLog;
 use Illuminate\Support\Collection;
+
 
 class AdminController extends Controller
 {
@@ -57,14 +59,7 @@ class AdminController extends Controller
 
             $yourTickets = Chat::with(['staff', 'funder'])->whereNotNull('staff_id')->get();
 
-            $recentActivities = ActivityLog::latest()->take(5)->get()->map(function ($activity) {
-                return [
-                    'type' => 'activity',
-                    'title' => $activity->description,
-                    'details' => "Performed by {$activity->user->name}",
-                    'created_at' => $activity->created_at,
-                ];
-            });
+            $recentActivities = ActivityLog::latest()->take(5)->get();
 
             return view('admin.dashboard', compact(
                 'totalUsers',
@@ -82,7 +77,8 @@ class AdminController extends Controller
     }
 
     public function activity() {
-        return view('admin.activity');
+        $activities = ActivityLog::with('user')->latest()->paginate(10);
+        return view('admin.activity', compact('activities'));
     }
 
     public function notification() {

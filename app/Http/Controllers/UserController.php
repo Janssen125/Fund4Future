@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Auth\Events\Registered;
 use App\Models\User;
+use App\Models\ActivityLog;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -18,8 +19,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = User::all();
-        return view('admin.user', compact('data'));
+        $datas = User::all();
+        return view('admin.user', compact('datas'));
     }
 
     /**
@@ -67,6 +68,12 @@ class UserController extends Controller
 
         $user->sendEmailVerificationNotification();
 
+        ActivityLog::create([
+            'user_id' => auth()->id(),
+            'activity_type' => 'register',
+            'description' => "Registered a new user: {$user->name}",
+        ]);
+
         return redirect()->route('verification.notice')->with('message', 'Please verify your email before logging in.');
     }
 
@@ -89,7 +96,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = User::findOrFail($id);
+        return view('admin.createNupdate.updateUser', compact('data'));
     }
 
     /**
@@ -102,21 +110,50 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'role' => 'required',
-            'balance' => 'required'
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'nohp' => 'nullable|regex:/^[0-9]+$/',
+            'jk' => 'required|in:pria,wanita',
+            'dob' => 'required|date|before_or_equal:' . now()->subYears(18)->format('Y-m-d'),
+            'role' => 'required|in:admin,user,staff',
+            'balance' => 'required|numeric|min:0',
+            'nik' => 'nullable|numeric|digits:16',
+            'ktpImg' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'userImg' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        $data = User::findOrFail($id);
+        $user = User::findOrFail($id);
 
-        $data->update([
+        if ($request->hasFile('userImg')) {
+            $userImgPath = $request->file('userImg')->store('img', 'public');
+            $user->userImg = basename($userImgPath);
+        }
+
+        if ($request->hasFile('ktpImg')) {
+            $ktpImgPath = $request->file('ktpImg')->store('ktp_images', 'public');
+            $user->ktpImg = basename($ktpImgPath);
+        }
+
+        $user->update([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
+            'nohp' => $request->input('nohp'),
+            'jk' => $request->input('jk'),
+            'dob' => $request->input('dob'),
             'role' => $request->input('role'),
-            'balance' => $request->input('balance')
+            'balance' => $request->input('balance'),
+            'nik' => $request->input('nik') ?? null,
+            'userImg' => $user->userImg ?? null,
+            'ktpImg' => $user->ktpImg ?? null,
         ]);
-        return redirect()->route('user.index')->with('success', 'User updated successfully!');
+
+        ActivityLog::create([
+            'user_id' => auth()->id(),
+            'activity_type' => 'update',
+            'description' => "Updated user with ID: {$id}",
+        ]);
+
+        return redirect()->route('user.index')->with('message', 'User updated successfully!');
     }
 
     /**
@@ -129,8 +166,21 @@ class UserController extends Controller
     {
         $data = User::findOrFail($id);
 
-        $data->delete();
+        if ($data->userImg && Storage::exists('img/' . $data->userImg)) {
+            Storage::delete('img/' . $data->userImg);
+        }
 
+        if ($data->ktpImg && Storage::exists('ktp_images/' . $data->ktpImg)) {
+            Storage::delete('ktp_images/' . $data->ktpImg);
+        }
+
+        ActivityLog::create([
+            'user_id' => auth()->id(),
+            'activity_type' => 'delete',
+            'description' => "Deleted user with ID: {$id}",
+        ]);
+
+        $data->delete();
         return redirect()->route('user.index')->with('success', 'User deleted successfully!');
     }
 }

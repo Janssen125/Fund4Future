@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Fund;
 use App\Models\FundHistory;
 use App\Models\Category;
+use App\Models\ActivityLog;
 use Illuminate\Support\Facades\Storage;
 
 class ProfileSettingController extends Controller
@@ -59,6 +60,13 @@ class ProfileSettingController extends Controller
             $user->save();
         }
 
+        ActivityLog::create([
+            'user_id' => $user->id,
+            'activity_type' => 'profile_update',
+            'description' => "User {$user->name} has updated their NIK and KTP image.",
+            'created_at' => now(),
+        ]);
+
         return redirect()->route('profileSettings')->with('success', 'NIK and KTP image have been saved successfully.');
     }
 
@@ -66,7 +74,7 @@ class ProfileSettingController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Validate profile picture
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         $user = auth()->user();
