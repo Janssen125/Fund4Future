@@ -12,6 +12,7 @@ class Chat extends Model
         'fund_id',
         'staff_id',
         'funder_id',
+        'status',
         'created_at',
     ];
 

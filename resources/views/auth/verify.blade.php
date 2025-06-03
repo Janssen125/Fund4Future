@@ -1,5 +1,9 @@
 @extends('layouts.auth')
 
+
+@section('title')
+    Verify Email
+@endsection
 @section('cssName')
     login
 @endsection

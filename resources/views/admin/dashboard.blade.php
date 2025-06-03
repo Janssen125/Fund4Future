@@ -199,7 +199,13 @@
                                     </div>
                                 </div>
                                 <div class="col col-3">
-                                    <span class="badge badge-warning">{{ $chat->fund->approvalStatus }}</span>
+                                    @if ($chat->fund->approvalStatus == 'approved')
+                                        <span class="badge badge-success">{{ $chat->fund->approvalStatus }}</span>
+                                    @elseif($chat->fund->approvalStatus == 'declined')
+                                        <span class="badge badge-danger">{{ $chat->fund->approvalStatus }}</span>
+                                    @else
+                                        <span class="badge badge-warning">{{ $chat->fund->approvalStatus }}</span>
+                                    @endif
                                 </div>
                                 <div class="col col-3">
                                     <a href="{{ route('chats.show', $chat->id) }}" class="btn btn-primary">Chat</a>

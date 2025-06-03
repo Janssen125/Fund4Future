@@ -17,19 +17,19 @@ class ChatSeeder extends Seeder
     public function run()
     {
         $funds = Fund::all();
-
-        $admins = User::where('role', 'admin')->get();
-        $users = User::where('role', 'user')->get();
-
+        $users = User::all();
         foreach ($funds as $fund) {
-            $admin = $admins->random();
 
-            $staff = $users->random();
+            $user1 = $users->random();
+            do{
+            $user2 = $users->random();
+            } while ($user1->id === $user2->id);
 
             DB::table('chats')->insert([
                 'fund_id' => $fund->id,
-                'staff_id' => $staff->id,
-                'funder_id' => $admin->id,
+                'staff_id' => $user1->id,
+                'funder_id' => $user2->id,
+                'status' => 'active',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

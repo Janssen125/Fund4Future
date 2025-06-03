@@ -22,7 +22,8 @@
                             <th scope="col" style="background-color: #00A9A5; color: white;">Funding Name</th>
                             <th scope="col" style="background-color: #00A9A5; color: white;">Request Date</th>
                             <th scope="col" style="background-color: #00A9A5; color: white;">Time Elapsed</th>
-                            <th scope="col" style="background-color: #00A9A5; color: white;">Status</th>
+                            <th scope="col" style="background-color: #00A9A5; color: white;">Status Fund</th>
+                            <th scope="col" style="background-color: #00A9A5; color: white;">Active</th>
                             <th scope="col" style="background-color: #00A9A5; color: white;">Handled By</th>
                             <th scope="col" style="background-color: #00A9A5; color: white;">Details</th>
                         </tr>
@@ -36,6 +37,12 @@
                                 <td>{{ $fund->created_at->format('F d, Y') }}</td>
                                 <td>{{ Carbon\Carbon::now()->diffForHumans($fund->created_at) }}</td>
                                 <td>{{ ucfirst($fund->approvalStatus) }}</td>
+                                <td>
+                                    @if ($fund->chat->status == 'active')
+                                        <span class="badge bg-success">Active</span>
+                                    @else
+                                        <span class="badge bg-danger">Ended</span>
+                                    @endif
                                 <td>{{ $fund->chat->staff->name ?? 'None' }}</td>
                                 <td>
                                     <div class="icon-container d-flex justify-content-around align-items-center">

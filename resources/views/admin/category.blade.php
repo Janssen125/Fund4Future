@@ -12,7 +12,7 @@
                 Category
             </h1>
         </div>
-        <div class="col col-r">
+        <div class="col col-r justify-content-center">
             <a href="{{ route('category.create') }}" class="btn btn-primary mb-3 mx-5">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-plus-circle-fill" viewBox="0 0 16 16">

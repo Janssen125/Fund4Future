@@ -41,6 +41,19 @@ class UserSeeder extends Seeder
             'userImg' => 'AssetUser.png',
             'created_at' => now(),
             'updated_at' => now(),
+        ],[
+            'name' => 'staff',
+            'email' => 'staff@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('staff123'),
+            'dob' => '2001-01-01',
+            'nohp' => '081234567890',
+            'jk' => 'wanita',
+            'role' => 'staff',
+            'balance' => 1000000,
+            'userImg' => 'AssetAdmin.png',
+            'created_at' => now(),
+            'updated_at' => now(),
         ]]);
     }
 }

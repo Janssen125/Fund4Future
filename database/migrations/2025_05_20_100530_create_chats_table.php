@@ -21,6 +21,7 @@ class CreateChatsTable extends Migration
             $table->foreign('staff_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('funder_id');
             $table->foreign('funder_id')->references('id')->on('users')->onDelete('cascade');
+            $table->enum('status', ['active', 'ended'])->default('active');
             $table->timestamps();
         });
 

@@ -10,6 +10,17 @@
         <div class="container">
             <div class="row align-items-start justify-content-start py-5">
                 <div class="col col-l">
+                    <div class="row w-50 pb-5">
+                        @if (auth()->user()->role != 'user')
+                            <div class="col col-l">
+                                <a href="{{ route('admin.ticketing') }}" class="btn btn-secondary">Back to Chats</a>
+                            </div>
+                        @else
+                            <div class="col col-l">
+                                <a href="{{ route('profileFundingList') }}" class="btn btn-secondary">Back to Chats</a>
+                            </div>
+                        @endif
+                    </div>
                     <div class="row w-50">
                         @if ($chat->staff_id == null)
                             <div class="col col-l">
@@ -54,6 +65,15 @@
                             </span>
                         </div>
                     </div>
+                    @if ((auth()->user()->role == 'admin' || auth()->user()->role == $chat->staff->role) && $chat->status != 'ended')
+                        <div class="row py-3">
+                            <div class="col col-l">
+                                <button class="btn btn-danger" type="button" data-bs-toggle="modal"
+                                    data-bs-target="#updateModal-{{ $chat->id }}">Close this chat</button>
+                            </div>
+                        </div>
+                    @endif
+                    <hr class="w-100">
                     <div class="row py-3">
                         <div class="col col-l">
                             Attachments:
@@ -156,35 +176,74 @@
                             <hr>
                         </div>
                     @endforeach
-                    <div class="container py-3">
-                        <div class="row align-items-start">
-                            <div class="col col-1">
-                                @if (auth()->user()->userImg == 'AssetUser.png' || auth()->user()->userImg == 'AssetAdmin.png')
-                                    <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="profile picture"
-                                        width="40" height="40">
-                                @else
-                                    <img src="{{ auth()->user()->userImg ? asset('storage/img/' . auth()->user()->userImg) : asset('img/LogoFund4Future.png') }}"
-                                        width="40" height="40" alt="Profile Picture">
-                                @endif
-                            </div>
-                            <div class="col col-11">
-                                <form action="{{ route('chats.store') }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    <input type="hidden" name="chat_id" value="{{ $chat->id }}">
-                                    <div class="mb-3">
-                                        <textarea name="message" class="form-control" placeholder="Insert New Message" rows="3" required></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="attachment" class="form-label">Upload File (Image (.jpg, .jpeg, .png),
-                                            Video (mp4), PDF,
-                                            ZIP)</label>
-                                        <input type="file" name="attachment" id="attachment" class="form-control"
-                                            accept="image/*,video/*,.pdf,.zip">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Send</button>
-                                </form>
+                    @if ($chat->status == 'ended')
+                        <div class="container py-3">
+                            <div class="row">
+                                <div class="col col-12">
+                                    <p class="text-danger">This chat has been closed.</p>
+                                    <p>Contact us if there is any error or questions.</p>
+                                </div>
                             </div>
                         </div>
+                    @else
+                        <div class="container py-3">
+                            <div class="row align-items-start">
+                                <div class="col col-1">
+                                    @if (auth()->user()->userImg == 'AssetUser.png' || auth()->user()->userImg == 'AssetAdmin.png')
+                                        <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="profile picture"
+                                            width="40" height="40">
+                                    @else
+                                        <img src="{{ auth()->user()->userImg ? asset('storage/img/' . auth()->user()->userImg) : asset('img/LogoFund4Future.png') }}"
+                                            width="40" height="40" alt="Profile Picture">
+                                    @endif
+                                </div>
+                                <div class="col col-11">
+                                    <form action="{{ route('chats.store') }}" method="POST"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="hidden" name="chat_id" value="{{ $chat->id }}">
+                                        <div class="mb-3">
+                                            <textarea name="message" class="form-control" placeholder="Insert New Message" rows="3" required></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="attachment" class="form-label">Upload File (Image (.jpg, .jpeg,
+                                                .png),
+                                                Video (mp4), PDF,
+                                                ZIP)</label>
+                                            <input type="file" name="attachment" id="attachment" class="form-control"
+                                                accept="image/*,video/*,.pdf,.zip">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Send</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="updateModal-{{ $chat->id }}" tabindex="-1"
+            aria-labelledby="updateModalLabel-{{ $chat->id }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateModalLabel-{{ $chat->id }}">Confirm Finish</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to close this chat?
+                        <br>
+                        <span style="color: red;">This action can't be reversed</span>
+                        <strong>{{ $chat->name }}</strong>
+                    </div>
+                    <div class="modal-footer w-100">
+                        <form action="{{ route('chats.update', $chat->id) }}" method="POST"
+                            class="justify-content-end align-items-end d-flex">
+                            @csrf
+                            @method('PUT')
+                            <button type="button" class="btn btn-secondary mx-3" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-danger">Finish Chat</button>
+                        </form>
                     </div>
                 </div>
             </div>

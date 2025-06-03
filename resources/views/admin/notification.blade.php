@@ -37,11 +37,6 @@
                             <p>{{ $chat->created_at->format('F d, Y') }}</p>
                             <p>{{ $chat->created_at->format('h:i A') }}</p>
                         </div>
-                        @if (auth()->user()->role == 'admin')
-                            <div class="col col-2">
-                                <button type="button" class="btn btn-danger">Delete</button>
-                            </div>
-                        @endif
                     </div>
                 </div>
             @empty
@@ -63,11 +58,6 @@
                             <p>{{ $mail->created_at->format('F d, Y') }}</p>
                             <p>{{ $mail->created_at->format('h:i A') }}</p>
                         </div>
-                        @if (auth()->user()->role == 'admin')
-                            <div class="col col-3">
-                                <button type="button" class="btn btn-danger">Delete</button>
-                            </div>
-                        @endif
                     </div>
                 </div>
             @empty
@@ -91,11 +81,6 @@
                             <p>{{ $ticket->created_at->format('F d, Y') }}</p>
                             <p>{{ $ticket->created_at->format('h:i A') }}</p>
                         </div>
-                        @if (auth()->user()->role == 'admin')
-                            <div class="col col-3">
-                                <button type="button" class="btn btn-danger">Delete</button>
-                            </div>
-                        @endif
                     </div>
                 </div>
             @empty

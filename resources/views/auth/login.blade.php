@@ -1,5 +1,8 @@
 @extends('layouts.auth')
 
+@section('title')
+    Login
+@endsection
 @section('cssName')
     login
 @endsection

@@ -102,7 +102,7 @@ class ChatController extends Controller
     public function show($id)
     {
         $chat = Chat::with('chatDetails', 'staff')->where('fund_id', $id)->findOrFail($id);
-        if(!($chat->funder_id == auth()->id() || $chat->staff_id == auth()->id())) {
+        if(!($chat->funder_id == auth()->id() || $chat->staff_id == auth()->id() || auth()->user()->role == 'admin')) {
             return redirect()->route('home')->with('message', 'You are not authorized to view this chat.');
         }
         return view('user.chat', compact('chat'));
@@ -128,7 +128,14 @@ class ChatController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $chat = Chat::findOrFail($id);
+        if ($chat->funder_id != auth()->id() && $chat->staff_id != auth()->id() && auth()->user()->role != 'admin') {
+            return redirect()->route('home')->with('message', 'You are not authorized to update this chat.');
+        }
+
+        $chat->update(['status' => 'ended']);
+
+        return redirect()->back()->with('message', 'Chat closed successfully!');
     }
 
     /**
@@ -139,6 +146,13 @@ class ChatController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // $chat = Chat::findOrFail($id);
+        // if ($chat->funder_id != auth()->id() && $chat->staff_id != auth()->id() && auth()->user()->role != 'admin') {
+        //     return redirect()->route('home')->with('message', 'You are not authorized to delete this chat.');
+        // }
+
+        // $chat->delete();
+
+        // return redirect()->back()->with('message', 'Chat deleted successfully!');
     }
 }

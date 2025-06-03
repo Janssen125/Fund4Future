@@ -85,7 +85,7 @@
                                     <li>Account</li>
                                 </a>
                                 <hr class="dropdown-divider">
-                                @if (Auth::user()->role == 'admin')
+                                @if (Auth::user()->role == 'admin' || Auth::user()->role == 'staff')
                                     <a class="dropdown-item" href="{{ route('admin.index') }}">
                                         <li>Dashboard</li>
                                     </a>
