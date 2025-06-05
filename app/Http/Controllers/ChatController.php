@@ -50,13 +50,10 @@ class ChatController extends Controller
         if ($request->hasFile('attachment')) {
             $file = $request->file('attachment');
 
-            // Store the file in the 'attachments' directory
             $attachmentPath = $file->store('attachments', 'public');
 
-            // Get the file extension
             $fileExtension = strtolower($file->getClientOriginalExtension());
 
-            // Map the file extension to the allowed attachment types
             $allowedTypes = [
                 'jpeg' => 'image',
                 'jpg' => 'image',
@@ -68,12 +65,10 @@ class ChatController extends Controller
 
             $attachmentType = $allowedTypes[$fileExtension] ?? null;
 
-            // Ensure the attachment type is valid
             if (!$attachmentType) {
                 return redirect()->back()->with('message', 'Invalid file type. Allowed types are: image, video, pdf, zip.');
             }
 
-            // Get additional file details
             $attachmentSize = $file->getSize();
             $attachmentName = $file->getClientOriginalName();
         }
@@ -116,7 +111,12 @@ class ChatController extends Controller
      */
     public function edit($id)
     {
-        //
+        $chat = Chat::findOrFail($id);
+
+        $chat->staff_id = auth()->id();
+        $chat->save();
+
+        return redirect()->route('chat.show', $chat->id)->with('message', 'Chat assigned to you successfully!');
     }
 
     /**

@@ -7,6 +7,7 @@ use App\Models\Fund;
 use App\Models\FundDetail;
 use App\Models\FundHistory;
 use App\Models\Comments;
+use App\Models\Chat;
 use App\Models\ActivityLog;
 
 class FundController extends Controller
@@ -80,8 +81,12 @@ class FundController extends Controller
                 'types' => $detail['types'],
                 'imageOrVideo' => $filePath,
             ]);
-
         }
+
+        Chat::create([
+            'fund_id' => $fund->id,
+            'funder_id' => auth()->id(),
+        ]);
 
         ActivityLog::create([
             'user_id' => auth()->id(),
