@@ -38,7 +38,7 @@
                                 <td>{{ Carbon\Carbon::now()->diffForHumans($fund->created_at) }}</td>
                                 <td>{{ ucfirst($fund->approvalStatus) }}</td>
                                 <td>
-                                    @if ($fund->chat->status == 'active')
+                                    @if ($fund->chat && $fund->chat->status == 'active')
                                         <span class="badge bg-success">Active</span>
                                     @else
                                         <span class="badge bg-danger">Ended</span>
@@ -46,7 +46,7 @@
                                 <td>{{ $fund->chat->staff->name ?? 'None' }}</td>
                                 <td>
                                     <div class="icon-container d-flex justify-content-around align-items-center">
-                                        @if ($fund->chat->staff_id)
+                                        @if ($fund->chat && $fund->chat->staff_id)
                                             <a href="{{ route('chats.show', ['chat' => $fund->id]) }}">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="#000000" class="bi bi-eye-fill" viewBox="0 0 16 16">
@@ -78,8 +78,7 @@
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">Cancel</button>
-                                                            <form
-                                                                action="{{ route('chats.edit', ['chat' => $fund->chat->id]) }}"
+                                                            <form action="{{ route('chats.edit', ['chat' => $fund->id]) }}"
                                                                 method="GET">
                                                                 @csrf
                                                                 <button type="submit"

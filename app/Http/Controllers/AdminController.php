@@ -25,7 +25,7 @@ class AdminController extends Controller
                 return [
                     'type' => 'chat',
                     'title' => 'New Chat',
-                    'details' => "Chat with {$chat->funder->name} handled by {$chat->staff->name}",
+                    'details' => "Chat with " . ($chat->funder->name ?? 'Unknown Funder') . " handled by " . ($chat->staff->name ?? 'Unassigned Staff'),
                     'created_at' => $chat->created_at,
                 ];
             });

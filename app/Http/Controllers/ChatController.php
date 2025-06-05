@@ -96,7 +96,7 @@ class ChatController extends Controller
      */
     public function show($id)
     {
-        $chat = Chat::with('chatDetails', 'staff')->where('fund_id', $id)->findOrFail($id);
+        $chat = Chat::with('chatDetails', 'staff')->where('fund_id', $id)->firstOrFail();
         if(!($chat->funder_id == auth()->id() || $chat->staff_id == auth()->id() || auth()->user()->role == 'admin')) {
             return redirect()->route('home')->with('message', 'You are not authorized to view this chat.');
         }
@@ -111,12 +111,12 @@ class ChatController extends Controller
      */
     public function edit($id)
     {
-        $chat = Chat::findOrFail($id);
+        $chat = Chat::where('fund_id', $id)->firstOrFail();
 
         $chat->staff_id = auth()->id();
         $chat->save();
 
-        return redirect()->route('chat.show', $chat->id)->with('message', 'Chat assigned to you successfully!');
+        return redirect()->route('chats.show', $id)->with('message', 'Chat assigned to you successfully!');
     }
 
     /**
