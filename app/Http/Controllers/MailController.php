@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Mail;
+use Illuminate\Support\Facades\Mail as MailFacade;
 
 class MailController extends Controller
 {
@@ -14,7 +15,8 @@ class MailController extends Controller
      */
     public function index()
     {
-        return view('admin.mail');
+        $mails = Mail::all();
+        return view('admin.mail', compact('mails'));
     }
 
     /**
@@ -56,7 +58,8 @@ class MailController extends Controller
      */
     public function show($id)
     {
-        //
+        $mail = Mail::with('user')->findOrFail($id);
+        return view('admin.mailDetail', compact('mail'));
     }
 
     /**
@@ -91,5 +94,23 @@ class MailController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function reply(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+        ]);
+
+        $mail = Mail::findOrFail($id);
+        $mail->update([
+            'status' => 'replied',
+            'readBy' => auth()->user()->name,
+        ]);
+
+        MailFacade::to($mail->user->email)->send(new \App\Mail\ReplyMail($request->title, $request->content));
+
+        return redirect()->route('mail.index')->with('message', 'Reply sent successfully');
     }
 }

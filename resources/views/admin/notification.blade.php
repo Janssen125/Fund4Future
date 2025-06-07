@@ -65,7 +65,6 @@
             @endforelse
         </div>
 
-        <!-- New Tickets Section -->
         <div class="container my-4">
             <h3 class="text-center">New Tickets</h3>
             @forelse ($notifFund as $ticket)

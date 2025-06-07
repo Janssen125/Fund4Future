@@ -81,7 +81,6 @@ Route::resource('admin', AdminController::class)->middleware('auth');
 Route::resource('comments', CommentController::class);
 Route::resource('chats', ChatController::class)->middleware('auth');
 
-
 // Profile Setting routes
 Route::get('/profile/fundingList', [ProfileSettingController::class, 'fundingList'])->name('profileFundingList');
 Route::get('/profile/transactionHistory', [ProfileSettingController::class, 'fundingTransactionHistory'])->name('profileTransactionHistory');
@@ -104,6 +103,7 @@ Route::post('/midtrans/withdraw', [MidtransController::class, 'withdraw'])->name
 Route::get('/search-funds', [FundController::class, 'search'])->name('search.funds');
 Route::post('/process-fund', [FundController::class, 'processFund'])->name('process.funds');
 Route::post('/comments/reply', [CommentController::class, 'reply'])->name('comments.reply');
+Route::put('/mail/{id}/reply', [MailController::class, 'reply'])->name('mail.reply');
 
 
 // Test MidTrans

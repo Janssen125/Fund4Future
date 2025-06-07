@@ -83,7 +83,8 @@ button, .btn {
     justify-content: center;
 }
 
-.col-l {
+.col-l,
+.row-l {
     align-items: start;
 }
 
