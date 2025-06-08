@@ -2,33 +2,46 @@
 @section('title')
     Mail List
 @endsection
+@section('cssName')
+    admindasboard
+@endsection
 @section('content')
-    <div class="container">
-        <h1 class="p-5">Mail List</h1>
-        <div class="container">
-            <h3 class="text-center py-3">New Mails</h3>
-            @forelse ($mails as $mail)
-                <div class="container border rounded p-3 mb-3 w-75">
-                    <div class="row w-100">
-                        <div class="col col-3 col-l">
-                            <p>Subject: <b>{{ Str::limit($mail->title, 10, '...') }}</b></p>
-                        </div>
-                        <div class="col col-3 col-l">
-                            <p>Message: <b>{{ Str::limit($mail->content, 20, '...') }}</b></p>
-                        </div>
-                        <div class="col col-3 col-l">
-                            <p>{{ $mail->created_at->format('F d, Y') }}</p>
-                            <p>{{ $mail->created_at->format('h:i A') }}</p>
-                        </div>
-                        <div class="col col-3 col-l text-end">
-                            <a href="{{ route('mail.show', $mail->id) }}" class="btn btn-primary">View</a>
-                        </div>
-                    </div>
-                </div>
-            @empty
-                <p class="text-center">No new mails.</p>
-            @endforelse
-        </div>
+    <div class="container mt-4">
+        <h2>List Mail</h2>
+        <table class="table table-bordered text-center">
+            <thead class="table-light">
+                <tr>
+                    <th>No</th>
+                    <th>Tanggal</th>
+                    <th>From</th>
+                    <th>Subject</th>
+                    <th>View</th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                        <th>1</th>
+                        <td>2025-1-3</td>
+                        <td>Udin</td>
+                        <td>laporan pengalangan dana</td>
+                        <td><a href="">Detail</a></td>
+                    </tr>
+                    <tr>
+                        <th>2</th>
+                        <td>2025-3-15</td>
+                        <td>Condoriano</td>
+                        <td>Pengajuan penggalangan dana</td>
+                        <td><a href="">Detail</a></td>
+                    </tr>
+                    <tr>
+                        <th>3</th>
+                        <td>2025-4-30</td>
+                        <td>Suprianto</td>
+                        <td>Pertanyaan tentang penggalangan dana</td>
+                        <td><a href="">Detail</a></td>
+                    </tr>
+            </tbody>
+        </table>
     </div>
 @endsection
 
