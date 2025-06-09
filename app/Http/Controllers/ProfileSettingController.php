@@ -56,7 +56,7 @@ class ProfileSettingController extends Controller
             $ktpImagePath = $request->file('ktp_img')->store('ktp_images', 'public');
 
             $user->nik = $request->nik;
-            $user->ktpImg = $ktpImagePath;
+            $user->ktpImg = basename($ktpImagePath);
             $user->save();
         }
 

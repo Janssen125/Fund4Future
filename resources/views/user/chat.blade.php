@@ -65,7 +65,33 @@
                             </span>
                         </div>
                     </div>
-                    @if ((auth()->user()->role == 'admin' || auth()->user()->role == $chat->staff->role) && $chat->status != 'ended')
+                    @if (auth()->check() && auth()->user()->role != 'user')
+                        <div class="row">
+                            <div class="col">
+                                <form action="{{ route('chats.changeStatus', $chat->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="mb-3">
+                                        <label for="status" class="form-label">Change Status</label>
+                                        <select name="status" id="status" class="form-select">
+                                            <option value="pending"
+                                                {{ $chat->fund->approvalStatus == 'pending' ? 'selected' : '' }}>Pending
+                                            </option>
+                                            <option value="approved"
+                                                {{ $chat->fund->approvalStatus == 'approved' ? 'selected' : '' }}>Approved
+                                            </option>
+                                            <option value="declined"
+                                                {{ $chat->fund->approvalStatus == 'declined' ? 'selected' : '' }}>Declined
+                                            </option>
+                                            <option value="finished"
+                                                {{ $chat->fund->approvalStatus == 'finished' ? 'selected' : '' }}>Finished
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Update Status</button>
+                                </form>
+                            </div>
+                        </div>
                         <div class="row py-3">
                             <div class="col col-l">
                                 <button class="btn btn-danger" type="button" data-bs-toggle="modal"

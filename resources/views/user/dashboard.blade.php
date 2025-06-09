@@ -23,12 +23,14 @@
                     </div>
                     <div class="row">
                         <div class="col col-l button-container">
-                            @if(!auth()->user())
-                            <a href="{{ route('login') }}"><button type="button" class="btn btn-success btn-color-primary">Start
-                                    Funding</button></a>
+                            @if (!auth()->user())
+                                <a href="{{ route('login') }}"><button type="button"
+                                        class="btn btn-success btn-color-primary">Start
+                                        Funding</button></a>
                             @else
-                            <a href="{{ route('fund.index') }}"><button type="button" class="btn btn-success btn-color-primary">Start
-                                    Funding</button></a>
+                                <a href="{{ route('fund.index') }}"><button type="button"
+                                        class="btn btn-success btn-color-primary">Start
+                                        Funding</button></a>
                             @endif
                         </div>
                     </div>
@@ -99,7 +101,7 @@
     <section class="recommended-projects">
         <div class="container recommended-container p-5">
             <div class="h-container-1 d-flex justify-content-center">
-                <h4 class="pb-3">Discover Ongoing Progress</h4>
+                <h4 class="pb-3">We're almost made it!</h4>
             </div>
             <div class="row">
                 @foreach ($recommended as $project)

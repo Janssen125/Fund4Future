@@ -104,6 +104,7 @@ Route::get('/search-funds', [FundController::class, 'search'])->name('search.fun
 Route::post('/process-fund', [FundController::class, 'processFund'])->name('process.funds');
 Route::post('/comments/reply', [CommentController::class, 'reply'])->name('comments.reply');
 Route::put('/mail/{id}/reply', [MailController::class, 'reply'])->name('mail.reply');
+Route::put('chats/{id}/changeStatus', [ChatController::class, 'changeStatus'])->name('chats.changeStatus');
 
 
 // Test MidTrans

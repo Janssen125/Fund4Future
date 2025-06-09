@@ -39,7 +39,11 @@
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $data->name }}</td>
                                 <td>{{ $data->email }}</td>
-                                <td>{{ $data->email_verified_at->format('F d, Y h:i A') }}</td>
+                                @if ($data->email_verified_at)
+                                    <td>{{ $data->email_verified_at->format('F d, Y h:i A') }}</td>
+                                @else
+                                    <td>-</td>
+                                @endif
                                 <td>{{ $data->nohp }}</td>
                                 <td>{{ $data->jk }}</td>
                                 <td>{{ $data->dob }}</td>

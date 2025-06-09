@@ -155,4 +155,19 @@ class ChatController extends Controller
 
         // return redirect()->back()->with('message', 'Chat deleted successfully!');
     }
+
+    public function changeStatus(Request $request, $id)
+    {
+        $chat = Chat::findOrFail($id);
+
+        if ($chat->funder_id != auth()->id() && $chat->staff_id != auth()->id() && auth()->user()->role != 'admin') {
+            return redirect()->route('home')->with('message', 'You are not authorized to change the status of this chat.');
+        }
+
+        if ($chat->fund) {
+            $chat->fund->update(['approvalStatus' => $request->status]);
+        }
+
+        return redirect()->back()->with('message', 'Chat and fund status updated successfully!');
+    }
 }

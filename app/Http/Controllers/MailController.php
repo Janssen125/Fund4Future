@@ -93,7 +93,13 @@ class MailController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $mail = Mail::findOrFail($id);
+
+        if($mail) {
+            $mail->delete();
+            return redirect()->route("mail.index")->with('message', "Delete Mail Successful");
+        }
+        return redirect()->route("mail.index")->with('message', "Failed to find ID");
     }
 
     public function reply(Request $request, $id)
