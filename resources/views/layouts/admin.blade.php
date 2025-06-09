@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 
+@if (auth()->check() && auth()->user()->role == 'user')
+    <script>
+        window.location.href = "{{ route('home') }}";
+    </script>
+@endif
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

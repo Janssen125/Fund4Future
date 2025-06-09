@@ -20,12 +20,12 @@
                     <div class="card w-100">
                         <div class="card-body">
                             <div>
-                                <h5>Name: {{ $activity->user->name }}</h5>
-                                <p>Role: {{ $activity->user->role }}</p>
-                            </div>
-                            <p>Date: {{ $activity->created_at->format('F d, Y h:i A') }}</p>
-                            <div>
-                                <p>{{ $activity->description }}</p>
+                                <h5>Name: {{ $activity->user->name ?? 'Unknown User' }}</h5>
+                                <p>Role: {{ $activity->user->role ?? 'Unknown Role' }}</p>
+                                <p>Date: {{ $activity->created_at->format('F d, Y h:i A') }}</p>
+                                <div>
+                                    <p>{{ $activity->description }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
