@@ -90,9 +90,9 @@
                     @if ($fundings->isEmpty())
                         <p>There are no finished fund.</p>
                     @else
-                        <div class="row">
+                        <div class="row justify-content-start align-items-start w-100">
                             @foreach ($fundings as $funding)
-                                <div class="col">
+                                <div class="col col-4 mb-4 align-items-start">
                                     <div class="card">
                                         <div class="card-body">
                                             <h5 class="card-title">{{ $funding->name }}</h5>

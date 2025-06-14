@@ -97,9 +97,9 @@
                     @if ($fundings->isEmpty())
                         <p>You have not created any funds yet.</p>
                     @else
-                        <div class="row justify-content-start">
+                        <div class="row justify-content-start align-items-start w-100">
                             @foreach ($fundings as $funding)
-                                <div class="col-md-4 mb-4 align-items-start">
+                                <div class="col col-4 mb-4 align-items-start">
                                     <div class="card">
                                         <div class="card-body">
                                             <h5 class="card-title">{{ $funding->name }}</h5>
