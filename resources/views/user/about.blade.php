@@ -38,9 +38,9 @@
                         long-term vision, FundFuture is here to support your journey every step of the way.
                     </p>
                 </div>
-                <div class="col">
+                <!-- <div class="col">
                     <img src="{{ asset('img/foto bersama.jpg') }}" alt="FundFuture presentation with audience">
-                </div>
+                </div> -->
             </div>
     </section>
     <section>
@@ -164,7 +164,7 @@
             </div>
         </div>
     </section>
-    <section class="team-section" style="background-color: #d1f3f5; padding: 50px 0; text-align: center;">
+    <!-- <section class="team-section" style="background-color: #d1f3f5; padding: 50px 0; text-align: center;">
         <h2 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 40px;">Our Team</h2>
 
         <div class="container">
@@ -211,6 +211,6 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 @endsection
 {{-- Halaman untuk About us user, pengenalan aplikasi kita --}}
