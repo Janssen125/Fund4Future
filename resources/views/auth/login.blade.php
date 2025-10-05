@@ -53,7 +53,7 @@
             <div class="container text-center">
                 <p>Dont have an account?</p>
                 <a href="{{ route('register') }}" class="sign-up">Sign Up</a> <br>
-                <a href="{{ route('password.request') }}" class="forgot-password">Forgot Password?</a>
+                <!-- <a href="{{ route('password.request') }}" class="forgot-password">Forgot Password?</a> -->
             </div>
         </form>
     </section>

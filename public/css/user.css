@@ -4,6 +4,16 @@ div {
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
+/* Add these styles */
+.navbar {
+    padding: 1rem 0;
+}
+
+.navbar-nav .nav-link {
+    padding: 0.5rem 1rem;
+    position: relative;
+}
+
 .show {
     opacity: 1;
     transform: translateY(0);

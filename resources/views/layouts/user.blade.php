@@ -20,11 +20,12 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    
 
 </head>
 
 <!-- Navbar Section -->
-<header class="sticky-top dvw-100">
+ <header class="sticky-top dvw-100">
     <nav class="navbar navbar-expand-lg bg-body-tertiary dvw-100">
         <div class="container-fluid mx-4">
             <div class="left-side">
@@ -102,7 +103,81 @@
                 </div>
             </div>
     </nav>
-</header>
+</header> 
+
+<!-- Replace the existing navbar section with this code -->
+<!-- <header class="sticky-top w-100">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container">
+            <div class="d-flex align-items-center">
+                <a class="navbar-brand me-2" href="{{ route('home') }}">
+                    @if (auth()->guest())
+                        <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Logo" width="45" height="45">
+                    @elseif(auth()->user()->userImg == null)
+                        <img src="{{ asset('img/AssetUser.png') }}" alt="User" width="45" height="45">
+                    @elseif(auth()->user()->userImg == 'AssetAdmin.png' || auth()->user()->userImg == 'AssetUser.png')
+                        <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="User" width="45" height="45">
+                    @else
+                        <img src="{{ asset('storage/img/' . auth()->user()->userImg) }}" alt="User" width="45" height="45">
+                    @endif
+                </a>
+                <div class="border-start ps-3 d-none d-sm-block">
+                    <span class="cooltypinganimation">
+                        @guest
+                            Welcome, Guest
+                        @else
+                            Hello, {{ Auth::user()->name }}!
+                        @endguest
+                    </span>
+                </div>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::routeIs('fund.index') ? 'active' : '' }}" href="{{ route('fund.index') }}">Funding List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">Contact Us</a>
+                    </li>
+                </ul>
+
+                <div class="nav-item ms-lg-2">
+                    @if (Auth::check())
+                        <div class="dropdown">
+                            <button class="btn btn-outline-success dropdown-toggle" type="button"
+                                id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ Auth::user()->name }}
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href="{{ route('profile') }}">Account</a></li>
+                                <div class="dropdown-divider"></div>
+                                @if (Auth::user()->role == 'admin' || Auth::user()->role == 'staff')
+                                    <li><a class="dropdown-item" href="{{ route('admin.index') }}">Dashboard</a></li>
+                                    <div class="dropdown-divider"></div>
+                                @endif
+                                <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
+                            </ul>
+                        </div>
+                    @else
+                        <a class="btn btn-outline-success" href="{{ route('login') }}">Start Funding</a>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </nav>
+</header> -->
 
 <body>
     <main>
@@ -188,6 +263,7 @@
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="{{ asset('js/' . (View::hasSection('jsName') ? trim(View::yieldContent('jsName')) : '') . '.js') }}">
 </script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const swiper = new Swiper('.swiper-container', {
