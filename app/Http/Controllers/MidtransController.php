@@ -1,6 +1,5 @@
 <?php
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Midtrans\Config;
 use Midtrans\Snap;
@@ -23,6 +22,11 @@ class MidtransController extends Controller
 
     public function createTransaction(Request $request)
     {
+        Log::info('Midtrans Config:', [
+            'serverKey' => Config::$serverKey,
+            'isProduction' => Config::$isProduction
+        ]);
+        
         $request->validate([
             'amount' => 'nullable|numeric|min:10000',
             'customAmount' => 'nullable|numeric|min:10000',
@@ -39,7 +43,7 @@ class MidtransController extends Controller
         $params = [
             'transaction_details' => [
                 'order_id' => uniqid(),
-                'gross_amount' => $request->amount,
+                'gross_amount' => $amount,
                 'payment_type' => 'qris',
                 'enabled_payments' => ['gopay', 'shopeepay', 'bca_va'],
             ],
@@ -50,7 +54,7 @@ class MidtransController extends Controller
             'item_details' => [
                 [
                     'id' => uniqid(),
-                    'price' => $request->amount,
+                    'price' => $amount,
                     'quantity' => 1,
                     'name' => 'Top-up Balance',
                     'brand' => 'Fund4Future',
