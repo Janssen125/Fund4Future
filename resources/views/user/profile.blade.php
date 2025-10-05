@@ -63,9 +63,9 @@
                             <a href="{{ route('topup') }}">
                                 <li>Add Balance</li>
                             </a>
-                            <a href="{{ route('profileSettings') }}">
+                            <!-- <a href="{{ route('profileSettings') }}">
                                 <li>Settings</li>
-                            </a>
+                            </a> -->
                             <a href="{{ route('profileHelp') }}">
                                 <li>Help</li>
                             </a>
