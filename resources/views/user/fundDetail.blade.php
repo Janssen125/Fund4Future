@@ -52,7 +52,7 @@
                     @endif
                 </div>
             </div>
-            <div class="col col-l col-6 right-content">
+            <div class="col right-content">
                 <div class="row">
                     <div class="col">
                         <h2>{{ $data->name }}</h2>
@@ -167,8 +167,11 @@
                             <div class="col col-1">
                                 @if ($comment->user->userImg == null)
                                     <img src="{{ asset('img/AssetUser.png') }}" alt="User Image" class="img-fluid">
-                                @else
+                                @elseif($comment->user->userImg == 'AssetUser.png' || $comment->user->userImg == 'AssetAdmin.png')
                                     <img src="{{ asset('img/' . $comment->user->userImg) }}" alt="User Image"
+                                        class="img-fluid">
+                                @else
+                                    <img src="{{ asset('storage/img/' . $comment->user->userImg) }}" alt="User Image"
                                         class="img-fluid">
                                 @endif
                             </div>
@@ -194,9 +197,12 @@
                                             @if ($reply->user->userImg == null)
                                                 <img src="{{ asset('img/AssetUser.png') }}" alt="User Image"
                                                     class="img-fluid">
-                                            @else
+                                            @elseif($reply->user->userImg == 'AssetUser.png' || $reply->user->userImg == 'AssetAdmin.png')
                                                 <img src="{{ asset('img/' . $reply->user->userImg) }}" alt="User Image"
                                                     class="img-fluid">
+                                            @else
+                                                <img src="{{ asset('storage/img/' . $reply->user->userImg) }}"
+                                                    alt="User Image" class="img-fluid">
                                             @endif
                                         </div>
                                         <div class="col col-l">
@@ -224,9 +230,12 @@
                                             @if (auth()->user()->userImg == null)
                                                 <img src="{{ asset('img/AssetUser.png') }}" alt=""
                                                     class="img-fluid">
-                                            @else
+                                            @elseif(auth()->user()->userImg == 'AssetUser.png' || auth()->user()->userImg == 'AssetAdmin.png')
                                                 <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt=""
                                                     class="img-fluid">
+                                            @else
+                                                <img src="{{ asset('storage/img/' . auth()->user()->userImg) }}"
+                                                    alt="" class="img-fluid">
                                             @endif
                                         </div>
                                         <div class="col col-l">
@@ -266,9 +275,12 @@
                                         @if (auth()->user()->userImg == null)
                                             <img src="{{ asset('img/AssetUser.png') }}" alt=""
                                                 class="img-fluid">
-                                        @else
+                                        @elseif(auth()->user()->userImg == 'AssetUser.png' || auth()->user()->userImg == 'AssetAdmin.png')
                                             <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt=""
                                                 class="img-fluid">
+                                        @else
+                                            <img src="{{ asset('storage/img/' . auth()->user()->userImg) }}"
+                                                alt="" class="img-fluid">
                                         @endif
                                     </div>
                                     <div class="col col-l">
