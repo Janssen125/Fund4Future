@@ -52,7 +52,7 @@
                 <div class="swiper-wrapper">
                     @foreach ($projects as $project)
                         <div class="swiper-slide">
-                            <div class="card m-1">
+                            <div class="card m-1 h-100">
                                 @if ($project->fundDetail->isNotEmpty())
                                     @foreach ($project->fundDetail as $detail)
                                         @if ($loop->first)
@@ -76,7 +76,7 @@
                                 <div class="card-body p-4">
                                     <h5 class="card-title">{{ $project->name }}</h5>
                                     <p class="card-text">{{ Str::limit($project->description, 150) }}</p>
-                                    <div class="d-flex align-items-center justify-content-between">
+                                    <div class="barAndDetailButton">
                                         <div class="progress w-75" style="height: 20px;">
                                             <div class="progress-bar show" role="progressbar"
                                                 style="width: {{ ($project->currAmount * 100) / $project->targetAmount }}%;"
@@ -85,10 +85,10 @@
                                                 {{ round(($project->currAmount / $project->targetAmount) * 100) }}%
                                             </div>
                                         </div>
-                                        <a href="{{ route('fund.show', $project->id) }}" class="btn btn-primary ms-3">View
+                                        <a href="{{ route('fund.show', $project->id) }}" class="btn btn-primary">View
                                             Details</a>
                                     </div>
-                                    <p class="mt-2">Raised: Rp{{ number_format($project->currAmount, 2) }} /
+                                    <p class="mt-2">Raised: <br>Rp{{ number_format($project->currAmount, 2) }} /
                                         Rp{{ number_format($project->targetAmount, 2) }}</p>
                                 </div>
                             </div>
@@ -105,17 +105,17 @@
             </div>
             <div class="row">
                 @foreach ($recommended as $project)
-                    <div class="col-md-4 mb-4">
-                        <div class="card">
+                    <div class="col w-100">
+                        <div class="card w-100">
                             <img src="{{ asset('uploads/' . ($project->fundDetail->first()->imageOrVideo ?? 'default-image.png')) }}"
                                 class="card-img-top" alt="{{ $project->name }}"
                                 style="max-height: 200px; object-fit: cover;">
                             <div class="card-body p-4">
                                 <h5 class="card-title">{{ $project->name }}</h5>
                                 <p class="card-text">{{ Str::limit($project->description, 150) }}</p>
-                                <h6 class="mt-2">Raised: Rp{{ number_format($project->currAmount, 2) }} /
+                                <h6 class="mt-2">Raised: <br>Rp{{ number_format($project->currAmount, 2) }} /
                                     Rp{{ number_format($project->targetAmount, 2) }}</h6>
-                                <div class="under-card d-flex justify-content-between">
+                                <div class="barAndDetailButton">
                                     <div class="progress w-60">
                                         @php
                                             $progress =
@@ -140,6 +140,9 @@
                 @endforeach
             </div>
         </div>
+    </section>
+    <section class="about-us container flex-column">
+        {{-- About Us --}}
     </section>
     <section class="our-goals container flex-column">
         <div class="header-container">

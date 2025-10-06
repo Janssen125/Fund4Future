@@ -9,7 +9,7 @@
     fundDetail
 @endsection
 @section('content')
-    <div class="container">
+    <div class="container" id="topContent">
         @if (session('message'))
             <div class="alert alert-success w-100 text-success">
                 {{ session('message') }}
@@ -161,14 +161,18 @@
         <h2>Comments</h2>
         <div class="row py-3">
             <div class="col">
-                <div class="container">
+                <div class="container" id="commentSection">
                     @foreach ($data->comment as $comment)
                         <div class="row">
                             <div class="col col-1">
-                                <img src="{{ asset('img/' . $comment->user->userImg) }}" alt="User Image"
-                                    class="img-fluid">
+                                @if ($comment->user->userImg == null)
+                                    <img src="{{ asset('img/AssetUser.png') }}" alt="User Image" class="img-fluid">
+                                @else
+                                    <img src="{{ asset('img/' . $comment->user->userImg) }}" alt="User Image"
+                                        class="img-fluid">
+                                @endif
                             </div>
-                            <div class="col col-l col-11">
+                            <div class="col col-l">
                                 <div class="row">
                                     <div class="col">
                                         <h3>{{ $comment->user->name ?? 'Anonymous' }}</h3>
@@ -182,15 +186,20 @@
                             </div>
                         </div>
                         @foreach ($comment->reply as $reply)
-                            <div class="row py-2">
-                                <div class="col col-1"></div>
-                                <div class="col col-l col-11">
-                                    <div class="row w-100">
+                            <div class="row" id="replies">
+                                {{-- <div class="col col-1"></div> --}}
+                                <div class="col col-l">
+                                    <div class="row">
                                         <div class="col col-1">
-                                            <img src="{{ asset('img/' . $reply->user->userImg) }}" alt="User Image"
-                                                class="img-fluid">
+                                            @if ($reply->user->userImg == null)
+                                                <img src="{{ asset('img/AssetUser.png') }}" alt="User Image"
+                                                    class="img-fluid">
+                                            @else
+                                                <img src="{{ asset('img/' . $reply->user->userImg) }}" alt="User Image"
+                                                    class="img-fluid">
+                                            @endif
                                         </div>
-                                        <div class="col col-l col-11">
+                                        <div class="col col-l">
                                             <div class="row">
                                                 <div class="col">
                                                     <h4>{{ $reply->user->name ?? 'Anonymous' }}</h4>
@@ -208,14 +217,19 @@
                         @endforeach
                         @if (!auth()->guest())
                             <div class="row">
-                                <div class="col col-1"></div>
-                                <div class="col col-l col-11">
+                                {{-- <div class="col col-1"></div> --}}
+                                <div class="col col-l">
                                     <div class="row w-100">
                                         <div class="col col-1">
-                                            <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt=""
-                                                class="img-fluid">
+                                            @if (auth()->user()->userImg == null)
+                                                <img src="{{ asset('img/AssetUser.png') }}" alt=""
+                                                    class="img-fluid">
+                                            @else
+                                                <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt=""
+                                                    class="img-fluid">
+                                            @endif
                                         </div>
-                                        <div class="col col-l col-11">
+                                        <div class="col col-l">
                                             <form action="{{ route('comments.reply') }}" method="post"
                                                 class="replyform">
                                                 @csrf
@@ -234,7 +248,7 @@
                     @if (auth()->guest())
                         <div class="row">
                             <div class="col col-1"></div>
-                            <div class="col col-11">
+                            <div class="col">
                                 <a href="{{ route('login') }}" class="btn btn-primary primary-background">Please login to
                                     add a comment</a>
                             </div>
@@ -246,13 +260,18 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col col-11">
+                            <div class="col">
                                 <div class="row w-100">
                                     <div class="col col-1">
-                                        <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt=""
-                                            class="img-fluid">
+                                        @if (auth()->user()->userImg == null)
+                                            <img src="{{ asset('img/AssetUser.png') }}" alt=""
+                                                class="img-fluid">
+                                        @else
+                                            <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt=""
+                                                class="img-fluid">
+                                        @endif
                                     </div>
-                                    <div class="col col-l col-11">
+                                    <div class="col col-l">
                                         <form action="{{ route('comments.store') }}" method="post" class="commentform">
                                             @csrf
                                             <textarea name="comment" placeholder="Add Comment"></textarea>

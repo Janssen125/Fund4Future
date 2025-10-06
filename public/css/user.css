@@ -4,9 +4,24 @@ div {
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
+section {
+    overflow-y: hidden;
+}
+
 /* Add these styles */
 .navbar {
     padding: 1rem 0;
+}
+
+.navbar-nav {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
 }
 
 .navbar-nav .nav-link {
@@ -40,6 +55,83 @@ div {
     display: flex;
     justify-content: start;
     align-items: center;
+}
+
+.left-side {
+    flex: 1;
+    padding-left: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    height: 100%;
+    justify-content: space-between !important;
+}
+
+.valign-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+.barAndDetailButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+@media screen and (max-width: 480px) {
+    .navbar-nav {
+        flex-direction: column !important;
+        gap: 0.5rem;
+    }
+
+    .barAndDetailButton {
+        flex-direction: column;
+        gap: 0.5rem;
+        justify-content: start !important;
+        align-items: start !important;
+    }
+
+    .barAndDetailButton > div {
+        width: 100% !important;
+    }
+
+
+
+}
+
+@media screen and (max-width: 768px) {
+
+}
+
+@media screen and (max-width: 960px) {
+    .left-side {
+        padding-left: 0.5rem;
+    }
+
+    .container-fluid > div {
+        justify-content: center;
+    }
+
+    .navbar-nav {
+        display: flex;
+        flex-direction: row ;
+        width: 100%;
+    }
+
+    .barAndDetailButton {
+        flex-direction: column;
+        gap: 0.5rem;
+        justify-content: start;
+        align-items: start;
+    }
+
+    .barAndDetailButton > div {
+        width: 100%;
+    }
+
 }
 
 @keyframes typing {

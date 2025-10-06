@@ -8,7 +8,7 @@
 @section('content')
     <section>
         <div class="container">
-            <div class="row p-5">
+            <div class="row">
                 <h1>About Us</h1>
                 <div class="col">
                     <p>
@@ -39,10 +39,11 @@
                     </p>
                 </div>
                 <!-- <div class="col">
-                        <img src="{{ asset('img/foto bersama.jpg') }}" alt="FundFuture presentation with audience">
-                        wah parah lu melvin, foto kita di comment gini
-                    </div> -->
+                                <img src="{{ asset('img/foto bersama.jpg') }}" alt="FundFuture presentation with audience">
+                                wah parah lu melvin, foto kita di comment gini
+                            </div> -->
             </div>
+        </div>
     </section>
     <section>
         <div class="container">
@@ -166,52 +167,52 @@
         </div>
     </section>
     <!-- <section class="team-section" style="background-color: #d1f3f5; padding: 50px 0; text-align: center;">
-            <h2 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 40px;">Our Team</h2>
+                    <h2 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 40px;">Our Team</h2>
 
-            <div class="container">
-                <div class="row">
+                    <div class="container">
+                        <div class="row">
 
-                    <div class="col">
-                        <div class="circle">
-                            <img src="{{ asset('img/muka abraham.png') }}" alt="" srcset="">
+                            <div class="col">
+                                <div class="circle">
+                                    <img src="{{ asset('img/muka abraham.png') }}" alt="" srcset="">
+                                </div>
+                                <h4 style="margin: 10px 0 5px;">Abraham</h4>
+                                <p>FrontEnd</p>
+                            </div>
+
+                            <div class="col">
+                                <div class="circle">
+                                    <img src="{{ asset('img/muka melvin.jpg') }}" alt="" srcset="">
+                                </div>
+                                <h4 style="margin: 10px 0 5px;">Melvin</h4>
+                                <p>UI/X Design<br>Front End</p>
+                            </div>
+
+                            <div class="col">
+                                <div class="circle">
+                                    <img src="{{ asset('img/muka jansen.jpg') }}" alt="" srcset="">
+                                </div>
+                                <h4 style="margin: 10px 0 5px;">Janssen Addison</h4>
+                                <p>CEO<br>Fullstack</p>
+                            </div>
+
+                            <div class="col">
+                                <div class="circle">
+                                    <img src="{{ asset('img/muka komang.jpg') }}" alt="" srcset="">
+                                </div>
+                                <h4 style="margin: 10px 0 5px;">Komang</h4>
+                                <p>UI/X Design</p>
+                            </div>
+
+                            <div class="col">
+                                <div class="circle">
+                                    <img src="{{ asset('img/muka rico.jpg') }}" alt="" srcset="">
+                                </div>
+                                <h4 style="margin: 10px 0 5px;">Anricco</h4>
+                                <p>UI/X Design</p>
+                            </div>
                         </div>
-                        <h4 style="margin: 10px 0 5px;">Abraham</h4>
-                        <p>FrontEnd</p>
                     </div>
-
-                    <div class="col">
-                        <div class="circle">
-                            <img src="{{ asset('img/muka melvin.jpg') }}" alt="" srcset="">
-                        </div>
-                        <h4 style="margin: 10px 0 5px;">Melvin</h4>
-                        <p>UI/X Design<br>Front End</p>
-                    </div>
-
-                    <div class="col">
-                        <div class="circle">
-                            <img src="{{ asset('img/muka jansen.jpg') }}" alt="" srcset="">
-                        </div>
-                        <h4 style="margin: 10px 0 5px;">Janssen Addison</h4>
-                        <p>CEO<br>Fullstack</p>
-                    </div>
-
-                    <div class="col">
-                        <div class="circle">
-                            <img src="{{ asset('img/muka komang.jpg') }}" alt="" srcset="">
-                        </div>
-                        <h4 style="margin: 10px 0 5px;">Komang</h4>
-                        <p>UI/X Design</p>
-                    </div>
-
-                    <div class="col">
-                        <div class="circle">
-                            <img src="{{ asset('img/muka rico.jpg') }}" alt="" srcset="">
-                        </div>
-                        <h4 style="margin: 10px 0 5px;">Anricco</h4>
-                        <p>UI/X Design</p>
-                    </div>
-                </div>
-            </div>
-        </section> -->
+                </section> -->
 @endsection
 {{-- Halaman untuk About us user, pengenalan aplikasi kita --}}

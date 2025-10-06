@@ -18,3 +18,24 @@ section img {
     border-radius: 10rem;
     background-color: var(--bs-body-bg);
 }
+
+@media screen and (max-width: 768px) {
+    section {
+        min-height: max-content !important;
+        max-height: max-content !important;
+        padding: 2rem 1rem;
+    }
+
+    section img {
+        width: 0;
+        height: 0;
+        display: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .row {
+        flex-direction: column !important;
+        gap: 2rem !important;
+    }
+}

@@ -1,6 +1,6 @@
 .our-goals {
     min-height: max-content;
-    padding: 5rem 0;
+    padding: 5rem 1rem;
 }
 
 .imagesOrVideo{
@@ -10,6 +10,23 @@
 
 body {
     overflow-x: hidden;
+}
+
+@media screen and (max-width: 600px) {
+    .recommended-projects .container .row {
+        flex-direction: column !important;
+        gap: 1rem !important;
+    }
+
+    .swiper-wrapper {
+        flex-direction: column !important;
+        gap: 1rem !important;
+    }
+
+    .swiper-slide {
+        width: 100% !important;
+    }
+
 }
 
 @media screen and (max-width: 960px)  {
