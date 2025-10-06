@@ -11,7 +11,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('img/LogoFund4Future.png') }}">
     <script src="{{ asset('js/app.js') }}" defer></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
@@ -44,6 +46,8 @@
                         @if (auth()->user()->userImg == 'AssetAdmin.png' || auth()->user()->userImg == 'AssetUser.png')
                             <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="Bootstrap" width="45"
                                 height="45">
+                        @elseif(auth()->user()->userImg == null)
+                            <img src="{{ asset('img/AssetUser.png') }}" alt="" width="45" height="45">
                         @else
                             <img src="{{ asset('storage/img/' . auth()->user()->userImg) }}" alt=""
                                 width="45" height="45">

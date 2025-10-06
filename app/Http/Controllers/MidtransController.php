@@ -26,7 +26,7 @@ class MidtransController extends Controller
             'serverKey' => Config::$serverKey,
             'isProduction' => Config::$isProduction
         ]);
-        
+
         $request->validate([
             'amount' => 'nullable|numeric|min:10000',
             'customAmount' => 'nullable|numeric|min:10000',
@@ -124,8 +124,6 @@ class MidtransController extends Controller
 
         return response()->json(['message' => 'Balance Succesfully Updated!!'], 200);
     }
-
-
 
 }
 

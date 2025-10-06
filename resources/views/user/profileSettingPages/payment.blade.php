@@ -46,8 +46,8 @@
                                 <li>Profile</li>
                             </a>
                             <!-- <a href="{{ route('password.request') }}">
-                                <li>Change Password</li>
-                            </a> -->
+                                            <li>Change Password</li>
+                                        </a> -->
                             <a href="{{ route('profileFundingList') }}">
                                 <li>Funding List</li>
                             </a>
@@ -61,8 +61,8 @@
                                 <li>Add Balance</li>
                             </a>
                             <!-- <a href="{{ route('profileSettings') }}">
-                                <li>Settings</li>
-                            </a> -->
+                                            <li>Settings</li>
+                                        </a> -->
                             <a href="{{ route('profileHelp') }}">
                                 <li>Help</li>
                             </a>
@@ -127,13 +127,13 @@
                         })
                         .then(response => response.json())
                         .then(data => {
-                            alert("Server Response: " + JSON.stringify(data));
+                            alert(data.message);
+                            location.href = "{{ route('profile') }}";
                         })
                         .catch(error => {
                             alert("Error sending data to server.");
                         });
 
-                    location.href = "{{ route('profile') }}";
 
                 },
                 onPending: function(result) {

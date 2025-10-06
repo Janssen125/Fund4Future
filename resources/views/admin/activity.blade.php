@@ -5,9 +5,6 @@
 @section('cssName')
     admindashboard
 @endsection
-@section('jsName')
-    admin/navbar
-@endsection
 
 @section('content')
     <div>
@@ -22,9 +19,9 @@
                             <div>
                                 <h5>Name: {{ $activity->user->name ?? 'Unknown User' }}</h5>
                                 <p>Role: {{ $activity->user->role ?? 'Unknown Role' }}</p>
-                                <p>Date: {{ $activity->created_at->format('F d, Y h:i A') }}</p>
+                                <p>Date: {{ $activity->created_at->format('F d, Y h:i A') ?? '-' }}</p>
                                 <div>
-                                    <p>{{ $activity->description }}</p>
+                                    <p>{{ $activity->description ?? '-' }}</p>
                                 </div>
                             </div>
                         </div>

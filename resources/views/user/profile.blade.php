@@ -49,8 +49,8 @@
                                 <li>Profile</li>
                             </a>
                             <!-- <a href="{{ route('password.request') }}">
-                                <li>Change Password</li>
-                            </a> -->
+                                    <li>Change Password</li>
+                                </a> -->
                             <a href="{{ route('profileFundingList') }}">
                                 <li>Funding List</li>
                             </a>
@@ -64,8 +64,8 @@
                                 <li>Add Balance</li>
                             </a>
                             <!-- <a href="{{ route('profileSettings') }}">
-                                <li>Settings</li>
-                            </a> -->
+                                    <li>Settings</li>
+                                </a> -->
                             <a href="{{ route('profileHelp') }}">
                                 <li>Help</li>
                             </a>
@@ -128,6 +128,9 @@
                                 @if (auth()->user()->userImg == 'AssetAdmin.png' || auth()->user()->userImg == 'AssetUser.png')
                                     <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="Bootstrap" width="60"
                                         height="60">
+                                @elseif(auth()->user()->userImg == null)
+                                    <img src="{{ asset('img/AssetUser.png') }}" alt="Profile Picture" class="img-thumbnail"
+                                        style="max-width: 150px;">
                                 @else
                                     <img src="{{ asset('storage/img/' . Auth::user()->userImg) }}" alt="Profile Picture"
                                         class="img-thumbnail" style="max-width: 150px;">

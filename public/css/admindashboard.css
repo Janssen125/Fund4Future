@@ -25,3 +25,11 @@
     top: 25%;
     right: 5%;
 }
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 2rem;
+    table-layout: auto;
+    width: auto;
+  }

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('img/LogoFund4Future.png') }}">
     <script src="{{ asset('js/app.js') }}" defer></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/user.css') }}" rel="stylesheet">
@@ -20,12 +21,12 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-    
+
 
 </head>
 
 <!-- Navbar Section -->
- <header class="sticky-top dvw-100">
+<header class="sticky-top dvw-100">
     <nav class="navbar navbar-expand-lg bg-body-tertiary dvw-100">
         <div class="container-fluid mx-4">
             <div class="left-side">
@@ -103,7 +104,7 @@
                 </div>
             </div>
     </nav>
-</header> 
+</header>
 
 <!-- Replace the existing navbar section with this code -->
 <!-- <header class="sticky-top w-100">
@@ -112,21 +113,21 @@
             <div class="d-flex align-items-center">
                 <a class="navbar-brand me-2" href="{{ route('home') }}">
                     @if (auth()->guest())
-                        <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Logo" width="45" height="45">
-                    @elseif(auth()->user()->userImg == null)
-                        <img src="{{ asset('img/AssetUser.png') }}" alt="User" width="45" height="45">
-                    @elseif(auth()->user()->userImg == 'AssetAdmin.png' || auth()->user()->userImg == 'AssetUser.png')
-                        <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="User" width="45" height="45">
-                    @else
-                        <img src="{{ asset('storage/img/' . auth()->user()->userImg) }}" alt="User" width="45" height="45">
-                    @endif
+<img src="{{ asset('img/LogoFund4Future.png') }}" alt="Logo" width="45" height="45">
+@elseif(auth()->user()->userImg == null)
+<img src="{{ asset('img/AssetUser.png') }}" alt="User" width="45" height="45">
+@elseif(auth()->user()->userImg == 'AssetAdmin.png' || auth()->user()->userImg == 'AssetUser.png')
+<img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="User" width="45" height="45">
+@else
+<img src="{{ asset('storage/img/' . auth()->user()->userImg) }}" alt="User" width="45" height="45">
+@endif
                 </a>
                 <div class="border-start ps-3 d-none d-sm-block">
                     <span class="cooltypinganimation">
                         @guest
-                            Welcome, Guest
-                        @else
-                            Hello, {{ Auth::user()->name }}!
+                                Welcome, Guest
+@else
+    Hello, {{ Auth::user()->name }}!
                         @endguest
                     </span>
                 </div>
@@ -164,14 +165,14 @@
                                 <li><a class="dropdown-item" href="{{ route('profile') }}">Account</a></li>
                                 <div class="dropdown-divider"></div>
                                 @if (Auth::user()->role == 'admin' || Auth::user()->role == 'staff')
-                                    <li><a class="dropdown-item" href="{{ route('admin.index') }}">Dashboard</a></li>
+<li><a class="dropdown-item" href="{{ route('admin.index') }}">Dashboard</a></li>
                                     <div class="dropdown-divider"></div>
-                                @endif
+@endif
                                 <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
                             </ul>
                         </div>
-                    @else
-                        <a class="btn btn-outline-success" href="{{ route('login') }}">Start Funding</a>
+@else
+<a class="btn btn-outline-success" href="{{ route('login') }}">Start Funding</a>
                     @endif
                 </div>
             </div>

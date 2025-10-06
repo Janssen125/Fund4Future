@@ -8,7 +8,7 @@ section {
     align-items: center;
 }
 
-section > * {
+section>* {
     width: 100%;
 }
 
@@ -32,19 +32,24 @@ footer {
 
 html,
 body {
-    height: 100%; /* Ensure the html and body elements take up the full height of the viewport */
-    margin: 0; /* Remove default margin */
+    height: 100%;
+    /* Ensure the html and body elements take up the full height of the viewport */
+    margin: 0;
+    /* Remove default margin */
 }
 
 body {
     display: flex;
-    flex-direction: column; /* Set the body to use flexbox with a vertical layout */
+    flex-direction: column;
+    /* Set the body to use flexbox with a vertical layout */
 }
 
 main {
-    flex: 1; /* Make the main element grow to fill the remaining space */
+    flex: 1;
+    /* Make the main element grow to fill the remaining space */
     display: flex;
-    flex-direction: row; /* Optional: Ensure content inside main is also flexbox */
+    flex-direction: row;
+    /* Optional: Ensure content inside main is also flexbox */
 }
 
 nav {
@@ -121,11 +126,11 @@ li {
     list-style: none;
 }
 
-a{
+a {
     text-decoration: none;
 }
 
-aside > ul {
+aside>ul {
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -134,7 +139,7 @@ aside > ul {
     padding: 0;
 }
 
-aside > ul > a > li {
+aside>ul>a>li {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -148,12 +153,12 @@ aside > ul > a > li {
     transition: 0.3s ease;
 }
 
-aside >ul > a > li:hover,
-aside > ul > a > li.active {
+aside>ul>a>li:hover,
+aside>ul>a>li.active {
     background-color: #008080;
 }
 
-aside > ul > a {
+aside>ul>a {
     color: white !important;
     width: 100%;
     padding: 0.4rem;
@@ -181,4 +186,71 @@ aside > ul > a {
 .primary-background {
     background-color: var(--primary-green);
     color: white;
+}
+
+.justify-content-start {
+    justify-content: start;
+}
+
+.align-items-start {
+    align-items: start;
+}
+
+.py-3 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.px-3 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.p-3 {
+    padding: 1rem;
+}
+
+.table-responsive {
+    width: 90dvw;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 768px) {
+    html {
+        overflow-x: visible;
+    }
+
+    aside {
+        position: sticky;
+        height: 100dvh;
+        top: 0;
+        left: 0;
+    }
+
+    main {
+        position: relative;
+        z-index: 1;
+    }
+
+    main .container .row {
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+    }
+
+    main .container .row .col {
+        width: 100%;
+        align-items: center;
+    }
+
+    main .container .row .col-8,
+    main .container .row .col-4 {
+        width: 100%;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        text-align: center;
+    }
 }
