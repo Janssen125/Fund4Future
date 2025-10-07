@@ -8,7 +8,7 @@
 @endsection
 
 @section('content')
-    <section class="container d-flex justify-content-center align-items-center flex-sm-column">
+    <section class="container">
         @if (session('message'))
             <div class="alert alert-success w-50 text-success">
                 {{ session('message') }}
@@ -18,15 +18,15 @@
                 {{ session('status') }}
             </div>
         @endif
-        <form method="POST" action="{{ route('login') }}" class="d-flex justify-content-center flex-sm-column w-50">
+        <form method="POST" action="{{ route('login') }}">
             @csrf
             <div>
                 <h1 class="text-center">Welcome Back!</h1> <br>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
-                    id="email" value="{{ old('email') }}">
+                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email"
+                    value="{{ old('email') }}">
                 @error('email')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

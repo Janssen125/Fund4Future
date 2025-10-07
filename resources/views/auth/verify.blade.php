@@ -9,9 +9,8 @@
 @endsection
 
 @section('content')
-    <section class="container d-flex justify-content-center align-items-center">
-        <form class="d-flex justify-content-center flex-sm-column align-items-center" method="POST"
-            action="{{ route('verification.resend') }}">
+    <section class="container">
+        <form method="POST" action="{{ route('verification.resend') }}">
             @csrf
             <h2 class="text-center">Resend Verification Email</h2>
             <div class="p-3">

@@ -9,8 +9,8 @@
 @endsection
 
 @section('content')
-    <section class="container d-flex justify-content-center align-center">
-        <form method="POST" action="{{ route('user.store') }}" class="d-flex justify-content-center flex-sm-column w-50">
+    <section class="container">
+        <form method="POST" action="{{ route('user.store') }}">
             @csrf
             <div>
                 <h1 class="text-center">Registration</h1> <br>

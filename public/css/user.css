@@ -6,6 +6,7 @@ div {
 
 section {
     overflow-y: hidden;
+
 }
 
 /* Add these styles */
@@ -75,9 +76,9 @@ section {
 
 .barAndDetailButton {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
     gap: 1rem;
 }
 

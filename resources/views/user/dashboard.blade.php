@@ -77,7 +77,7 @@
                                     <h5 class="card-title">{{ $project->name }}</h5>
                                     <p class="card-text">{{ Str::limit($project->description, 150) }}</p>
                                     <div class="barAndDetailButton">
-                                        <div class="progress w-75" style="height: 20px;">
+                                        <div class="progress w-100" style="height: 20px;">
                                             <div class="progress-bar show" role="progressbar"
                                                 style="width: {{ ($project->currAmount * 100) / $project->targetAmount }}%;"
                                                 aria-valuenow="{{ ($project->currAmount * 100) / $project->targetAmount }}"
@@ -103,46 +103,78 @@
             <div class="h-container-1 d-flex justify-content-center">
                 <h4 class="pb-3">We're almost made it!</h4>
             </div>
-            <div class="row">
-                @foreach ($recommended as $project)
-                    <div class="col w-100">
-                        <div class="card w-100">
-                            <img src="{{ asset('uploads/' . ($project->fundDetail->first()->imageOrVideo ?? 'default-image.png')) }}"
-                                class="card-img-top" alt="{{ $project->name }}"
-                                style="max-height: 200px; object-fit: cover;">
-                            <div class="card-body p-4">
-                                <h5 class="card-title">{{ $project->name }}</h5>
-                                <p class="card-text">{{ Str::limit($project->description, 150) }}</p>
-                                <h6 class="mt-2">Raised: <br>Rp{{ number_format($project->currAmount, 2) }} /
-                                    Rp{{ number_format($project->targetAmount, 2) }}</h6>
-                                <div class="barAndDetailButton">
-                                    <div class="progress w-60">
-                                        @php
-                                            $progress =
-                                                $project->targetAmount > 0
-                                                    ? ($project->currAmount / $project->targetAmount) * 100
-                                                    : 0;
-                                        @endphp
-                                        <div class="progress-bar bg-primary-green show px-1" role="progressbar"
-                                            aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100"
-                                            style="width: {{ $progress }}%;">
-                                            {{ round($progress) }}%
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    @foreach ($recommended as $project)
+                        <div class="swiper-slide">
+                            <div class="card m-1 h-100">
+                                @if ($project->fundDetail->isNotEmpty())
+                                    @foreach ($project->fundDetail as $detail)
+                                        @if ($loop->first)
+                                            @if ($detail->types === 'video')
+                                                <video class="carousel-video imagesOrVideo" width="100%" controls>
+                                                    <source src="{{ asset('uploads/' . $detail->imageOrVideo) }}"
+                                                        type="video/mp4">
+                                                    Your browser does not support the video tag.
+                                                </video>
+                                            @else
+                                                <img src="{{ asset('uploads/' . $detail->imageOrVideo) }}"
+                                                    class="d-block w-100 imagesOrVideo" alt="Fund Image"
+                                                    style="max-height: 300px; object-fit: cover;">
+                                            @endif
+                                        @endif
+                                    @endforeach
+                                @else
+                                    <img src="{{ asset('img/default-image.png') }}" class="d-block w-100"
+                                        alt="Default Image" style="max-height: 300px; object-fit: cover;">
+                                @endif
+                                <div class="card-body p-4">
+                                    <h5 class="card-title">{{ $project->name }}</h5>
+                                    <p class="card-text">{{ Str::limit($project->description, 150) }}</p>
+                                    <div class="barAndDetailButton">
+                                        <div class="progress w-100" style="height: 20px;">
+                                            <div class="progress-bar show" role="progressbar"
+                                                style="width: {{ ($project->currAmount * 100) / $project->targetAmount }}%;"
+                                                aria-valuenow="{{ ($project->currAmount * 100) / $project->targetAmount }}"
+                                                aria-valuemin="0" aria-valuemax="100">
+                                                {{ round(($project->currAmount / $project->targetAmount) * 100) }}%
+                                            </div>
                                         </div>
+                                        <a href="{{ route('fund.show', $project->id) }}" class="btn btn-primary">View
+                                            Details</a>
                                     </div>
-                                    <div class="readmore-btn">
-                                        <a class="btn btn-success btn-color-primary"
-                                            href="{{ route('fund.show', $project->id) }}" role="button">Read More</a>
-                                    </div>
+                                    <p class="mt-2">Raised: <br>Rp{{ number_format($project->currAmount, 2) }} /
+                                        Rp{{ number_format($project->targetAmount, 2) }}</p>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
             </div>
         </div>
     </section>
     <section class="about-us container flex-column">
-        {{-- About Us --}}
+        <div class="header-container">
+            <h4 class="fw-bold text-primary-color text-center">About Us</h4>
+            <div class="p-container">
+                <p class="text-center">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla eius animi, tempora sunt quas architecto
+                    eveniet rem eos in, error necessitatibus placeat, recusandae odit sint quos debitis assumenda sapiente
+                    laborum!
+                    Quasi, quisquam voluptatum, ad ex earum reprehenderit vel excepturi consectetur nulla maxime doloribus,
+                    temporibus veniam dolorem. Cupiditate nihil sequi, hic, sed laudantium earum minus laborum perspiciatis
+                    possimus voluptatem ab minima.
+                    Vitae numquam quasi suscipit! Doloremque sed quisquam mollitia a voluptatibus est, eaque sapiente
+                    tempore
+                    magnam rem totam, nulla dignissimos? Perferendis aperiam sit, modi quaerat illum nobis quos commodi ea
+                    non.
+                    Soluta nam quidem beatae eligendi itaque perspiciatis, minus doloremque pariatur ex tempora provident
+                    suscipit nostrum blanditiis, expedita quam corrupti labore esse cum illo amet culpa incidunt ea
+                    molestiae
+                    debitis! Inventore?
+                </p>
+            </div>
+        </div>
     </section>
     <section class="our-goals container flex-column">
         <div class="header-container">

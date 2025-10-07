@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="{{ asset('css/root.css') }}">
 </head>
 
-<body class="bg-white w-50">
+<body class="bg-white">
     @yield('content')
 </body>
 

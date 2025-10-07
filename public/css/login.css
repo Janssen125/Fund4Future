@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+body {
+    width: 50%;
+}
+
 .sign-in-btn {
     background-color: var(--primary-green);
 }
@@ -12,4 +16,10 @@
     text-decoration: none;
 
     color: var(--primary-green);
+}
+
+@media screen and (max-width: 600px) {
+    body {
+        width: 80%;
+    }
 }
