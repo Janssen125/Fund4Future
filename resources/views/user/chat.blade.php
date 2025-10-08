@@ -114,45 +114,53 @@
                                     <p><strong>Type:</strong> {{ ucfirst($detail->type) }}</p>
                                     <p><strong>Attachment:</strong></p>
                                     @if (in_array($detail->type, ['image', 'video']))
-                                        <a href="{{ asset($detail->attachment) }}" target="_blank">
-                                            @if ($detail->type == 'image')
-                                                @if (
-                                                    $detail->attachment_name == 'example.jpg' ||
-                                                        $detail->attachment_name == 'example.png' ||
-                                                        $detail->attachment_name == 'example.jpeg')
-                                                    <img src="{{ asset($detail->attachment) }}" alt="Attachment"
-                                                        class="img-thumbnail" style="max-width: 200px;">
-                                                @else
-                                                    <img src="{{ asset('storage/' . $detail->attachment) }}"
-                                                        alt="Attachment" class="img-thumbnail" style="max-width: 200px;">
-                                                @endif
-                                            @elseif ($detail->type == 'video')
-                                                @if ($detail->attachment_name == 'example.mp4')
-                                                    <video controls style="max-width: 200px;">
-                                                        <source src="{{ asset($detail->attachment) }}" type="video/mp4">
-                                                        Your browser does not support the video tag.
-                                                    </video>
-                                                @else
-                                                    <video controls style="max-width: 200px;">
-                                                        <source src="{{ asset('storage/' . $detail->attachment) }}"
-                                                            type="video/mp4">
-                                                        Your browser does not support the video tag.
-                                                    </video>
-                                                @endif
+                                        @if (
+                                            $detail->attachment_name == 'example.jpg' ||
+                                                $detail->attachment_name == 'example.png' ||
+                                                $detail->attachment_name == 'example.jpeg' ||
+                                                $detail->attachment_name == 'example.mp4')
+                                            <a href="{{ asset($detail->attachment) }}" target="_blank">
+                                            @else
+                                                <a href="{{ route('attachment', $detail->attachment) }}" target="_blank">
+                                        @endif
+                                        @if ($detail->type == 'image')
+                                            @if (
+                                                $detail->attachment_name == 'example.jpg' ||
+                                                    $detail->attachment_name == 'example.png' ||
+                                                    $detail->attachment_name == 'example.jpeg')
+                                                <img src="{{ asset($detail->attachment) }}" alt="Attachment"
+                                                    class="img-thumbnail" style="max-width: 200px;">
+                                            @else
+                                                <img src="{{ route('attachment', $detail->attachment) }}" alt="Attachment"
+                                                    class="img-thumbnail" style="max-width: 200px;">
                                             @endif
+                                        @elseif ($detail->type == 'video')
+                                            @if ($detail->attachment_name == 'example.mp4')
+                                                <video controls style="max-width: 200px;">
+                                                    <source src="{{ asset($detail->attachment) }}" type="video/mp4">
+                                                    Your browser does not support the video tag.
+                                                </video>
+                                            @else
+                                                <video controls style="max-width: 200px;">
+                                                    <source src="{{ route('attachment', $detail->attachment) }}"
+                                                        type="video/mp4">
+                                                    Your browser does not support the video tag.
+                                                </video>
+                                            @endif
+                                        @endif
                                         </a>
                                     @elseif($detail->type == 'pdf')
                                         @if ($detail->attachment_name == 'example.pdf')
                                             <a href="{{ asset($detail->attachment) }}" target="_blank">Download PDF</a>
                                         @else
-                                            <a href="{{ asset('storage/' . $detail->attachment) }}"
+                                            <a href="{{ route('attachment', $detail->attachment) }}"
                                                 target="_blank">Download File</a>
                                         @endif
                                     @elseif($detail->type == 'zip')
                                         @if ($detail->attachment_name == 'example.zip')
                                             <a href="{{ asset($detail->attachment) }}" target="_blank">Download ZIP</a>
                                         @else
-                                            <a href="{{ asset('storage/' . $detail->attachment) }}"
+                                            <a href="{{ route('attachment', $detail->attachment) }}"
                                                 target="_blank">Download File</a>
                                         @endif
                                     @endif

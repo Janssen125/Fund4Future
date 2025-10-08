@@ -158,7 +158,8 @@
                                 <label for="fund_details[0][imageOrVideo]" class="form-label mt-2">Upload File</label>
                                 <input type="file"
                                     class="form-control @error('fund_details.0.imageOrVideo') is-invalid @enderror"
-                                    name="fund_details[0][imageOrVideo]" onchange="previewImage(event, 0)" required>
+                                    name="fund_details[0][imageOrVideo]" onchange="previewImage(event, 0)"
+                                    accept="image/*,video/*" required>
                                 @error('fund_details.0.imageOrVideo')
                                     <div class="text-danger show">{{ $message }}</div>
                                 @enderror

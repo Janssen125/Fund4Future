@@ -14,6 +14,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Support\Facades\Http;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 |
 */
 
+// Route::middleware(['license'])->group(function () {
 // We don't talk about this route
 Route::get('/', function () {
     return redirect()->route('home');
@@ -62,7 +64,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/about', [App\Http\Controllers\HomeController::class, 'about'])->name('about');
 Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
 Route::get('/contact', [App\Http\Controllers\HomeController::class, 'contact'])->name('contact')->middleware('auth');
-Route::get('/logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('logout');
+Route::get('/logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('logout_home');
 
 // Admin Route
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.home')->middleware('auth');
@@ -116,3 +118,16 @@ Route::post('/test-midtrans', function (Request $request) {
     return response()->json(['message' => 'Test route working!', 'data' => $request->all()], 200);
 });
 Route::get('/tempcat', function() {return view('admin/category');});
+
+Route::get('/attachment/{filename}', function ($filename) {
+    $path = storage_path('app/public/' . $filename);
+
+    if (!file_exists($path)) {
+        abort(404, 'File not found.');
+    }
+
+    return response()->file($path);
+})->where('filename', '.*')->name('attachment');
+
+
+// });

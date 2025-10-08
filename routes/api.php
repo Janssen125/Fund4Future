@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Midtrans\Snap;
 use Midtrans\Config;
+use App\Http\Controllers\LicenseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,3 +46,4 @@ Route::post('/midtrans/topup', function (Request $request) {
         return response()->json(['error' => $e->getMessage()], 500);
     }
 });
+// Route::get('/license-check', [LicenseController::class, 'check']);
