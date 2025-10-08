@@ -46,4 +46,4 @@ Route::post('/midtrans/topup', function (Request $request) {
         return response()->json(['error' => $e->getMessage()], 500);
     }
 });
-// Route::get('/license-check', [LicenseController::class, 'check']);
+Route::get('/license-check', [LicenseController::class, 'check']);

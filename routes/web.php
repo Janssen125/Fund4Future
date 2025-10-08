@@ -27,12 +27,11 @@ use Illuminate\Support\Facades\Http;
 |
 */
 
-// Route::middleware(['license'])->group(function () {
+Route::middleware(['license'])->group(function () {
 // We don't talk about this route
 Route::get('/', function () {
     return redirect()->route('home');
 });
-
 Auth::routes(['verify' => true, 'reset' => true]);
 
 Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
@@ -130,4 +129,4 @@ Route::get('/attachment/{filename}', function ($filename) {
 })->where('filename', '.*')->name('attachment');
 
 
-// });
+});
