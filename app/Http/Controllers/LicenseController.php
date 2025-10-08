@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Carbon\Carbon;
 
 class LicenseController extends Controller
 {
@@ -14,15 +15,26 @@ class LicenseController extends Controller
         $response = Http::get($licenseUrl);
 
         if ($response->failed()) {
-            return response()->json(['status' => '❌ License fetch failed'], 403);
+            abort(403, 'License fetch expired');
         }
 
         $license = $response->json();
+        try {
+            // Convert string to Carbon instance (it handles ISO 8601)
+            $expires = Carbon::parse($license['expires']);
+            // Compare with current time in same timezone
+            if (now()->greaterThan($expires)) {
+                abort(403, 'License expired');
+            }
 
+        } catch (\Exception $e) {
+            // In case the date is malformed
+            abort(500, 'License expiration date invalid');
+        }
         // Load public key
         $publicKeyPath = storage_path('public.pem');
         if (!file_exists($publicKeyPath)) {
-            return response()->json(['status' => '❌ Public key not found'], 403);
+            abort(403, 'public key not found');
         }
 
         $publicKey = file_get_contents($publicKeyPath);
@@ -38,12 +50,7 @@ class LicenseController extends Controller
         );
 
         if ($verified !== 1) {
-            return response()->json(['status' => '❌ License invalid or tampered'], 403);
-        }
-
-        // Check expiration
-        if (now()->greaterThan($license['expires'])) {
-            return response()->json(['status' => '⚠️ License expired'], 403);
+            abort(403, 'License invalid or tempered');
         }
 
         // License valid

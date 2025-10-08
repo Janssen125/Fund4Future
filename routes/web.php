@@ -27,11 +27,6 @@ use Illuminate\Support\Facades\Http;
 |
 */
 
-Route::middleware(['license'])->group(function () {
-// We don't talk about this route
-Route::get('/', function () {
-    return redirect()->route('home');
-});
 Auth::routes(['verify' => true, 'reset' => true]);
 
 Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
@@ -57,6 +52,11 @@ Route::post('/email/resend', function (Request $request) {
     Auth::user()->sendEmailVerificationNotification();
     return back()->with('message', 'Verification email sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
+Route::middleware(['license'])->group(function () {
+// We don't talk about this route
+Route::get('/', function () {
+    return redirect()->route('home');
+});
 
 // Home Route
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
