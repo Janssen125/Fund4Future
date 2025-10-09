@@ -5,7 +5,7 @@ AOL Software Engineering
 Requirements:
 
 -   XAMPP
--   PHP 7.\*
+-   PHP 7.\* (PHP ^8.1 because of railway)
 
 How To Run?
 
