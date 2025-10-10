@@ -52,7 +52,6 @@ Route::post('/email/resend', function (Request $request) {
     Auth::user()->sendEmailVerificationNotification();
     return back()->with('message', 'Verification email sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
-Route::middleware(['license'])->group(function () {
 // We don't talk about this route
 Route::get('/', function () {
     return redirect()->route('home');
@@ -65,6 +64,7 @@ Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])-
 Route::get('/contact', [App\Http\Controllers\HomeController::class, 'contact'])->name('contact')->middleware('auth');
 Route::get('/logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('logout_home');
 
+Route::middleware(['license'])->group(function () {
 // Admin Route
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.home')->middleware('auth');
 Route::get('/activity', [App\Http\Controllers\AdminController::class, 'activity'])->name('admin.activity')->middleware('auth');
