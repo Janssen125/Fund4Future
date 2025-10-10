@@ -29,7 +29,7 @@ class MidtransController extends Controller
 
         $request->validate([
             'amount' => 'nullable|numeric|min:10000',
-            'customAmount' => 'nullable|numeric|min:10000',
+            'customAmount' => 'nullable|numeric|min:1',
         ]);
 
         $amount = $request->amount ?? $request->customAmount;
