@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col" id="theTable">
                 <div class="table-responsive">
-                    <table id="userTable" class="display nowrap" style="width: max-content;">
+                    <table id="userTable" class="w-100" style="width: max-content;">
                         <thead>
                             <tr>
                                 <th scope="col" style="background-color: #00A9A5; color: white;">No</th>
