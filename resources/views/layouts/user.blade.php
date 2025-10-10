@@ -7,7 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('img/LogoFund4Future.png') }}">
-    <script src="{{ asset('js/app.js') }}" defer></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/user.css') }}" rel="stylesheet">
     <link
@@ -28,10 +27,10 @@
 <!-- Navbar Section -->
 <header class="sticky-top dvw-100">
     <nav class="navbar navbar-expand-lg bg-body-tertiary dvw-100">
-        <div class="container-fluid mx-4 ">
-            <div class="left-side ">
-                <div class="">
-                    <div class="thepic ">
+        <div class="container-fluid mx-4 visible">
+            <div class="left-side visible">
+                <div class="visible">
+                    <div class="thepic visible">
                         <a class="navbar-brand" href="{{ route('home') }}">
                             @if (auth()->guest())
                                 <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Bootstrap" width="45"
@@ -49,24 +48,24 @@
                         </a>
                     </div>
                     @guest
-                        <div class="border-start px-3 valign-center ">
+                        <div class="border-start px-3 valign-center visible">
                             <span class="cooltypinganimation">Welcome, Guest</span>
                         </div>
                     @else
-                        <div class="border-start px-3 valign-center ">
+                        <div class="border-start px-3 valign-center visible">
                             <span class="cooltypinganimation">Hello, {{ Auth::user()->name }}!</span>
                         </div>
                     @endguest
 
                 </div>
-                <div class="">
-                    <button class="navbar-toggler" type="button" aria-controls="navbarNav" aria-expanded="false"
-                        aria-label="Toggle navigation">
+                <div class="visible">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                 </div>
             </div>
-            <div class="collapse navbar-collapse justify-content-between " id="navbarNav">
+            <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('home') }}">Home</a>
@@ -81,9 +80,9 @@
                         <a class="nav-link" href="{{ route('contact') }}">Contact Us</a>
                     </li>
                 </ul>
-                <div id="navbarButton" class="">
+                <div id="navbarButton" class="visible">
                     @if (Auth::check())
-                        <div class="dropdown ">
+                        <div class="dropdown visible">
                             <button class="btn btn-outline-success ms-lg-3 dropdown-toggle" type="button"
                                 id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                 {{ Auth::user()->name }}
@@ -190,12 +189,19 @@
         </div>
     </div>
 </footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script src="{{ asset('js/' . (View::hasSection('jsName') ? trim(View::yieldContent('jsName')) : '') . '.js') }}">
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+    integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous">
+</script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+@if (View::hasSection('jsName'))
+    <script src="{{ asset('js/' . (View::hasSection('jsName') ? trim(View::yieldContent('jsName')) : '') . '.js') }}">
+    </script>
+@endif
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -232,54 +238,64 @@
                 }
             }
         });
-        const userDropdown = document.getElementById('userDropdown');
-        const dropdownMenu = document.querySelector('.dropdown-menu.dropdown-menu-end');
+        // const userDropdown = document.getElementById('userDropdown');
+        // const dropdownMenu = document.querySelector('.dropdown-menu.dropdown-menu-end');
 
-        userDropdown.addEventListener('click', function() {
-            if (dropdownMenu.classList.contains('show')) {
-                dropdownMenu.classList.remove('show');
-            } else {
-                dropdownMenu.classList.add('show');
-            }
-        });
+        // userDropdown.addEventListener('click', function() {
+        //     if (dropdownMenu.classList.contains('show')) {
+        //         dropdownMenu.classList.remove('show');
+        //     } else {
+        //         dropdownMenu.classList.add('show');
+        //     }
+        // });
 
-        document.addEventListener('click', function(event) {
-            if (!userDropdown.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                dropdownMenu.classList.remove('show');
-            }
-        });
+        // document.addEventListener('click', function(event) {
+        //     if (!userDropdown.contains(event.target) && !dropdownMenu.contains(event.target)) {
+        //         dropdownMenu.classList.remove('show');
+        //     }
+        // });
 
-        const navbarToggler = document.querySelector('.navbar-toggler');
-        const navbarMenu = document.getElementById('navbarNav');
+        // const navbarToggler = document.querySelector('.navbar-toggler');
+        // const navbarMenu = document.getElementById('navbarNav');
 
-        navbarToggler.addEventListener('click', function() {
-            // Manually toggle the .show class
-            if (navbarMenu.classList.contains('show')) {
-                navbarMenu.classList.remove('show');
-            } else {
-                navbarMenu.classList.add('show');
-            }
-        });
+        // navbarToggler.addEventListener('click', function() {
+        //     // Manually toggle the .show class
+        //     if (navbarMenu.classList.contains('show')) {
+        //         navbarMenu.classList.remove('show');
+        //     } else {
+        //         navbarMenu.classList.add('show');
+        //     }
+        // });
 
-        // Optional: Close menu when clicking outside
-        document.addEventListener('click', function(event) {
-            if (!navbarToggler.contains(event.target) && !navbarMenu.contains(event.target)) {
-                navbarMenu.classList.remove('show');
-            }
-        });
+        // navbarToggler.addEventListener('touchstart', toggleNav);
+        // navbarToggler.addEventListener('click', toggleNav);
+
+        // function toggleNav(event) {
+        //     event.stopPropagation();
+        //     navbarMenu.classList.toggle('show');
+        // }
+
+        // document.addEventListener('click', function(event) {
+        //     if (!navbarToggler.contains(event.target) && !navbarMenu.contains(event
+        //             .target)) {
+        //         navbarMenu.classList.remove('show');
+        //     }
+        // });
     });
 </script>
 <script>
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
-            if (entry.isIntersecting && entry.target.classList != "visible") {
+            if (entry.isIntersecting && !entry.target.classList.contains("visible")) {
                 entry.target.classList.add("visible");
                 observer.unobserve(entry.target);
             }
         });
     });
 
-    document.querySelectorAll("div").forEach((el) => observer.observe(el));
+    document.querySelectorAll("div").forEach((el) => {
+        observer.observe(el);
+    });
 </script>
 <script>
     function showNotification(message, type = 'success') {

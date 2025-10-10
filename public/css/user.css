@@ -30,6 +30,13 @@ section {
     position: relative;
 }
 
+nav .visible {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+
 .visible {
     opacity: 1;
     transform: translateY(0);
