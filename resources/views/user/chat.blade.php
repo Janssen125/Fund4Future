@@ -35,7 +35,7 @@
                                     <img src="{{ asset('img/' . $chat->staff->userImg) }}" alt="profile picture"
                                         width="40" height="40">
                                 @else
-                                    <img src="{{ asset('storage/img/' . $chat->staff->userImg) }}" width=40 height=40
+                                    <img src="{{ route('getimage', $chat->staff->userImg) }}" width=40 height=40
                                         alt="">
                                 @endif
                             </div>
@@ -185,7 +185,7 @@
                                         <img src="{{ asset('img/' . $detail->sender->userImg) }}" alt="profile picture"
                                             width="40" height="40">
                                     @else
-                                        <img src="{{ $detail->sender->userImg ? asset('storage/img/' . $detail->sender->userImg) : asset('img/LogoFund4Future.png') }}"
+                                        <img src="{{ $detail->sender->userImg ? route('getimage', $detail->sender->userImg) : asset('img/LogoFund4Future.png') }}"
                                             width=40 height=40 alt="Profile Picture">
                                     @endif
                                 </div>
@@ -227,7 +227,7 @@
                                         <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="profile picture"
                                             width="40" height="40">
                                     @else
-                                        <img src="{{ auth()->user()->userImg ? asset('storage/img/' . auth()->user()->userImg) : asset('img/LogoFund4Future.png') }}"
+                                        <img src="{{ auth()->user()->userImg ? route('getimage', auth()->user()->userImg) : asset('img/LogoFund4Future.png') }}"
                                             width="40" height="40" alt="Profile Picture">
                                     @endif
                                 </div>

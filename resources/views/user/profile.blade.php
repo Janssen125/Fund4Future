@@ -24,8 +24,8 @@
                                         <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="Bootstrap"
                                             width="60" height="60">
                                     @else
-                                        <img src="{{ asset('storage/img/' . auth()->user()->userImg) }}"
-                                            alt="profile picture" width=60 height=60>
+                                        <img src="{{ route('getimage', auth()->user()->userImg) }}" alt="profile picture"
+                                            width=60 height=60>
                                     @endif
                                 </div>
                                 <div class="col col-l">
@@ -49,8 +49,8 @@
                                 <li>Profile</li>
                             </a>
                             <!-- <a href="{{ route('password.request') }}">
-                                    <li>Change Password</li>
-                                </a> -->
+                                            <li>Change Password</li>
+                                        </a> -->
                             <a href="{{ route('profileFundingList') }}">
                                 <li>Funding List</li>
                             </a>
@@ -64,8 +64,8 @@
                                 <li>Add Balance</li>
                             </a>
                             <!-- <a href="{{ route('profileSettings') }}">
-                                    <li>Settings</li>
-                                </a> -->
+                                            <li>Settings</li>
+                                        </a> -->
                             <a href="{{ route('profileHelp') }}">
                                 <li>Help</li>
                             </a>
@@ -100,7 +100,7 @@
                                     <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="Bootstrap" width="100"
                                         height="100">
                                 @else
-                                    <img src="{{ asset('storage/img/' . auth()->user()->userImg) }}" alt="profile picture"
+                                    <img src="{{ route('getimage', auth()->user()->userImg) }}" alt="profile picture"
                                         width=100 height=100>
                                 @endif
                             </div>
@@ -132,7 +132,7 @@
                                     <img src="{{ asset('img/AssetUser.png') }}" alt="Profile Picture" class="img-thumbnail"
                                         style="max-width: 150px;">
                                 @else
-                                    <img src="{{ asset('storage/img/' . Auth::user()->userImg) }}" alt="Profile Picture"
+                                    <img src="{{ route('getimage', Auth::user()->userImg) }}" alt="Profile Picture"
                                         class="img-thumbnail" style="max-width: 150px;">
                                 @endif
                             </div>

@@ -21,8 +21,13 @@
                 <div class="container border rounded p-3 mb-3 w-75">
                     <div class="row w-100">
                         <div class="col col-2">
-                            <img src="{{ $chat->staff->userImg ? asset('img/' . $chat->staff->userImg) : asset('img/default.png') }}"
-                                alt="Staff Image" width="50">
+                            @if ($chat->staff->userImg == null)
+                                <img src="{{ asset('img/AssetUser.png') }}" alt="Staff Image" width="50">
+                            @elseif($chat->staff->userImg == 'AssetAdmin.png' || $chat->staff->userImg == 'AssetUser.png')
+                                <img src="{{ asset('img/' . $chat->staff->userImg) }}" alt="Staff Image" width="50">
+                            @else
+                                <img src="{{ route('getimage', $chat->staff->userImg) }}" alt="Staff Image" width="50">
+                            @endif
                         </div>
                         <div class="col col-2">
                             <p>Chat ID: {{ $chat->id }}</p>

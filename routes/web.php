@@ -128,5 +128,16 @@ Route::get('/attachment/{filename}', function ($filename) {
     return response()->file($path);
 })->where('filename', '.*')->name('attachment');
 
+Route::get('/getimage/{filename}', function ($filename) {
+    $path = storage_path('app/public/img/' . $filename);
+
+    Log::info('🖼️ Serving image:', ['path' => $path]);
+
+    if (!file_exists($path)) {
+        abort(404, 'File not found.');
+    }
+
+    return response()->file($path);
+})->where('filename', '.*')->name('getimage');
 
 });

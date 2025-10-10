@@ -48,7 +48,7 @@
                                             <img src="{{ asset('img/' . $data->userImg) }}" alt="Bootstrap" width="60"
                                                 height="60">
                                         @else
-                                            <img src="{{ asset('storage/img/' . $data->userImg) }}" alt="profile picture"
+                                            <img src="{{ route('getimage', $data->userImg) }}" alt="profile picture"
                                                 width=60 height=60>
                                         @endif
                                     </td>

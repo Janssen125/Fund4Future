@@ -19,7 +19,7 @@
                 @elseif($data->userImg == 'AssetAdmin.png' || $data->userImg == 'AssetUser.png')
                     <img src="{{ asset('img/' . $data->userImg) }}" alt="Bootstrap" width="120" height="120">
                 @else
-                    <img src="{{ asset('storage/img/' . $data->userImg) }}" alt="profile picture" width=120 height=120>
+                    <img src="{{ route('getimage', $data->userImg) }}" alt="profile picture" width=120 height=120>
                 @endif
             </div>
             <div class="col col-l">

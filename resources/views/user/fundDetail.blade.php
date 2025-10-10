@@ -171,7 +171,7 @@
                                     <img src="{{ asset('img/' . $comment->user->userImg) }}" alt="User Image"
                                         class="img-fluid">
                                 @else
-                                    <img src="{{ asset('storage/img/' . $comment->user->userImg) }}" alt="User Image"
+                                    <img src="{{ route('getimage', $comment->user->userImg) }}" alt="User Image"
                                         class="img-fluid">
                                 @endif
                             </div>
@@ -201,7 +201,7 @@
                                                 <img src="{{ asset('img/' . $reply->user->userImg) }}" alt="User Image"
                                                     class="img-fluid">
                                             @else
-                                                <img src="{{ asset('storage/img/' . $reply->user->userImg) }}"
+                                                <img src="{{ route('getimage', $reply->user->userImg) }}"
                                                     alt="User Image" class="img-fluid">
                                             @endif
                                         </div>
