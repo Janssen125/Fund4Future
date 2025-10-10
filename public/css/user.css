@@ -30,6 +30,11 @@ section {
     position: relative;
 }
 
+.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 .show {
     opacity: 1;
     transform: translateY(0);

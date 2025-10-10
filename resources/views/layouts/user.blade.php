@@ -28,10 +28,10 @@
 <!-- Navbar Section -->
 <header class="sticky-top dvw-100">
     <nav class="navbar navbar-expand-lg bg-body-tertiary dvw-100">
-        <div class="container-fluid mx-4 show">
-            <div class="left-side show">
-                <div class="show">
-                    <div class="thepic show">
+        <div class="container-fluid mx-4 ">
+            <div class="left-side ">
+                <div class="">
+                    <div class="thepic ">
                         <a class="navbar-brand" href="{{ route('home') }}">
                             @if (auth()->guest())
                                 <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Bootstrap" width="45"
@@ -49,24 +49,24 @@
                         </a>
                     </div>
                     @guest
-                        <div class="border-start px-3 valign-center show">
+                        <div class="border-start px-3 valign-center ">
                             <span class="cooltypinganimation">Welcome, Guest</span>
                         </div>
                     @else
-                        <div class="border-start px-3 valign-center show">
+                        <div class="border-start px-3 valign-center ">
                             <span class="cooltypinganimation">Hello, {{ Auth::user()->name }}!</span>
                         </div>
                     @endguest
 
                 </div>
-                <div class="show">
+                <div class="">
                     <button class="navbar-toggler" type="button" aria-controls="navbarNav" aria-expanded="false"
                         aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                 </div>
             </div>
-            <div class="collapse navbar-collapse justify-content-between show" id="navbarNav">
+            <div class="collapse navbar-collapse justify-content-between " id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('home') }}">Home</a>
@@ -81,9 +81,9 @@
                         <a class="nav-link" href="{{ route('contact') }}">Contact Us</a>
                     </li>
                 </ul>
-                <div id="navbarButton" class="show">
+                <div id="navbarButton" class="">
                     @if (Auth::check())
-                        <div class="dropdown show">
+                        <div class="dropdown ">
                             <button class="btn btn-outline-success ms-lg-3 dropdown-toggle" type="button"
                                 id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                 {{ Auth::user()->name }}
@@ -272,9 +272,8 @@
 <script>
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
-            if (entry.target.closest('nav')) return;
-            if (entry.isIntersecting && entry.target.classList != "show") {
-                entry.target.classList.add("show");
+            if (entry.isIntersecting && entry.target.classList != "visible") {
+                entry.target.classList.add("visible");
                 observer.unobserve(entry.target);
             }
         });
