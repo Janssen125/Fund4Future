@@ -9,6 +9,7 @@
         "ext-pdo": "*",
         "ext-pdo_mysql": "*",
         "fruitcake/laravel-cors": "^2.0",
+        "google/apiclient": "^2.18",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",

@@ -49,8 +49,7 @@
                         @elseif(auth()->user()->userImg == null)
                             <img src="{{ asset('img/AssetUser.png') }}" alt="" width="45" height="45">
                         @else
-                            <img src="{{ route('getimage', auth()->user()->userImg) }}" alt="" width="45"
-                                height="45">
+                            <img src="{{ auth()->user()->userImg }}" alt="" width="45" height="45">
                         @endif
                     </div>
                 </div>

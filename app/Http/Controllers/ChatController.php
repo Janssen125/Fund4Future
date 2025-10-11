@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Chat;
 use App\Models\ChatDetail;
+use Illuminate\Support\Facades\Storage;
+use Google\Client;
+use Google\Service\Drive;
+use Google\Service\Drive\DriveFile;
+use Google\Service\Drive\Permission;
 
 class ChatController extends Controller
 {
@@ -42,18 +47,16 @@ class ChatController extends Controller
             'attachment' => 'nullable|file|mimes:jpeg,png,jpg,mp4,pdf,zip|max:20480',
         ]);
 
-        $attachmentPath = null;
+        $attachmentUrl = null;
         $attachmentType = null;
         $attachmentSize = null;
         $attachmentName = null;
 
         if ($request->hasFile('attachment')) {
             $file = $request->file('attachment');
-
-            $attachmentPath = $file->store('attachments', 'public');
-
             $fileExtension = strtolower($file->getClientOriginalExtension());
 
+            // Determine file type
             $allowedTypes = [
                 'jpeg' => 'image',
                 'jpg' => 'image',
@@ -69,19 +72,72 @@ class ChatController extends Controller
                 return redirect()->back()->with('message', 'Invalid file type. Allowed types are: image, video, pdf, zip.');
             }
 
-            $attachmentSize = $file->getSize();
+            // Initialize Google Client
+            $client = new Client();
+            $client->setClientId(env('GOOGLE_CLIENT_ID'));
+            $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
+            $client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
+            $client->setAccessType('offline');
+            $client->setPrompt('select_account consent');
+            $client->addScope([
+                'https://www.googleapis.com/auth/drive.file',
+                'https://www.googleapis.com/auth/gmail.send',
+            ]);
+
+            // Use your refresh token
+            $client->refreshToken(env('GOOGLE_REFRESH_TOKEN'));
+            $accessToken = $client->getAccessToken();
+
+            if (!isset($accessToken['access_token'])) {
+                throw new \Exception('Failed to retrieve access token using refresh token.');
+            }
+
+            // Upload to Drive
+            $service = new Drive($client);
+            $driveFile = new DriveFile();
+            $driveFile->setName($file->getClientOriginalName());
+            $driveFile->setMimeType($file->getMimeType());
+
+            $createdFile = $service->files->create($driveFile, [
+                'data' => file_get_contents($file->getRealPath()),
+                'mimeType' => $file->getMimeType(),
+                'uploadType' => 'multipart',
+            ]);
+
+            // Make public
+            $permission = new Permission();
+            $permission->setType('anyone');
+            $permission->setRole('reader');
+            $service->permissions->create($createdFile->id, $permission);
+
+            if ($attachmentType === 'image') {
+                // Show as image thumbnail
+                $attachmentUrl = "https://drive.google.com/thumbnail?id={$createdFile->id}&export=view";
+            } elseif ($attachmentType === 'pdf') {
+                // Use Google Drive preview URL (opens in Drive viewer)
+                $attachmentUrl = "https://drive.google.com/file/d/{$createdFile->id}/view";
+            } elseif ($attachmentType === 'video') {
+                // Use Drive video preview
+                $attachmentUrl = "https://drive.google.com/file/d/{$createdFile->id}/preview";
+            } else {
+                // Fallback: direct file view/download
+                $attachmentUrl = "https://drive.google.com/uc?export=view&id={$createdFile->id}";
+            }
+
+
+            $attachmentSize = round($file->getSize() / 1024, 2) . ' KB';
             $attachmentName = $file->getClientOriginalName();
         }
 
-        // Create a new chat detail
+        // Save chat message
         ChatDetail::create([
             'chat_id' => $request->chat_id,
             'sender_id' => auth()->id(),
             'message' => $request->message,
-            'type' => $attachmentType ?? 'text', // Use 'text' if no attachment
-            'attachment' => $attachmentPath ?? null,
+            'type' => $attachmentType ?? 'text',
+            'attachment' => $attachmentUrl,
             'attachment_type' => $attachmentType,
-            'attachment_size' => $attachmentSize ? round($attachmentSize / 1024, 2) . ' KB' : null, // Convert size to KB
+            'attachment_size' => $attachmentSize,
             'attachment_name' => $attachmentName,
         ]);
 

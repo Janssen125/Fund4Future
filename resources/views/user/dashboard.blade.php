@@ -57,15 +57,27 @@
                                     @foreach ($project->fundDetail as $detail)
                                         @if ($loop->first)
                                             @if ($detail->types === 'video')
-                                                <video class="carousel-video imagesOrVideo" width="100%" controls>
-                                                    <source src="{{ asset('uploads/' . $detail->imageOrVideo) }}"
-                                                        type="video/mp4">
-                                                    Your browser does not support the video tag.
-                                                </video>
+                                                @if ($detail->imageOrVideo && strpos($detail->imageOrVideo, 'drive') == false)
+                                                    <video class="carousel-video imagesOrVideo" width="100%" controls>
+                                                        <source src="{{ asset('uploads/' . $detail->imageOrVideo) }}"
+                                                            type="video/mp4">
+                                                        Your browser does not support the video tag.
+                                                    </video>
+                                                @else
+                                                    <iframe src="{{ $detail->imageOrVideo }}" width="100%"
+                                                        frameborder="0">
+                                                    </iframe>
+                                                @endif
                                             @else
-                                                <img src="{{ asset('uploads/' . $detail->imageOrVideo) }}"
-                                                    class="d-block w-100 imagesOrVideo" alt="Fund Image"
-                                                    style="max-height: 300px; object-fit: cover;">
+                                                @if ($detail->imageOrVideo && strpos($detail->imageOrVideo, 'drive') == false)
+                                                    <img src="{{ asset('uploads/' . $detail->imageOrVideo) }}"
+                                                        class="d-block w-100 imagesOrVideo" alt="Fund Image"
+                                                        style="max-height: 300px; object-fit: cover;">
+                                                @else
+                                                    <img src="{{ $detail->imageOrVideo }}"
+                                                        class="d-block w-100 imagesOrVideo" alt="Fund Image"
+                                                        style="max-height: 300px; object-fit: cover;">
+                                                @endif
                                             @endif
                                         @endif
                                     @endforeach
@@ -112,15 +124,27 @@
                                     @foreach ($project->fundDetail as $detail)
                                         @if ($loop->first)
                                             @if ($detail->types === 'video')
-                                                <video class="carousel-video imagesOrVideo" width="100%" controls>
-                                                    <source src="{{ asset('uploads/' . $detail->imageOrVideo) }}"
-                                                        type="video/mp4">
-                                                    Your browser does not support the video tag.
-                                                </video>
+                                                @if (strpos($detail->imageOrVideo, 'drive') == false)
+                                                    <video class="carousel-video imagesOrVideo" width="100%" controls>
+                                                        <source src="{{ asset('uploads/' . $detail->imageOrVideo) }}"
+                                                            type="video/mp4">
+                                                        Your browser does not support the video tag.
+                                                    </video>
+                                                @else
+                                                    <iframe src="{{ $detail->imageOrVideo }}" width="100%"
+                                                        frameborder="0">
+                                                    </iframe>
+                                                @endif
                                             @else
-                                                <img src="{{ asset('uploads/' . $detail->imageOrVideo) }}"
-                                                    class="d-block w-100 imagesOrVideo" alt="Fund Image"
-                                                    style="max-height: 300px; object-fit: cover;">
+                                                @if (strpos($detail->imageOrVideo, 'drive') == false)
+                                                    <img src="{{ asset('uploads/' . $detail->imageOrVideo) }}"
+                                                        class="d-block w-100 imagesOrVideo" alt="Fund Image"
+                                                        style="max-height: 300px; object-fit: cover;">
+                                                @else
+                                                    <img src="{{ $detail->imageOrVideo }}"
+                                                        class="d-block w-100 imagesOrVideo" alt="Fund Image"
+                                                        style="max-height: 300px; object-fit: cover;">
+                                                @endif
                                             @endif
                                         @endif
                                     @endforeach

@@ -26,13 +26,23 @@
                         @foreach ($data->fundDetail as $index => $detail)
                             <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
                                 @if ($detail->types === 'video')
-                                    <video class="carousel-video" width="100%" controls>
-                                        <source src="{{ asset('uploads/' . $detail->imageOrVideo) }}" type="video/mp4">
-                                        Your browser does not support the video tag.
-                                    </video>
+                                    @if (strpos($detail->imageOrVideo, 'drive') === false)
+                                        <video class="carousel-video" width="100%" controls>
+                                            <source src="{{ asset('uploads/' . $detail->imageOrVideo) }}" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    @else
+                                        <iframe src="{{ $detail->imageOrVideo }}" class="carousel-video" width="100%"
+                                            height="315" allow="autoplay">
+                                        </iframe>
+                                    @endif
                                 @else
-                                    <img src="{{ asset('uploads/' . $detail->imageOrVideo) }}" class="d-block w-100"
-                                        alt="Fund Image">
+                                    @if (strpos($detail->imageOrVideo, 'drive') === false)
+                                        <img src="{{ asset('uploads/' . $detail->imageOrVideo) }}" class="d-block w-100"
+                                            alt="Fund Image">
+                                    @else
+                                        <img src="{{ $detail->imageOrVideo }}" class="d-block w-100" alt="Fund Image">
+                                    @endif
                                 @endif
                             </div>
                         @endforeach
@@ -171,8 +181,7 @@
                                     <img src="{{ asset('img/' . $comment->user->userImg) }}" alt="User Image"
                                         class="img-fluid">
                                 @else
-                                    <img src="{{ route('getimage', $comment->user->userImg) }}" alt="User Image"
-                                        class="img-fluid">
+                                    <img src="{{ $comment->user->userImg }}" alt="User Image" class="img-fluid">
                                 @endif
                             </div>
                             <div class="col col-l">
@@ -201,8 +210,8 @@
                                                 <img src="{{ asset('img/' . $reply->user->userImg) }}" alt="User Image"
                                                     class="img-fluid">
                                             @else
-                                                <img src="{{ route('getimage', $reply->user->userImg) }}"
-                                                    alt="User Image" class="img-fluid">
+                                                <img src="{{ $reply->user->userImg }}" alt="User Image"
+                                                    class="img-fluid">
                                             @endif
                                         </div>
                                         <div class="col col-l">
@@ -234,8 +243,8 @@
                                                 <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt=""
                                                     class="img-fluid">
                                             @else
-                                                <img src="{{ asset('storage/img/' . auth()->user()->userImg) }}"
-                                                    alt="" class="img-fluid">
+                                                <img src="{{ auth()->user()->userImg }}" alt=""
+                                                    class="img-fluid">
                                             @endif
                                         </div>
                                         <div class="col col-l">

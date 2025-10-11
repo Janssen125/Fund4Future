@@ -42,7 +42,7 @@
                                 <div class="container">
                                     <div class="row datarow">
                                         <div class="col">
-                                            <img src="{{ $funding->fundDetail->first()->imageOrVideo ? asset('uploads/' . $funding->fundDetail->first()->imageOrVideo) : asset('img/LogoFund4Future.png') }}"
+                                            <img src="{{ strpos($funding->fundDetail->first()->imageOrVideo, 'drive') == false ? asset('uploads/' . $funding->fundDetail->first()->imageOrVideo) : $funding->fundDetail->first()->imageOrVideo }}"
                                                 alt="Fund Image" class="fundimage">
                                         </div>
                                         <div class="col col-l">

@@ -35,8 +35,7 @@
                                     <img src="{{ asset('img/' . $chat->staff->userImg) }}" alt="profile picture"
                                         width="40" height="40">
                                 @else
-                                    <img src="{{ route('getimage', $chat->staff->userImg) }}" width=40 height=40
-                                        alt="">
+                                    <img src="{{ $chat->staff->userImg }}" width=40 height=40 alt="">
                                 @endif
                             </div>
                             <div class="col col-l">
@@ -121,7 +120,7 @@
                                                 $detail->attachment_name == 'example.mp4')
                                             <a href="{{ asset($detail->attachment) }}" target="_blank">
                                             @else
-                                                <a href="{{ route('attachment', $detail->attachment) }}" target="_blank">
+                                                <a href="{{ $detail->attachment }}" target="_blank">
                                         @endif
                                         @if ($detail->type == 'image')
                                             @if (
@@ -131,8 +130,8 @@
                                                 <img src="{{ asset($detail->attachment) }}" alt="Attachment"
                                                     class="img-thumbnail" style="max-width: 200px;">
                                             @else
-                                                <img src="{{ route('attachment', $detail->attachment) }}" alt="Attachment"
-                                                    class="img-thumbnail" style="max-width: 200px;">
+                                                <img src="{{ $detail->attachment }}" alt="Attachment" class="img-thumbnail"
+                                                    style="max-width: 200px;">
                                             @endif
                                         @elseif ($detail->type == 'video')
                                             @if ($detail->attachment_name == 'example.mp4')
@@ -141,11 +140,9 @@
                                                     Your browser does not support the video tag.
                                                 </video>
                                             @else
-                                                <video controls style="max-width: 200px;">
-                                                    <source src="{{ route('attachment', $detail->attachment) }}"
-                                                        type="video/mp4">
-                                                    Your browser does not support the video tag.
-                                                </video>
+                                                <iframe src="{{ $detail->attachment }}" style="max-width: 200px;"
+                                                    frameborder="0" allow="autoplay">
+                                                </iframe>
                                             @endif
                                         @endif
                                         </a>
@@ -153,15 +150,15 @@
                                         @if ($detail->attachment_name == 'example.pdf')
                                             <a href="{{ asset($detail->attachment) }}" target="_blank">Download PDF</a>
                                         @else
-                                            <a href="{{ route('attachment', $detail->attachment) }}"
-                                                target="_blank">Download File</a>
+                                            <a href="{{ $detail->attachment }}" target="_blank">
+                                                Download PDF</a>
                                         @endif
                                     @elseif($detail->type == 'zip')
                                         @if ($detail->attachment_name == 'example.zip')
                                             <a href="{{ asset($detail->attachment) }}" target="_blank">Download ZIP</a>
                                         @else
-                                            <a href="{{ route('attachment', $detail->attachment) }}"
-                                                target="_blank">Download File</a>
+                                            <a href="{{ $detail->attachment }}" target="_blank" download>Download
+                                                File</a>
                                         @endif
                                     @endif
                                 </div>
@@ -185,7 +182,7 @@
                                         <img src="{{ asset('img/' . $detail->sender->userImg) }}" alt="profile picture"
                                             width="40" height="40">
                                     @else
-                                        <img src="{{ $detail->sender->userImg ? route('getimage', $detail->sender->userImg) : asset('img/LogoFund4Future.png') }}"
+                                        <img src="{{ $detail->sender->userImg ? $detail->sender->userImg : asset('img/LogoFund4Future.png') }}"
                                             width=40 height=40 alt="Profile Picture">
                                     @endif
                                 </div>
@@ -227,7 +224,7 @@
                                         <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt="profile picture"
                                             width="40" height="40">
                                     @else
-                                        <img src="{{ auth()->user()->userImg ? route('getimage', auth()->user()->userImg) : asset('img/LogoFund4Future.png') }}"
+                                        <img src="{{ auth()->user()->userImg ? auth()->user()->userImg : asset('img/LogoFund4Future.png') }}"
                                             width="40" height="40" alt="Profile Picture">
                                     @endif
                                 </div>

@@ -105,8 +105,16 @@
                         @foreach ($recentFundingRequests as $fund)
                             <div class="row p-3 w-100">
                                 <div class="col col-2">
-                                    <img src="{{ $fund->fundDetail->first()->imageOrVideo ? asset('uploads/' . $fund->fundDetail->first()->imageOrVideo) : asset('img/LogoFund4Future.png') }}"
-                                        alt="Fund Image" class="img-fluid">
+                                    @if ($fund->fundDetail->first() == null)
+                                        <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Fund Image"
+                                            class="img-fluid">
+                                    @elseif ($fund->fundDetail->first()->imageOrVideo == null)
+                                        <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Fund Image"
+                                            class="img-fluid">
+                                    @else
+                                        <img src="{{ strpos($fund->fundDetail->first()->imageOrVideo, 'drive') == false ? asset('uploads/' . $fund->fundDetail->first()->imageOrVideo) : $fund->fundDetail->first()->imageOrVideo }}"
+                                            alt="Fund Image" class="img-fluid">
+                                    @endif
                                 </div>
                                 <div class="col col-2">
                                     <div class="card-body">

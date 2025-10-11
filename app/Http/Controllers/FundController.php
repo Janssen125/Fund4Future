@@ -9,6 +9,11 @@ use App\Models\FundHistory;
 use App\Models\Comments;
 use App\Models\Chat;
 use App\Models\ActivityLog;
+use Illuminate\Support\Facades\Storage;
+use Google\Client;
+use Google\Service\Drive;
+use Google\Service\Drive\DriveFile;
+use Google\Service\Drive\Permission;
 
 class FundController extends Controller
 {
@@ -53,7 +58,7 @@ class FundController extends Controller
             'targetAmount' => 'required',
             'fund_details' => 'required|array',
             'fund_details.*.types' => 'required',
-            'fund_details.*.imageOrVideo' => 'required',
+            'fund_details.*.imageOrVideo' => 'required|file',
         ]);
 
         $fund = Fund::create([
@@ -65,15 +70,51 @@ class FundController extends Controller
             'targetAmount' => $request->targetAmount,
         ]);
 
+        // Initialize Google client once
+        $client = new Client();
+        $client->setClientId(env('GOOGLE_CLIENT_ID'));
+        $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
+        $client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
+        $client->setAccessType('offline');
+        $client->setPrompt('select_account consent');
+        $client->addScope([
+            'https://www.googleapis.com/auth/drive.file',
+            'https://www.googleapis.com/auth/gmail.send',
+        ]);
+
+        // Use refresh token
+        $client->refreshToken(env('GOOGLE_REFRESH_TOKEN'));
+        $service = new Drive($client);
+
         foreach ($request->fund_details as $detail) {
             $filePath = null;
 
             if (isset($detail['imageOrVideo']) && $detail['imageOrVideo']->isValid()) {
-                $fileName = time() . '_' . $detail['imageOrVideo']->getClientOriginalName();
+                $file = new DriveFile();
+                $file->setName($detail['imageOrVideo']->getClientOriginalName());
+                $file->setMimeType($detail['imageOrVideo']->getMimeType());
 
-                $detail['imageOrVideo']->move(public_path('uploads'), $fileName);
+                // Upload to Drive
+                $createdFile = $service->files->create($file, [
+                    'data' => file_get_contents($detail['imageOrVideo']->getRealPath()),
+                    'mimeType' => $detail['imageOrVideo']->getMimeType(),
+                    'uploadType' => 'multipart',
+                ]);
 
-                $filePath = $fileName;
+                // Make file public
+                $permission = new Permission();
+                $permission->setType('anyone');
+                $permission->setRole('reader');
+                $service->permissions->create($createdFile->id, $permission);
+
+                // Detect type and set correct URL
+                $mimeType = $detail['imageOrVideo']->getMimeType();
+
+                if (str_starts_with($mimeType, 'image/')) {
+                    $filePath = "https://drive.google.com/thumbnail?id={$createdFile->id}&export=view";
+                } else {
+                    $filePath = "https://drive.google.com/file/d/{$createdFile->id}/preview";
+                }
             }
 
             FundDetail::create([
@@ -97,6 +138,7 @@ class FundController extends Controller
 
         return redirect()->route('profileFundingList')->with('message', 'Fund added successfully!');
     }
+
 
     /**
      * Display the specified resource.

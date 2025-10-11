@@ -301,7 +301,7 @@ a {
 
 }
 
-@media screen and (max-width: 1390px) {
+@media screen and (max-width: 1600px) {
     .customborder {
         display: none;
     }

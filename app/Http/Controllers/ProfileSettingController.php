@@ -8,7 +8,10 @@ use App\Models\FundHistory;
 use App\Models\Category;
 use App\Models\ActivityLog;
 use Illuminate\Support\Facades\Storage;
-
+use Google\Client;
+use Google\Service\Drive;
+use Google\Service\Drive\DriveFile;
+use Google\Service\Drive\Permission;
 class ProfileSettingController extends Controller
 {
     public function fundingList()
@@ -78,22 +81,62 @@ class ProfileSettingController extends Controller
         ]);
 
         $user = auth()->user();
-
         $user->name = $request->name;
 
         if ($request->hasFile('profile_picture')) {
-            if ($user->userImg && Storage::exists('img/' . $user->userImg)) {
-                Storage::delete('img/' . $user->userImg);
+
+            // Initialize Google client
+            $client = new Client();
+            $client->setClientId(env('GOOGLE_CLIENT_ID'));
+            $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
+            $client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
+            $client->setAccessType('offline');
+            $client->setPrompt('select_account consent');
+
+            // Add required scopes
+            $client->addScope([
+                'https://www.googleapis.com/auth/drive.file',
+                'https://www.googleapis.com/auth/gmail.send',
+            ]);
+
+            // Use the REFRESH TOKEN
+            $client->refreshToken(env('GOOGLE_REFRESH_TOKEN'));
+            $accessToken = $client->getAccessToken();
+
+            if (!isset($accessToken['access_token'])) {
+                throw new \Exception('Failed to retrieve access token using refresh token.');
             }
-            $profilePicturePath = $request->file('profile_picture')->store('img', 'public');
-            $user->userImg = basename($profilePicturePath);
+
+            $service = new Drive($client);
+
+            // Upload the file to Google Drive
+            $file = new DriveFile();
+            $file->setName($request->file('profile_picture')->getClientOriginalName());
+            $file->setMimeType($request->file('profile_picture')->getMimeType());
+
+            $createdFile = $service->files->create($file, [
+                'data' => file_get_contents($request->file('profile_picture')->getRealPath()),
+                'mimeType' => $request->file('profile_picture')->getMimeType(),
+                'uploadType' => 'multipart',
+            ]);
+
+            // Make the file public
+            $permission = new Permission();
+            $permission->setType('anyone');
+            $permission->setRole('reader');
+            $service->permissions->create($createdFile->id, $permission);
+
+            // Public URL
+            $publicUrl = "https://drive.google.com/thumbnail?id={$createdFile->id}&export=view";
+
+            // Save the URL to database
+            $user->userImg = $publicUrl;
         }
 
         $user->save();
 
         return redirect()->route('profile')->with('success', 'Profile updated successfully.');
     }
-
     public function help() {
         return view('user.profileSettingPages.help');
     }

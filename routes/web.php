@@ -9,13 +9,15 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\MidtransController;
+use App\Http\Controllers\EmailController;
+use App\Http\Controllers\GoogleDriveController;
 use App\Http\Controllers\ProfileSettingController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\VerificationController;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Http;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,19 +41,32 @@ Route::get('/email/verify', function () {
     return view('auth.verify');
 })->middleware('auth')->name('verification.notice');
 
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-    return redirect()->route('home')->with('message', 'Email verified successfully!');
-})->middleware(['auth', 'signed'])->name('verification.verify');
+// Verification link clicked by user
+Route::get('/email/verify/{id}/{token}', [VerificationController::class, 'verifyEmail'])
+    ->name('verify.email')->middleware(['auth', 'signed']); // your Gmail API link
 
-Route::post('/email/resend', function (Request $request) {
-    if (Auth::user()->hasVerifiedEmail()) {
-        return redirect('/emailverifiedsuccess');
-    }
+// Optional: resend verification email using Gmail API
+Route::get('/email/resend/{id}', [VerificationController::class, 'sendVerificationEmail'])
+    ->name('resend.verification.email')->middleware(['auth', 'throttle:6,1']);
 
-    Auth::user()->sendEmailVerificationNotification();
-    return back()->with('message', 'Verification email sent!');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
+// Route::get('/email/verify', function () {
+//     return view('auth.verify');
+// })->middleware('auth')->name('verification.notice');
+
+// Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+//     $request->fulfill();
+//     return redirect()->route('home')->with('message', 'Email verified successfully!');
+// })->middleware(['auth', 'signed'])->name('verification.verify');
+
+// Route::post('/email/resend', function (Request $request) {
+//     if (Auth::user()->hasVerifiedEmail()) {
+//         return redirect('/emailverifiedsuccess');
+//     }
+
+//     Auth::user()->sendEmailVerificationNotification();
+//     return back()->with('message', 'Verification email sent!');
+// })->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
+
 // We don't talk about this route
 Route::get('/', function () {
     return redirect()->route('home');
@@ -107,6 +122,11 @@ Route::post('/comments/reply', [CommentController::class, 'reply'])->name('comme
 Route::put('/mail/{id}/reply', [MailController::class, 'reply'])->name('mail.reply');
 Route::put('chats/{id}/changeStatus', [ChatController::class, 'changeStatus'])->name('chats.changeStatus');
 
+// Google
+Route::get('/send-email', [EmailController::class, 'sendEmail'])->name('email.send');
+Route::get('/callback', [EmailController::class, 'handleCallback'])->name('email.callback');
+Route::get('/drive/files', [GoogleDriveController::class, 'listFiles']);
+Route::post('/drive/upload', [GoogleDriveController::class, 'uploadFile']);
 
 // Test MidTrans
 Route::get('/test', function() {
@@ -139,5 +159,67 @@ Route::get('/getimage/{filename}', function ($filename) {
 
     return response()->file($path);
 })->where('filename', '.*')->name('getimage');
+
+
+// Route::get('/gmail-auth', function () {
+//     $dotenv = Dotenv\Dotenv::createImmutable(base_path());
+//     $dotenv->safeLoad();
+//     $client = new GoogleClient();
+//     $client->setClientId(env('GOOGLE_CLIENT_ID'));
+//     $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
+//     $client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
+//     $client->setAccessType('offline'); // important for refresh token
+//     $client->setPrompt('consent');
+//     $client->setScopes(['https://www.googleapis.com/auth/gmail.send', 'https://www.googleapis.com/auth/drive.file']);
+
+//     $authUrl = $client->createAuthUrl();
+//     return redirect($authUrl);
+// });
+
+// Route::get('/callback', function (\Illuminate\Http\Request $request) {
+//     $dotenv = Dotenv\Dotenv::createImmutable(base_path());
+//     $dotenv->safeLoad();
+//     $code = $request->get('code');
+//     $client = new GoogleClient();
+//     $client->setClientId(env('GOOGLE_CLIENT_ID'));
+//     $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
+//     $client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
+
+//     $token = $client->fetchAccessTokenWithAuthCode($code);
+//     return response()->json($token); // contains access_token & refresh_token
+// });
+
+// Route::get('/test-email', function () {
+//     $dotenv = Dotenv\Dotenv::createImmutable(base_path());
+//     $dotenv->safeLoad();
+//     $userEmail = env('GOOGLE_GMAIL_USER'); // your Gmail
+//     $toEmail = 'janssenaddisonchen@gmail.com';       // recipient email
+//     $subject = 'Test Email via Gmail API';
+//     $bodyText = 'Hello! This is a test email sent using Gmail API and Laravel.';
+
+//     $client = new Google\Client();
+//     $client->setAuthConfig(base_path('credentials.json'));
+//     $client->setScopes(['https://www.googleapis.com/auth/gmail.send']);
+//     $client->setSubject($userEmail); // impersonate user if using service account
+//     $client->refreshToken(env('GOOGLE_REFRESH_TOKEN'));
+//     $service = new Gmail($client);
+
+//     $rawMessage = "From: {$userEmail}\r\n";
+//     $rawMessage .= "To: {$toEmail}\r\n";
+//     $rawMessage .= "Subject: {$subject}\r\n";
+//     $rawMessage .= "Content-Type: text/plain; charset=UTF-8\r\n\r\n";
+//     $rawMessage .= $bodyText;
+
+//     $encodedMessage = rtrim(strtr(base64_encode($rawMessage), '+/', '-_'), '=');
+
+//     $gmailMessage = new Google\Service\Gmail\Message();
+//     $gmailMessage->setRaw($encodedMessage);
+
+//     // ✅ Use 'me' here
+//     $service->users_messages->send('me', $gmailMessage);
+
+//     return 'Test email sent via Gmail API!';
+// });
+
 
 });
