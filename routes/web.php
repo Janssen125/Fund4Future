@@ -29,7 +29,6 @@ use Illuminate\Support\Facades\Http;
 |
 */
 
-Auth::routes(['verify' => true, 'reset' => true]);
 
 Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
@@ -43,12 +42,13 @@ Route::get('/email/verify', function () {
 
 // Verification link clicked by user
 Route::get('/email/verify/{id}/{token}', [VerificationController::class, 'verifyEmail'])
-    ->name('verify.email')->middleware(['auth', 'signed']); // your Gmail API link
+    ->name('verify.email'); // your Gmail API link
 
 // Optional: resend verification email using Gmail API
 Route::get('/email/resend/{id}', [VerificationController::class, 'sendVerificationEmail'])
-    ->name('resend.verification.email')->middleware(['auth', 'throttle:6,1']);
+->name('resend.verification.email');
 
+Auth::routes(['verify' => true, 'reset' => true]);
 // Route::get('/email/verify', function () {
 //     return view('auth.verify');
 // })->middleware('auth')->name('verification.notice');

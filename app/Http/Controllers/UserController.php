@@ -60,16 +60,16 @@ class UserController extends Controller
             'nohp' => $request->nohp,
             'jk' => $request->jk,
             'dob' => $request->dob,
-            'email_verified_at' => now(),
+            // 'email_verified_at' => now(),
             'password' => Hash::make($request->password),
         ]);
 
-        Auth::login($user);
-
-        $user->sendEmailVerificationNotification();
+        $verificationController = new \App\Http\Controllers\Auth\VerificationController();
+        $verificationController->sendVerificationEmail($user);
+        // $user->sendEmailVerificationNotification();
 
         ActivityLog::create([
-            'user_id' => auth()->id(),
+            'user_id' => $user->id,
             'activity_type' => 'register',
             'description' => "Registered a new user: {$user->name}",
         ]);

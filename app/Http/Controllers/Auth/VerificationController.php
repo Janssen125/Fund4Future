@@ -50,7 +50,17 @@ class VerificationController extends Controller
         $this->client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
         $this->client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
         $this->client->addScope(Gmail::GMAIL_SEND);
-        $this->client->setAccessToken($this->client->fetchAccessTokenWithRefreshToken(env('GOOGLE_REFRESH_TOKEN')));
+        $this->client->refreshToken(env('GOOGLE_REFRESH_TOKEN'));
+        $accessToken = $this->client->getAccessToken();
+
+        if(!isset($accessToken['access_token'])) {
+            throw new \Exception('Failed to obtain access token from refresh token.');
+        }
+        // $this->client->setAccessToken($this->client->fetchAccessTokenWithRefreshToken(env('GOOGLE_REFRESH_TOKEN')));
+        // if ($this->client->isAccessTokenExpired()) {
+        //     $this->client->fetchAccessTokenWithRefreshToken(env('GOOGLE_REFRESH_TOKEN'));
+        // }
+
         // $this->middleware('auth');
         // $this->middleware('signed')->only('verify');
         // $this->middleware('throttle:6,1')->only('verify', 'resend');
@@ -58,61 +68,49 @@ class VerificationController extends Controller
 
     public function sendVerificationEmail(User $user)
     {
-        // 1️⃣ Generate a unique token
         $token = Str::random(64);
-        $user->email_verification_token = $token;
-        $user->save();
 
-        // 2️⃣ Prepare verification link
         $verifyUrl = URL::temporarySignedRoute(
             'verify.email',
             now()->addHours(24),
             ['token' => $token, 'id' => $user->id]
         );
 
-        // 3️⃣ Compose email
-        $to = [$user->email];
         $subject = 'Verify Your Email Address';
-        $messageText = "Hi {$user->name},\n\n";
-        $messageText .= "Please verify your email by clicking the link below:\n";
-        $messageText .= $verifyUrl . "\n\n";
-        $messageText .= "This link will expire in 24 hours.";
+        $body = "Hi {$user->name},\n\nPlease verify your email:\n{$verifyUrl}\n\nExpires in 24h.";
 
         $message = new Message();
-        $rawMessageString = "From: me\r\n";
-        $rawMessageString .= "To: " . implode(',', $to) . "\r\n";
-        $rawMessageString .= "Subject: " . $subject . "\r\n\r\n";
-        $rawMessageString .= $messageText;
+        $rawMessage = "From: " . env('GOOGLE_GMAIL_USER') . "\r\n";
+        $rawMessage .= "To: {$user->email}\r\n";
+        $rawMessage .= "Subject: {$subject}\r\n\r\n";
+        $rawMessage .= $body;
 
-        $rawMessage = base64_encode($rawMessageString);
-        $rawMessage = str_replace(['+', '/', '='], ['-', '_', ''], $rawMessage);
-        $message->setRaw($rawMessage);
+        $encoded = base64_encode($rawMessage);
+        $encoded = str_replace(['+', '/', '='], ['-', '_', ''], $encoded);
+        $message->setRaw($encoded);
 
-        $service = new Gmail($this->client);
+        $gmail = new Gmail($this->client);
 
+        Auth::login($user);
         try {
-            $service->users_messages->send('me', $message);
-            return true;
+            $gmail->users_messages->send('me', $message);
+            return redirect()->route('verification.notice')->with('message', 'Verification email sent! Please check your inbox.');
         } catch (\Exception $e) {
-            \Log::error("Error sending verification email: " . $e->getMessage());
-            return false;
+            \Log::error('Gmail API Error: ' . $e->getMessage());
+            return redirect()->route('verification.notice')->with('error', 'Failed to send verification email. Please try again later.');
         }
     }
 
-public function verifyEmail(Request $request)
-{
-    $user = User::findOrFail($request->route('id'));
+    public function verifyEmail($id, $token)
+    {
+        $user = User::find($id); // fetch manually
 
-    if (!$user || $user->email_verification_token !== $request->token) {
-        return redirect('/')->with('error', 'Invalid or expired verification link.');
+        $user->email_verified_at = now();
+        $user->save();
+
+        Auth::login($user); // login after verification
+
+        return redirect()->route('home')->with('success', 'Your email has been verified!');
     }
 
-    $user->email_verified_at = now();
-    $user->email_verification_token = null;
-    $user->save();
-
-    Auth::login($user);
-
-    return redirect()->route('login')->with('success', 'Your email has been verified!');
-}
 }
