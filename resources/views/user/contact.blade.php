@@ -15,7 +15,7 @@
                 <div class="row">
                     <h1 class="px-4">Contact Us</h1>
                     <div class="col">
-                        <div class="container">
+                        <div class="container align-items-start">
                             <div class="row">
                                 <div class="col align-items-start">
                                     <h3>Address</h3>
@@ -27,7 +27,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="container">
+                        <div class="container align-items-start">
                             <div class="row">
                                 <div class="col align-items-start">
                                     <h3>Opening Hours</h3>
@@ -39,7 +39,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="container">
+                        <div class="container align-items-start">
                             <div class="row">
                                 <div class="col align-items-start">
                                     <h3>Phone Number</h3>
@@ -49,7 +49,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="container">
+                        <div class="container align-items-start">
                             <div class="row">
                                 <div class="col align-items-start">
                                     <h3>Mail</h3>
@@ -57,7 +57,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="container">
+                        <div class="container align-items-start">
                             <div class="row">
                                 <div class="col align-items-start">
                                     <h3>

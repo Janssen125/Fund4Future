@@ -137,7 +137,7 @@
                 <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Logo" width=80 height=100>
                 <img src="{{ asset('img/LogoText.png') }}" alt="LogoText" width=250 height=50>
             </div>
-            <div class="col col-9 socialCopy">
+            <div class="col col-8 socialCopy">
                 <div class="row w-100">
                     <div class="col">
                         <ul class="list-unstyled d-flex justify-content-evenly w-100">

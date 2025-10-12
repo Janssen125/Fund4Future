@@ -45,8 +45,8 @@
                                 <li>Profile</li>
                             </a>
                             <!-- <a href="{{ route('password.request') }}">
-                                            <li>Change Password</li>
-                                        </a> -->
+                                                            <li>Change Password</li>
+                                                        </a> -->
                             <a href="{{ route('profileFundingList') }}">
                                 <li>Funding List</li>
                             </a>
@@ -60,8 +60,8 @@
                                 <li>Add Balance</li>
                             </a>
                             <!-- <a href="{{ route('profileSettings') }}">
-                                            <li>Settings</li>
-                                        </a> -->
+                                                            <li>Settings</li>
+                                                        </a> -->
                             <a href="{{ route('profileHelp') }}">
                                 <li>Help</li>
                             </a>
@@ -98,7 +98,7 @@
                     @else
                         <div class="row justify-content-start align-items-start w-100">
                             @foreach ($fundings as $funding)
-                                <div class="col col-4 mb-4 align-items-start">
+                                <div class="col mb-4">
                                     <div class="card">
                                         <div class="card-body">
                                             <h5 class="card-title">{{ $funding->name }}</h5>

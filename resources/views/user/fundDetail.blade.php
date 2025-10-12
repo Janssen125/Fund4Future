@@ -10,16 +10,16 @@
 @endsection
 @section('content')
     <div class="container" id="topContent">
-        @if (session('message'))
-            <div class="alert alert-success w-100 text-success">
-                {{ session('message') }}
-            </div>
-        @elseif (session('error'))
-            <div class="alert alert-danger w-100 text-danger">
-                {{ session('error') }}
-            </div>
-        @endif
         <div class="row min-height-75">
+            @if (session('message'))
+                <div class="alert alert-success w-100 text-success">
+                    {{ session('message') }}
+                </div>
+            @elseif (session('error'))
+                <div class="alert alert-danger w-100 text-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
             <div class="col col-6">
                 <div id="fundCarousel{{ $data->id }}" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">

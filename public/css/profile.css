@@ -90,6 +90,24 @@ a {
     color: black;
 }
 
+.row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    min-width: fit-content;
+}
+
 .balfund > div {
     text-wrap: nowrap;
 }
@@ -294,6 +312,7 @@ a {
         min-height: 1dvh !important;
         height: fit-content !important;
         margin: 1rem !important;
+        padding: 2rem !important;
     }
     .customborder {
         display: none;
