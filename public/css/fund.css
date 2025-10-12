@@ -16,6 +16,14 @@ input[type=search] {
     padding: 2rem 0;
 }
 
+#topContent .col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
 #replies {
     margin-left: 6rem;
     border-left: 2px solid var(--primary-green);
@@ -110,6 +118,11 @@ input[type=search] {
     transform: translateY(-50%);
 }
 
+.carousel {
+    width: 100% !important;
+    height: 100% !important;
+}
+
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
     height: 20px !important;
@@ -118,8 +131,10 @@ input[type=search] {
 
 .carousel-item img,
 .carousel-item video{
-    min-width: 40dvw !important;
-    min-height: 50dvh !important;
+    min-width: 100% !important;
+    min-height: 100% !important;
+    max-width: 40dvw !important;
+    max-height: 50dvh !important;
 }
 
 @media screen and (max-width: 960px)  {

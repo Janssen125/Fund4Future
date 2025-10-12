@@ -107,12 +107,38 @@ class ProfileSettingController extends Controller
                 throw new \Exception('Failed to retrieve access token using refresh token.');
             }
 
+
             $service = new Drive($client);
 
+            $folderName = "Fund4Future";
+            $folderId = null;
+
+            $existingFolder = $service->files->listFiles([
+                'q' => "name='{$folderName}' and mimeType='application/vnd.google-apps.folder' and trashed=false",
+                'fields' => 'files(id, name)',
+            ]);
+
+            if(count($existingFolder->files) > 0) {
+                $folderId = $existingFolder->getFiles()[0]->id;
+            } else {
+                $folderMetadata = new DriveFile([
+                    'name' => $folderName,
+                    'mimeType' => 'application/vnd.google-apps.folder',
+                ]);
+                $folder = $service->files->create($folderMetadata, [
+                    'fields' => 'id',
+                ]);
+                $folderId = $folder->id;
+            }
+
             // Upload the file to Google Drive
-            $file = new DriveFile();
-            $file->setName($request->file('profile_picture')->getClientOriginalName());
-            $file->setMimeType($request->file('profile_picture')->getMimeType());
+            $file = new DriveFile([
+                'name' => $request->file('profile_picture')->getClientOriginalName(),
+                'mimeType' => $request->file('profile_picture')->getMimeType(),
+                'parents' => [$folderId],
+            ]);
+            // $file->setName($request->file('profile_picture')->getClientOriginalName());
+            // $file->setMimeType($request->file('profile_picture')->getMimeType());
 
             $createdFile = $service->files->create($file, [
                 'data' => file_get_contents($request->file('profile_picture')->getRealPath()),

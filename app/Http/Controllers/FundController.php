@@ -86,13 +86,38 @@ class FundController extends Controller
         $client->refreshToken(env('GOOGLE_REFRESH_TOKEN'));
         $service = new Drive($client);
 
+        $folderName = "Fund4Future";
+        $folderId = null;
+
+        $existingFolder = $service->files->listFiles([
+            'q' => "name='{$folderName}' and mimeType='application/vnd.google-apps.folder' and trashed=false",
+            'fields' => 'files(id, name)',
+        ]);
+
+        if (count($existingFolder->files) > 0) {
+            $folderId = $existingFolder->getFiles()[0]->id;
+        } else {
+            $folderMetadata = new DriveFile([
+                'name' => $folderName,
+                'mimeType' => 'application/vnd.google-apps.folder',
+            ]);
+            $folder = $service->files->create($folderMetadata, [
+                'fields' => 'id',
+            ]);
+            $folderId = $folder->id;
+        }
+
         foreach ($request->fund_details as $detail) {
             $filePath = null;
 
             if (isset($detail['imageOrVideo']) && $detail['imageOrVideo']->isValid()) {
-                $file = new DriveFile();
-                $file->setName($detail['imageOrVideo']->getClientOriginalName());
-                $file->setMimeType($detail['imageOrVideo']->getMimeType());
+                $file = new DriveFile([
+                    'name' => $detail['imageOrVideo']->getClientOriginalName(),
+                    'mimeType' => $detail['imageOrVideo']->getMimeType(),
+                    'parents' => [$folderId],
+                ]);
+                // $file->setName($detail['imageOrVideo']->getClientOriginalName());
+                // $file->setMimeType($detail['imageOrVideo']->getMimeType());
 
                 // Upload to Drive
                 $createdFile = $service->files->create($file, [

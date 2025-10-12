@@ -94,9 +94,34 @@ class ChatController extends Controller
 
             // Upload to Drive
             $service = new Drive($client);
-            $driveFile = new DriveFile();
-            $driveFile->setName($file->getClientOriginalName());
-            $driveFile->setMimeType($file->getMimeType());
+
+            $folderName = "Fund4Future";
+            $folderId = null;
+            $existingFolder = $service->files->listFiles([
+                'q' => "name='{$folderName}' and mimeType='application/vnd.google-apps.folder' and trashed=false",
+                'fields' => 'files(id, name)',
+            ]);
+
+            if (count($existingFolder->files) > 0) {
+                $folderId = $existingFolder->getFiles()[0]->id;
+            } else {
+                $folderMetadata = new DriveFile([
+                    'name' => $folderName,
+                    'mimeType' => 'application/vnd.google-apps.folder',
+                ]);
+                $folder = $service->files->create($folderMetadata, [
+                    'fields' => 'id',
+                ]);
+                $folderId = $folder->id;
+            }
+
+            $driveFile = new DriveFile([
+                'name' => $file->getClientOriginalName(),
+                'mimeType' => $file->getMimeType(),
+                'parents' => [$folderId],
+            ]);
+            // $driveFile->setName($file->getClientOriginalName());
+            // $driveFile->setMimeType($file->getMimeType());
 
             $createdFile = $service->files->create($driveFile, [
                 'data' => file_get_contents($file->getRealPath()),

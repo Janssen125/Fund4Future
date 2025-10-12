@@ -47,9 +47,6 @@
                             <a href="{{ route('profile') }}">
                                 <li>Profile</li>
                             </a>
-                            <a href="{{ route('password.request') }}">
-                                <li>Change Password</li>
-                            </a>
                             <a href="{{ route('profileFundingList') }}">
                                 <li>Funding List</li>
                             </a>
@@ -61,9 +58,6 @@
                             </a>
                             <a href="{{ route('topup') }}">
                                 <li>Add Balance</li>
-                            </a>
-                            <a href="{{ route('profileSettings') }}">
-                                <li>Settings</li>
                             </a>
                             <a href="{{ route('profileHelp') }}">
                                 <li>Help</li>
