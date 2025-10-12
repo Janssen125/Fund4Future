@@ -251,7 +251,7 @@ hr {
 
     #commentSection .row .col {
         width: max-content;
-        align-items: start !important;
+        align-items: start;
         /* justify-content: start !important; */
     }
 

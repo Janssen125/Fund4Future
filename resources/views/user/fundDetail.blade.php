@@ -264,10 +264,10 @@
                         <hr>
                     @endforeach
                     @if (auth()->guest())
-                        <div class="row">
-                            <div class="col col-1"></div>
-                            <div class="col">
-                                <a href="{{ route('login') }}" class="btn btn-primary primary-background">Please login to
+                        <div class="row w-100">
+                            <div class="col justify-content-center align-items-center w-100">
+                                <a href="{{ route('login') }}" class="btn btn-primary primary-background p-3">Please
+                                    login to
                                     add a comment</a>
                             </div>
                         </div>

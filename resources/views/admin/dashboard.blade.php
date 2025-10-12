@@ -11,7 +11,7 @@
     </div>
     <div class="container overall-container">
         <div class="row w-100">
-            <div class="col col-3">
+            <div class="col">
                 <div class="card">
                     <div class="inside">
                         <h4>
@@ -29,14 +29,14 @@
                     </div>
                 </div>
             </div>
-            <div class="col col-3">
+            <div class="col">
                 <div class="card">
                     <div class="inside">
                         <h4>
                             {{ $ongoingFunds }}
                         </h4>
                         <p>
-                            Jumlah Funding Ongoing
+                            Funding Ongoing
                         </p>
                     </div>
                     <div class="icon">
@@ -51,7 +51,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col col-3">
+            <div class="col">
                 <div class="card">
                     <div class="inside">
                         <h4>
@@ -72,7 +72,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col col-3">
+            <div class="col">
                 <div class="card">
                     <div class="inside">
                         <h4>
@@ -95,7 +95,7 @@
     </div>
     <div class="container">
         <div class="row m-3 justify-content-between">
-            <div class="col col-8 col-l">
+            <div class="col col-l">
                 <div class="row rounded-3 card w-100">
                     <div class="col col-l p-3">
                         <h3>Request Funding List</h2>
@@ -104,7 +104,7 @@
                     <div class="col">
                         @foreach ($recentFundingRequests as $fund)
                             <div class="row p-3 w-100">
-                                <div class="col col-2">
+                                <div class="col">
                                     @if ($fund->fundDetail->first() == null)
                                         <img src="{{ asset('img/LogoFund4Future.png') }}" alt="Fund Image"
                                             class="img-fluid">
@@ -116,22 +116,22 @@
                                             alt="Fund Image" class="img-fluid">
                                     @endif
                                 </div>
-                                <div class="col col-2">
+                                <div class="col">
                                     <div class="card-body">
                                         <h5 class="card-title fw-bold">{{ $fund->name }}</h5>
                                     </div>
                                 </div>
-                                <div class="col col-2">
+                                <div class="col">
                                     <div class="card-body">
                                         <h5 class="card-title">{{ $fund->owner->name }}</h5>
                                     </div>
                                 </div>
-                                <div class="col col-2">
+                                <div class="col">
                                     <div class="card-body">
                                         <h5 class="card-title">{{ $fund->created_at->format('F d, Y h:i A') }}</h5>
                                     </div>
                                 </div>
-                                <div class="col col-2">
+                                <div class="col">
                                     <button type="button" class="btn btn-primary"
                                         onclick="location.href='{{ route('fund.show', $fund->id) }}'">View</button>
                                 </div>
@@ -143,7 +143,7 @@
             </div>
             <div class="col col-4">
                 <div class="row rounded-3 card">
-                    <div class="col col-l p-3">
+                    <div class="col p-3">
                         <h3>Notification</h2>
                     </div>
                     <hr>
@@ -190,7 +190,7 @@
                     <div class="col col-l">
                         @forelse ($recentChatButNotForNotificationPlease as $chat)
                             <div class="row p-3 w-100">
-                                <div class="col col-3">
+                                <div class="col">
                                     @if ($chat->funder->userImg == 'AssetAdmin.png' || $chat->funder->userImg == 'AssetUser.png')
                                         <img src="{{ asset('img/' . $chat->funder->userImg) }}" alt="Fund Image"
                                             class="img-fluid">
@@ -199,14 +199,14 @@
                                             class="img-fluid">
                                     @endif
                                 </div>
-                                <div class="col col-3 col-l">
+                                <div class="col col-l">
                                     <div class="card-body">
                                         <h5 class="card-title fw-bold" style="white-space: nowrap">
                                             {{ $chat->funder->name }}</h5>
                                         <p class="card-text">{{ $chat->created_at->format('F d, Y h:i A') }}</p>
                                     </div>
                                 </div>
-                                <div class="col col-3">
+                                <div class="col">
                                     @if ($chat->fund->approvalStatus == 'approved')
                                         <span class="badge badge-success">{{ $chat->fund->approvalStatus }}</span>
                                     @elseif($chat->fund->approvalStatus == 'declined')
@@ -215,7 +215,7 @@
                                         <span class="badge badge-warning">{{ $chat->fund->approvalStatus }}</span>
                                     @endif
                                 </div>
-                                <div class="col col-3">
+                                <div class="col">
                                     <a href="{{ route('chats.show', $chat->id) }}" class="btn btn-primary">Chat</a>
                                 </div>
                             </div>

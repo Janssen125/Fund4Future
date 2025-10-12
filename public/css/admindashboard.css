@@ -26,10 +26,21 @@
     right: 5%;
 }
 
+.inside p {
+    text-wrap: balance;
+}
+
 table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0 2rem;
     table-layout: auto;
     width: auto;
-  }
+}
+
+@media screen and (max-width: 960px) {
+    .overall-container .row {
+        flex-direction: column !important;
+        gap: 1rem !important;
+    }
+}
