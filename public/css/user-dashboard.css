@@ -44,6 +44,14 @@ section {
     justify-content: space-between;
 }
 
+.swiper-container {
+    width: 100dvw;
+    padding: 0 1rem;
+}
+.swiper-wrapper {
+    max-width: 100dvw;
+}
+
 @media screen and (max-width: 600px) {
     .recommended-projects .container .row {
         flex-direction: column !important;

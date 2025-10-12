@@ -173,9 +173,9 @@
                         </div>
                     @endif
                 </div>
-                <div class="col">
+                <div class="col" id="sectionChat">
                     @foreach ($chat->chatDetails as $detail)
-                        <div class="container py-3">
+                        <div class="container align-items-start py-3">
                             <div class="row">
                                 <div class="col col-1">
                                     @if ($detail->sender->userImg == 'AssetUser.png' || $detail->sender->userImg == 'AssetAdmin.png')

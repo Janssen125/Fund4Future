@@ -19,3 +19,19 @@ textarea {
 form {
     width: 100% !important;
 }
+
+hr {
+    border-top: 3px solid var(--primary-green);
+    width: 100%;
+}
+
+#sectionChat {
+    width: 100%;
+    max-width: 1200px;
+    border: solid var(--primary-green) medium;
+    border-radius: 1rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}

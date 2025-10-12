@@ -230,6 +230,7 @@
                     const slides = document.querySelectorAll('.swiper-slide');
                     slides.forEach(slide => {
                         maxHeight = Math.max(maxHeight, slide.offsetHeight);
+
                     });
                     slides.forEach(slide => {
                         slide.style.height = maxHeight + 'px';

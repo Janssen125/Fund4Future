@@ -36,10 +36,10 @@
             <div class="fund-container container">
                 @foreach ($data as $funding)
                     <div class="row py-2 fund-item" data-name="{{ strtolower($funding->name) }}"
-                        data-category="{{ strtolower($funding->category->catName) }}">
+                        data-category="{{ strtolower($funding->category->catName) }}" id="itemList">
                         <div class="col">
                             <form action="" class="d-flex justify-content-center align-items-center p-4">
-                                <div class="container">
+                                <div class="container align-items-stretch">
                                     <div class="row datarow">
                                         <div class="col">
                                             <img src="{{ strpos($funding->fundDetail->first()->imageOrVideo, 'drive') == false ? asset('uploads/' . $funding->fundDetail->first()->imageOrVideo) : $funding->fundDetail->first()->imageOrVideo }}"
