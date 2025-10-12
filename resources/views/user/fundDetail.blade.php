@@ -171,7 +171,7 @@
         <h2>Comments</h2>
         <div class="row py-3">
             <div class="col">
-                <div class="container" id="commentSection">
+                <div class="container justify-content-start align-items-start" id="commentSection">
                     @foreach ($data->comment as $comment)
                         <div class="row">
                             <div class="col col-1">
@@ -235,7 +235,7 @@
                                 {{-- <div class="col col-1"></div> --}}
                                 <div class="col col-l">
                                     <div class="row w-100">
-                                        <div class="col col-1">
+                                        <div class="col col-1" id="addCommentPicture">
                                             @if (auth()->user()->userImg == null)
                                                 <img src="{{ asset('img/AssetUser.png') }}" alt=""
                                                     class="img-fluid">
@@ -280,7 +280,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="row w-100">
-                                    <div class="col col-1">
+                                    <div class="col col-1" id="addCommentPicture">
                                         @if (auth()->user()->userImg == null)
                                             <img src="{{ asset('img/AssetUser.png') }}" alt=""
                                                 class="img-fluid">
@@ -288,8 +288,7 @@
                                             <img src="{{ asset('img/' . auth()->user()->userImg) }}" alt=""
                                                 class="img-fluid">
                                         @else
-                                            <img src="{{ asset('storage/img/' . auth()->user()->userImg) }}"
-                                                alt="" class="img-fluid">
+                                            <img src="{{ auth()->user()->userImg }}" alt="" class="img-fluid">
                                         @endif
                                     </div>
                                     <div class="col col-l">

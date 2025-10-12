@@ -3,6 +3,7 @@ form {
     border-radius: 1em;
     border: solid var(--primary-green) medium;
     background-color: var(--bs-light);
+    width: 100%;
 }
 input[type=search] {
     background-color: var(--bs-light);
@@ -11,9 +12,23 @@ input[type=search] {
     outline: none;
 }
 
+hr {
+    border-top: 1px solid var(--primary-green);
+    margin: 1rem 0;
+    width: 100%;
+
+}
+
 #topContent {
     width: 100dvw;
     padding: 2rem 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+#topContent .row {
+    width: 100%;
 }
 
 #topContent .col {
@@ -22,6 +37,17 @@ input[type=search] {
     justify-content: center;
     align-items: center;
     gap: 1rem;
+}
+
+#commentSection {
+    width: 100%;
+    max-width: 1200px;
+    border: solid var(--primary-green) medium;
+    border-radius: 1rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 #replies {
@@ -36,12 +62,12 @@ input[type=search] {
     align-items: center;
 }
 
-.active > .page-link{
+.active>.page-link {
     background-color: var(--primary-green) !important;
     border-color: transparent !important;
 }
 
-:not(.active) > .page-link:hover {
+:not(.active)>.page-link:hover {
     background-color: var(--primary-green-opacity) !important;
     border-color: var(--primary-green);
     color: var(--primary-green);
@@ -73,7 +99,7 @@ input[type=search] {
     border-radius: 1rem;
     padding: 1rem;
     background-color: transparent;
-    width:100%;
+    width: 100%;
     height: min-content;
     outline: none;
 }
@@ -82,24 +108,24 @@ input[type=search] {
     min-height: 75dvh;
 }
 
-.btn-group > label {
+.btn-group>label {
     color: var(--primary-green);
     border: thin solid var(--primary-green) !important;
 }
 
-.btn-group > label:hover {
+.btn-group>label:hover {
     background-color: var(--primary-green-opacity) !important;
     border: thin solid var(--primary-green) !important;
     color: var(--primary-green) !important;
 }
 
-.btn-group > .btn-check:checked + label{
+.btn-group>.btn-check:checked+label {
     background-color: var(--primary-green) !important;
     border: thin solid var(--primary-green) !important;
     color: white !important;
 }
 
-.right-content *{
+.right-content * {
     width: 100%;
     align-items: flex-start !important;
     justify-content: flex-start !important;
@@ -130,18 +156,25 @@ input[type=search] {
 }
 
 .carousel-item img,
-.carousel-item video{
+.carousel-item video {
     min-width: 100% !important;
     min-height: 100% !important;
     max-width: 40dvw !important;
     max-height: 50dvh !important;
 }
 
-@media screen and (max-width: 960px)  {
+@media screen and (max-width: 480px) {
+    #addCommentPicture {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 960px) {
     .datarow {
         flex-direction: column !important;
     }
-    .datarow > * {
+
+    .datarow>* {
         padding: 1rem 0;
     }
 
@@ -153,7 +186,7 @@ input[type=search] {
     }
 
     #commentSection {
-        padding: 1rem !important;
+        /* padding: 1rem !important; */
         gap: 1rem !important;
         width: 100% !important;
         max-width: 100dvw !important;
@@ -161,11 +194,11 @@ input[type=search] {
         align-items: center !important;
         justify-content: center !important;
         margin: 0 !important;
-        border: none !important;
+        /* border: none !important; */
     }
 }
 
-@media  screen and (max-width: 1200px) {
+@media screen and (max-width: 1200px) {
     .container .row {
         gap: 2rem;
         flex-direction: column;
@@ -181,25 +214,24 @@ input[type=search] {
         width: 100%;
     }
 
-    .btn-group > label {
+    .btn-group>label {
         width: 100%;
         text-align: center;
         border-radius: 0;
     }
 
-    #topContent .row > * {
+    #topContent .row>* {
         width: 100%;
     }
 
     #commentSection {
-        padding: 1rem !important;
+        /* padding: 1rem !important; */
         gap: 1rem !important;
         width: 100% !important;
         flex-direction: column !important;
         align-items: center !important;
         justify-content: center !important;
         margin: 0 !important;
-        border: none !important;
     }
 
     #commentSection .row {
@@ -208,10 +240,9 @@ input[type=search] {
         padding: 0 !important;
         justify-content: start;
         align-items: start;
-        margin: 0.5rem 0;
     }
 
-    #commentSection .row .col{
+    #commentSection .row .col {
         width: max-content;
         align-items: start !important;
         /* justify-content: start !important; */

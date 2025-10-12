@@ -16,9 +16,9 @@
                     <h1>Funding List</h1>
                 </div>
             </div>
-            <div class="row pb-3">
+            <div class="row pb-3 w-75">
                 <div class="col">
-                    <form action="" class="d-flex justify-content-center align-items-center p-4 w-50">
+                    <form action="" class="d-flex justify-content-center align-items-center p-4">
                         <div class="pe-3">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#00a9a5"
                                 class="bi bi-search" viewBox="0 0 16 16">
@@ -33,12 +33,12 @@
                     </form>
                 </div>
             </div>
-            <div class="fund-container">
+            <div class="fund-container container">
                 @foreach ($data as $funding)
                     <div class="row py-2 fund-item" data-name="{{ strtolower($funding->name) }}"
                         data-category="{{ strtolower($funding->category->catName) }}">
                         <div class="col">
-                            <form action="" class="d-flex justify-content-center align-items-center p-4 w-75">
+                            <form action="" class="d-flex justify-content-center align-items-center p-4">
                                 <div class="container">
                                     <div class="row datarow">
                                         <div class="col">
