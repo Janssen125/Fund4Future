@@ -211,7 +211,7 @@ aside>ul>a {
 }
 
 .table-responsive {
-    width: 90dvw;
+    width: 70dvw;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
 }

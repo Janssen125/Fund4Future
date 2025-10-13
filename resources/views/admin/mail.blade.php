@@ -11,34 +11,41 @@
             Mail
         </h1>
     </div>
-    <div class="container mt-4">
-        <h2>List Mail</h2>
-        <table class="table table-bordered text-center w-75" id="mailTable">
-            <thead class="table-light">
-                <tr>
-                    <th scope="col" style="background-color: #00A9A5; color: white;">No</th>
-                    <th scope="col" style="background-color: #00A9A5; color: white;">Tanggal</th>
-                    <th scope="col" style="background-color: #00A9A5; color: white;">From</th>
-                    <th scope="col" style="background-color: #00A9A5; color: white;">Subject</th>
-                    <th scope="col" style="background-color: #00A9A5; color: white;">View</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($mails as $mail)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $mail->created_at->format('Y-m-d') }}</td>
-                        <td>{{ $mail->user->name }}</td>
-                        <td>{{ $mail->content }}</td>
-                        <td><a href="{{ route('mail.show', $mail->id) }}" class="btn btn-primary">Detail</a></td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="5" class="text-center">No mails available</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
+    <div class="container mt-4 justify-content-start">
+        <div class="table-responsive">
+            @if ($mails && $mails->count() > 0)
+                <table id="mailTable">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col" style="background-color: #00A9A5; color: white;">No</th>
+                            <th scope="col" style="background-color: #00A9A5; color: white;">Tanggal</th>
+                            <th scope="col" style="background-color: #00A9A5; color: white;">From</th>
+                            <th scope="col" style="background-color: #00A9A5; color: white;">Subject</th>
+                            <th scope="col" style="background-color: #00A9A5; color: white;">View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($mails as $mail)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $mail->created_at->format('Y-m-d') }}</td>
+                                <td>{{ $mail->user->name }}</td>
+                                <td>{{ $mail->content }}</td>
+                                <td><a href="{{ route('mail.show', $mail->id) }}" class="btn btn-primary">Detail</a></td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5" class="text-center">No mails available</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            @else
+                <div class="alert alert-warning w-100 text-warning">
+                    No mails avaliable
+                </div>
+            @endif
+        </div>
     </div>
     <script>
         $(document).ready(function() {

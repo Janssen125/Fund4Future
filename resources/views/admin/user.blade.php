@@ -11,61 +11,68 @@
             User List
         </h1>
     </div>
-    <div class="container px-3">
+    <div class="container justify-content-start">
         <div class="row">
             <div class="col" id="theTable">
                 <div class="table-responsive">
-                    <table id="userTable" class="w-100" style="width: max-content;">
-                        <thead>
-                            <tr>
-                                <th scope="col" style="background-color: #00A9A5; color: white;">No</th>
-                                <th scope="col" style="background-color: #00A9A5; color: white;">Name</th>
-                                <th scope="col" style="background-color: #00A9A5; color: white;">Email</th>
-                                <th scope="col" style="background-color: #00A9A5; color: white;">NIK</th>
-                                <th scope="col" style="background-color: #00A9A5; color: white;">Email Verified</th>
-                                <th scope="col" style="background-color: #00A9A5; color: white;">User Img</th>
-                                <th scope="col" style="background-color: #00A9A5; color: white;">Role</th>
-                                <th scope="col" style="background-color: #00A9A5; color: white;">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($datas as $index => $data)
+                    @if ($datas != null && $datas->count() > 0)
+                        <table id="userTable">
+                            <thead>
                                 <tr>
-                                    <td>{{ $index + 1 }}</td>
-                                    <td>{{ $data->name }}</td>
-                                    <td>{{ $data->email }}</td>
-                                    <td>{{ $data->NIK ?? '-' }}</td>
-                                    @if ($data->email_verified_at)
-                                        <td>{{ $data->email_verified_at->format('F d, Y h:i A') }}</td>
-                                    @else
-                                        <td>-</td>
-                                    @endif
-                                    <td>
-                                        @if ($data->userImg == null)
-                                            <img src="{{ asset('img/AssetUser.png') }}" alt="profile picture" width="60"
-                                                height="60">
-                                        @elseif($data->userImg == 'AssetAdmin.png' || $data->userImg == 'AssetUser.png')
-                                            <img src="{{ asset('img/' . $data->userImg) }}" alt="Bootstrap" width="60"
-                                                height="60">
+                                    <th scope="col" style="background-color: #00A9A5; color: white;">No</th>
+                                    <th scope="col" style="background-color: #00A9A5; color: white;">Name</th>
+                                    <th scope="col" style="background-color: #00A9A5; color: white;">Email</th>
+                                    <th scope="col" style="background-color: #00A9A5; color: white;">NIK</th>
+                                    <th scope="col" style="background-color: #00A9A5; color: white;">Email Verified</th>
+                                    <th scope="col" style="background-color: #00A9A5; color: white;">User Img</th>
+                                    <th scope="col" style="background-color: #00A9A5; color: white;">Role</th>
+                                    <th scope="col" style="background-color: #00A9A5; color: white;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($datas as $index => $data)
+                                    <tr>
+                                        <td>{{ $index + 1 }}</td>
+                                        <td>{{ $data->name }}</td>
+                                        <td>{{ $data->email }}</td>
+                                        <td>{{ $data->NIK ?? '-' }}</td>
+                                        @if ($data->email_verified_at)
+                                            <td>{{ $data->email_verified_at->format('F d, Y h:i A') }}</td>
                                         @else
-                                            <img src="{{ route('getimage', $data->userImg) }}" alt="profile picture"
-                                                width=60 height=60>
+                                            <td>-</td>
                                         @endif
-                                    </td>
-                                    <td>{{ $data->role }}</td>
-                                    <td>
-                                        <a href="{{ route('user.show', $data->id) }}" class="btn btn-primary">
-                                            Detail
-                                        </a>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="11" class="text-center">No users found.</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                                        <td>
+                                            @if ($data->userImg == null)
+                                                <img src="{{ asset('img/AssetUser.png') }}" alt="profile picture"
+                                                    width="60" height="60">
+                                            @elseif($data->userImg == 'AssetAdmin.png' || $data->userImg == 'AssetUser.png')
+                                                <img src="{{ asset('img/' . $data->userImg) }}" alt="Bootstrap"
+                                                    width="60" height="60">
+                                            @else
+                                                <img src="{{ route('getimage', $data->userImg) }}" alt="profile picture"
+                                                    width=60 height=60>
+                                            @endif
+                                        </td>
+                                        <td>{{ $data->role }}</td>
+                                        <td>
+                                            <a href="{{ route('user.show', $data->id) }}" class="btn btn-primary">
+                                                Detail
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="11" class="text-center">No users found.</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    @else
+                        {{-- ini harusnya gamungkin, tapi taruh aja --}}
+                        <div class="alert alert-info w-100 text-alert">
+                            Belum ada user
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

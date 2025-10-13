@@ -8,11 +8,10 @@
 @section('content')
     <div>
         <h1 class="p-5">
-            Mail
+            Mail Detail
         </h1>
     </div>
     <div class="container">
-        <h3 class="text-center mb-4">Mail Detail</h3>
         <div class="row">
             <div class="col">
                 <div class="container border rounded p-4 justify-content-start align-items-start">

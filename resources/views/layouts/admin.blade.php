@@ -179,8 +179,10 @@
     </main>
 </body>
 <script src="{{ asset('js/admin/navbar.js') }}"></script>
-<script src="{{ asset('js/' . (View::hasSection('jsName') ? trim(View::yieldContent('jsName')) : '') . '.js') }}">
-</script>
+@if (View::hasSection('jsName'))
+    <script src="{{ asset('js/' . (View::hasSection('jsName') ? trim(View::yieldContent('jsName')) : '') . '.js') }}">
+    </script>
+@endif
 <script>
     function showNotification(message, type = 'success') {
         let notification = document.getElementById('notification');
