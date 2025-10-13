@@ -195,8 +195,7 @@
                                         <img src="{{ asset('img/' . $chat->funder->userImg) }}" alt="Fund Image"
                                             class="img-fluid">
                                     @else
-                                        <img src="{{ asset('storage/img/' . $chat->funder->userImg) }}" alt="Fund Image"
-                                            class="img-fluid">
+                                        <img src="{{ $chat->funder->userImg }}" alt="Fund Image" class="img-fluid">
                                     @endif
                                 </div>
                                 <div class="col col-l">

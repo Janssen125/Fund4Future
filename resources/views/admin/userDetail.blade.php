@@ -85,8 +85,7 @@
                         </th>
                         <td>:
                             @if ($data->ktpImg)
-                                <img src="{{ asset('storage/img/' . $data->ktpImg) }}" alt="KTP Image" width="120"
-                                    height="120">
+                                <img src="{{ $data->ktpImg }}" alt="KTP Image" width="120" height="120">
                             @else
                                 -
                             @endif
