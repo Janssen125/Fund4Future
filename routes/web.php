@@ -14,6 +14,7 @@ use App\Http\Controllers\GoogleDriveController;
 use App\Http\Controllers\ProfileSettingController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\VerificationController;
+// use Illuminat\Support\Facades\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -72,6 +73,11 @@ Route::get('/', function () {
     return redirect()->route('home');
 });
 
+Route::get('/check-user-ip', function (Request $request) {
+    $userIp = $request->ip();
+    return response()->json(['ip' => $userIp]);
+})->name('checkUserIp');
+
 // Home Route
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/about', [App\Http\Controllers\HomeController::class, 'about'])->name('about');
@@ -129,13 +135,13 @@ Route::get('/drive/files', [GoogleDriveController::class, 'listFiles']);
 Route::post('/drive/upload', [GoogleDriveController::class, 'uploadFile']);
 
 // Test MidTrans
-Route::get('/test', function() {
-    return view('test.test');
-})->middleware('auth');
-Route::post('/test-midtrans', function (Request $request) {
-    Log::info('📩 Test Midtrans Route:', ['data' => $request->all()]);
-    return response()->json(['message' => 'Test route working!', 'data' => $request->all()], 200);
-});
+// Route::get('/test', function() {
+//     return view('test.test');
+// })->middleware('auth');
+// Route::post('/test-midtrans', function (Request $request) {
+//     Log::info('📩 Test Midtrans Route:', ['data' => $request->all()]);
+//     return response()->json(['message' => 'Test route working!', 'data' => $request->all()], 200);
+// });
 Route::get('/tempcat', function() {return view('admin/category');});
 
 Route::get('/attachment/{filename}', function ($filename) {
