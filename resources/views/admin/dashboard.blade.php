@@ -111,22 +111,24 @@
         </div>
     </div>
     </div>
-    <div class="container chartContainer">
-        <div class="row w-100">
-            <div class="col w-100">
-                <div class="card mt-4 p-3">
-                    <h3 class="mb-3">Views Report</h3>
-                    <canvas id="viewsChart" style="width: 100%;"></canvas>
+    @if (Auth::user()->role == 'admin')
+        <div class="container chartContainer">
+            <div class="row w-100">
+                <div class="col w-100">
+                    <div class="card mt-4 p-3">
+                        <h3 class="mb-3">Views Report</h3>
+                        <canvas id="viewsChart" style="width: 100%;"></canvas>
+                    </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="card mt-4 p-3">
-                    <h3 class="mb-3">Funds Report</h3>
-                    <canvas id="fundChart" style="width: 100%;"></canvas>
+                <div class="col">
+                    <div class="card mt-4 p-3">
+                        <h3 class="mb-3">Funds Report</h3>
+                        <canvas id="fundChart" style="width: 100%;"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
     <div class="container">
         <div class="row m-3 justify-content-between">
             <div class="col col-l">
@@ -303,10 +305,14 @@
         const viewsChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: {!! json_encode($chartLabels) !!},
+                labels: {
+                    !!json_encode($chartLabels) !!
+                },
                 datasets: [{
                     label: 'Views',
-                    data: {!! json_encode($chartData) !!},
+                    data: {
+                        !!json_encode($chartData) !!
+                    },
                     borderColor: 'rgba(75, 192, 192, 1)',
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     fill: true,
@@ -329,10 +335,14 @@
         const fundChart = new Chart(ctx2, {
             type: 'bar',
             data: {
-                labels: {!! json_encode($fundchartLabels) !!},
+                labels: {
+                    !!json_encode($fundchartLabels) !!
+                },
                 datasets: [{
                     label: 'Funds',
-                    data: {!! json_encode($fundchartData) !!},
+                    data: {
+                        !!json_encode($fundchartData) !!
+                    },
                     backgroundColor: 'rgba(153, 102, 255, 0.2)',
                     borderColor: 'rgba(153, 102, 255, 1)',
                     fill: true,
