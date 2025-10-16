@@ -15,7 +15,10 @@ class CreatePageAnalyticsTable extends Migration
     {
         Schema::create('page_analytics', function (Blueprint $table) {
             $table->id();
-            // $table->
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
+            $table->string('ip_address', 45);
+            $table->string('page_url');
+            $table->string('user_agent')->nullable();
             $table->timestamps();
         });
     }

@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             ChatDetailSeeder::class,
             CommentsSeeder::class,
             RepliesSeeder::class,
+            PageAnalyticsSeeder::class,
         ]);
     }
 }

@@ -7,17 +7,87 @@ use App\Models\Fund;
 use App\Models\Mail;
 use App\Models\Chat;
 use App\Models\User;
+use App\Models\PageAnalytics;
 use App\Models\ActivityLog;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Collection;
 
 
 class AdminController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(function (Request $request, $next) {
+            if (!Auth::check() || !in_array(Auth::user()->role, ['admin', 'staff'])) {
+                return redirect()->route('home')->with('message', 'Unauthorized Access');
+            }
+
+            // Optional: your PageAnalytics logic
+            $lastEntry = PageAnalytics::where('ip_address', $request->ip())
+            ->where('page_url', $request->fullUrl())
+            ->where('user_id', Auth::check() ? Auth::id() : null)
+            ->where('created_at', '>=', now()->subHours(6))
+            ->latest()
+            ->first();
+            if (!$lastEntry || $lastEntry->created_at->diffInHours(now()) >= 6) {
+                PageAnalytics::create([
+                    'user_id' => Auth::check() ? Auth::id() : null,
+                    'ip_address' => $request->ip(),
+                    'page_url' => $request->fullUrl(),
+                    'user_agent' => $request->header('User-Agent'),
+                ]);
+            };
+            return $next($request);
+       });
+    }
+
+
     public function index() {
             $totalUsers = User::count();
             $ongoingFunds = Fund::whereNotIn('approvalStatus', ['finished', 'declined'])->count();
+            $totalView = PageAnalytics::count();
             $totalFunds = Fund::count();
             $totalMails = Mail::count();
+
+            $chartLabels = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+            $chartData = [
+                PageAnalytics::whereMonth('created_at', 1)->count(),
+                PageAnalytics::whereMonth('created_at', 2)->count(),
+                PageAnalytics::whereMonth('created_at', 3)->count(),
+                PageAnalytics::whereMonth('created_at', 4)->count(),
+                PageAnalytics::whereMonth('created_at', 5)->count(),
+                PageAnalytics::whereMonth('created_at', 6)->count(),
+                PageAnalytics::whereMonth('created_at', 7)->count(),
+                PageAnalytics::whereMonth('created_at', 8)->count(),
+                PageAnalytics::whereMonth('created_at', 9)->count(),
+                PageAnalytics::whereMonth('created_at', 10)->count(),
+                PageAnalytics::whereMonth('created_at', 11)->count(),
+                PageAnalytics::whereMonth('created_at', 12)->count(),
+            ];
+
+            $fundchartLabels = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+
+            $fundchartData = [
+                Fund::whereMonth('created_at', 1)->count(),
+                Fund::whereMonth('created_at', 2)->count(),
+                Fund::whereMonth('created_at', 3)->count(),
+                Fund::whereMonth('created_at', 4)->count(),
+                Fund::whereMonth('created_at', 5)->count(),
+                Fund::whereMonth('created_at', 6)->count(),
+                Fund::whereMonth('created_at', 7)->count(),
+                Fund::whereMonth('created_at', 8)->count(),
+                Fund::whereMonth('created_at', 9)->count(),
+                Fund::whereMonth('created_at', 10)->count(),
+                Fund::whereMonth('created_at', 11)->count(),
+                Fund::whereMonth('created_at', 12)->count(),
+            ];
 
             $recentFundingRequests = Fund::where('approvalStatus', 'pending')->latest()->take(3)->get();
 
@@ -61,24 +131,48 @@ class AdminController extends Controller
 
             $recentActivities = ActivityLog::latest()->take(5)->get();
 
-            return view('admin.dashboard', compact(
-                'totalUsers',
-                'ongoingFunds',
-                'totalFunds',
-                'totalMails',
-                'recentChatButNotForNotificationPlease',
-                'recentFundingRequests',
-                'recentNotifications',
-                'yourTickets',
-                'recentActivities'
-            ));
+            if(Auth::user()->role == 'admin'){
+                return view('admin.dashboard', compact(
+                    'totalUsers',
+                    'totalView',
+                    'totalFunds',
+                    'totalMails',
+                    'recentChatButNotForNotificationPlease',
+                    'recentFundingRequests',
+                    'recentNotifications',
+                    'yourTickets',
+                    'recentActivities',
+                    'chartLabels',
+                    'chartData',
+                    'fundchartLabels',
+                    'fundchartData'
+                ));
+            }
+            elseif(Auth::user()->role == 'staff'){
+                return view('admin.dashboard', compact(
+                    'totalUsers',
+                    'ongoingFunds',
+                    'totalFunds',
+                    'totalMails',
+                    'recentChatButNotForNotificationPlease',
+                    'recentFundingRequests',
+                    'recentNotifications',
+                    'yourTickets',
+                    'recentActivities'
+                ));
+            }
 
-            return view('admin.dashboard', compact('totalUser','totalFund','totalOngoingFund','totalMail','recentFunding','recentNotif','yourTickets','recentActivity'));
+            // return view('admin.dashboard', compact('totalUser','totalFund','totalOngoingFund','totalMail','recentFunding','recentNotif','yourTickets','recentActivity'));
     }
 
     public function activity() {
-        $activities = ActivityLog::with('user')->latest()->paginate(10);
-        return view('admin.activity', compact('activities'));
+        if(Auth::user()->role != 'admin') {
+            return redirect()->route('/')->with('message', "Unauthorized Access");
+        }
+        else{
+            $activities = ActivityLog::with('user')->latest()->paginate(10);
+            return view('admin.activity', compact('activities'));
+        }
     }
 
     public function notification() {
@@ -99,5 +193,15 @@ class AdminController extends Controller
 
     public function fundList() {
         return view('admin.fundList');
+    }
+
+    public function pageAnalytics() {
+        if(Auth::user()->role != 'admin') {
+            return redirect()->route('/')->with('message', "Unauthorized Access");
+        }
+        else{
+            $analytics = PageAnalytics::with('user')->latest()->get();
+            return view('admin.websiteAnalytics', compact('analytics'));
+        }
     }
 }

@@ -19,8 +19,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        $datas = User::all();
-        return view('admin.user', compact('datas'));
+        if(Auth::user()->role != 'admin') {
+            return redirect()->route('/')->with('message', "Unauthorized Access");
+        }
+        else{
+            $datas = User::all();
+            return view('admin.user', compact('datas'));
+        }
     }
 
     /**

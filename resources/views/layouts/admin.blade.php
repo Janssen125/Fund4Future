@@ -139,6 +139,15 @@
                             Activity Log
                         </li>
                     </a>
+                    <a href="{{ route('admin.analytics') }}">
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                fill="currentColor" class="bi bi-bar-chart" viewBox="0 0 16 16">
+                                <path d="M0 0h1v15h15v1H0V0zm10 10h1v4h-1v-4zm-4-3h1v7H6V7zm-4 2h1v5H2V9z" />
+                            </svg>
+                            Website Analytics
+                        </li>
+                    </a>
                 @endif
                 <a href="{{ route('logout') }}">
                     <li>

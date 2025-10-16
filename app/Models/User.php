@@ -76,4 +76,8 @@ class User extends Authenticatable implements MustVerifyEmail
     public function activityLogs() {
         return $this->hasMany(ActivityLog::class);
     }
+
+    public function pageAnalytics() {
+        return $this->hasMany(PageAnalytics::class);
+    }
 }

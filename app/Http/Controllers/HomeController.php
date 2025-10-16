@@ -6,9 +6,31 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Fund;
 use App\Models\FundHistory;
+use App\Models\PageAnalytics;
 
 class HomeController extends Controller
 {
+
+    public function __construct() {
+        $this->middleware(function (Request $request, $next) {
+            // create a page analytics entry and check if its has 6 hours difference from the last entry
+            $lastEntry = PageAnalytics::where('ip_address', $request->ip())
+            ->where('page_url', $request->fullUrl())
+            ->where('user_id', Auth::check() ? Auth::id() : null)
+            ->where('created_at', '>=', now()->subHours(6))
+            ->latest()
+            ->first();
+            if (!$lastEntry || $lastEntry->created_at->diffInHours(now()) >= 6) {
+                PageAnalytics::create([
+                    'user_id' => Auth::check() ? Auth::id() : null,
+                    'ip_address' => $request->ip(),
+                    'page_url' => $request->fullUrl(),
+                    'user_agent' => $request->header('User-Agent'),
+                ]);
+            };
+            return $next($request);
+        });
+    }
     /**
      * Create a new controller instance.
      *

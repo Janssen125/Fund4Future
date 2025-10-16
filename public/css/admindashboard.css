@@ -30,6 +30,18 @@
     text-wrap: balance;
 }
 
+.chartContainer {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+}
+
+.chartContainer canvas {
+    width: 100% !important;
+    height: auto !important;
+}
+
 table {
     width: 100%;
     border-collapse: separate;

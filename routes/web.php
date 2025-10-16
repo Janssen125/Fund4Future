@@ -73,10 +73,15 @@ Route::get('/', function () {
     return redirect()->route('home');
 });
 
-Route::get('/check-user-ip', function (Request $request) {
-    $userIp = $request->ip();
-    return response()->json(['ip' => $userIp]);
-})->name('checkUserIp');
+// Route::get('/check-user-agent', function (Request $request) {
+//     $userAgent = $request->header('User-Agent');
+//     return response()->json(['user_agent' => $userAgent]);
+// })->name('checkUserAgent');
+
+// Route::get('/check-user-ip', function (Request $request) {
+//     $userIp = $request->ip();
+//     return response()->json(['ip' => $userIp]);
+// })->name('checkUserIp');
 
 // Home Route
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -93,6 +98,7 @@ Route::get('/notification', [App\Http\Controllers\AdminController::class, 'notif
 Route::get('/ticketing', [App\Http\Controllers\AdminController::class, 'ticketing'])->name('admin.ticketing')->middleware('auth');
 Route::get('/userManagement', [App\Http\Controllers\AdminController::class, 'userManagement'])->name('admin.userManagement')->middleware('auth');
 Route::get('/fundList', [App\Http\Controllers\AdminController::class, 'fundList'])->name('admin.fundList')->middleware('auth');
+Route::get('/pageAnalytics', [App\Http\Controllers\AdminController::class, 'pageAnalytics'])->name('admin.analytics')->middleware('auth');
 
 // CRUD routes
 Route::resource('category', CategoryController::class);
