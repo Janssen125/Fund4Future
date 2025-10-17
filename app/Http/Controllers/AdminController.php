@@ -50,6 +50,17 @@ class AdminController extends Controller
             $totalFunds = Fund::count();
             $totalMails = Mail::count();
 
+            $years = PageAnalytics::selectRaw('YEAR(created_at) as year')
+            ->distinct()
+            ->orderBy('year', 'desc')
+            ->pluck('year');
+
+            $fundYears = Fund::selectRaw('YEAR(created_at) as year')
+            ->distinct()
+            ->orderBy('year', 'desc')
+            ->pluck('year');
+
+
             $chartLabels = [
                 'January', 'February', 'March', 'April', 'May', 'June',
                 'July', 'August', 'September', 'October', 'November', 'December'
@@ -145,7 +156,9 @@ class AdminController extends Controller
                     'chartLabels',
                     'chartData',
                     'fundchartLabels',
-                    'fundchartData'
+                    'fundchartData',
+                    'years',
+                    'fundYears'
                 ));
             }
             elseif(Auth::user()->role == 'staff'){
@@ -204,4 +217,72 @@ class AdminController extends Controller
             return view('admin.websiteAnalytics', compact('analytics'));
         }
     }
+
+    public function viewFilter(Request $request)
+    {
+        $type = $request->get('type');
+        $year = $request->get('year');
+        $month = $request->get('month');
+
+        $query = PageAnalytics::query();
+        $labels = [];
+        $data = [];
+
+        if ($type === 'year' && $year) {
+            // Label = months (Jan–Dec)
+            $labels = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            for ($i = 1; $i <= 12; $i++) {
+                $count = $query->clone()
+                    ->whereYear('created_at', $year)
+                    ->whereMonth('created_at', $i)
+                    ->count();
+                $data[] = $count;
+            }
+        } elseif ($type === 'month' && $year && $month) {
+            // Label = days (1–last day of that month)
+            $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+            $labels = range(1, $daysInMonth);
+            for ($day = 1; $day <= $daysInMonth; $day++) {
+                $count = $query->clone()
+                    ->whereYear('created_at', $year)
+                    ->whereMonth('created_at', $month)
+                    ->whereDay('created_at', $day)
+                    ->count();
+                $data[] = $count;
+            }
+        } else {
+            // All time (Label = months)
+            $labels = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            for ($i = 1; $i <= 12; $i++) {
+                $count = PageAnalytics::whereMonth('created_at', $i)->count();
+                $data[] = $count;
+            }
+        }
+
+        return response()->json([
+            'labels' => $labels,
+            'data' => $data
+        ]);
+    }
+
+    public function fundFilter($year)
+{
+    $labels = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+
+    $data = [];
+    for ($month = 1; $month <= 12; $month++) {
+        $data[] = Fund::whereYear('created_at', $year)
+            ->whereMonth('created_at', $month)
+            ->count();
+    }
+
+    return response()->json([
+        'labels' => $labels,
+        'data' => $data,
+    ]);
+}
+
 }

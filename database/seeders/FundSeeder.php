@@ -23,7 +23,7 @@ class FundSeeder extends Seeder
             'targetAmount' => 100000,
             'approvalStatus' => ['pending', 'approved', 'declined', 'finished'][rand(0, 3) % 4],
             'approvedOrDeclinedBy' => 1,
-            'created_at' => now(),
+            'created_at' => date('Y-m-d', rand(strtotime('2024-01-01'), strtotime('2024-12-31'))),
             'updated_at' => now(),
         ],[
             'name' => 'Makan Gratis Video Fund',
@@ -34,7 +34,7 @@ class FundSeeder extends Seeder
             'targetAmount' => 100000,
             'approvalStatus' => ['pending', 'approved', 'declined', 'finished'][rand(0, 3) % 4],
             'approvedOrDeclinedBy' => 1,
-            'created_at' => now(),
+            'created_at' => date('Y-m-d', rand(strtotime('2024-01-01'), strtotime('2024-12-31'))),
             'updated_at' => now(),
         ],[
             'name' => 'Mobile Legend Fund',
@@ -45,7 +45,7 @@ class FundSeeder extends Seeder
             'targetAmount' => 100000,
             'approvalStatus' => ['pending', 'approved', 'declined', 'finished'][rand(0, 3) % 4],
             'approvedOrDeclinedBy' => 1,
-            'created_at' => now(),
+            'created_at' => date('Y-m-d', rand(strtotime('2024-01-01'), strtotime('2024-12-31'))),
             'updated_at' => now(),
         ],[
             'name' => 'KOF Fund',
@@ -56,7 +56,7 @@ class FundSeeder extends Seeder
             'targetAmount' => 100000,
             'approvalStatus' => ['pending', 'approved', 'declined', 'finished'][rand(0, 3) % 4],
             'approvedOrDeclinedBy' => 1,
-            'created_at' => now(),
+            'created_at' => date('Y-m-d', rand(strtotime('2024-01-01'), strtotime('2024-12-31'))),
             'updated_at' => now(),
         ],[
             'name' => 'Pubeg Fund',
@@ -67,7 +67,7 @@ class FundSeeder extends Seeder
             'targetAmount' => 100000,
             'approvalStatus' => ['pending', 'approved', 'declined', 'finished'][rand(0, 3) % 4],
             'approvedOrDeclinedBy' => 1,
-            'created_at' => now(),
+            'created_at' => date('Y-m-d', rand(strtotime('2024-01-01'), strtotime('2024-12-31'))),
             'updated_at' => now(),
         ],[
             'name' => 'Nemo Findings Fund',
@@ -78,7 +78,7 @@ class FundSeeder extends Seeder
             'targetAmount' => 100000,
             'approvalStatus' => ['pending', 'approved', 'declined', 'finished'][rand(0, 3) % 4],
             'approvedOrDeclinedBy' => 1,
-            'created_at' => now(),
+            'created_at' => date('Y-m-d', rand(strtotime('2024-01-01'), strtotime('2024-12-31'))),
             'updated_at' => now(),
         ],[
             'name' => 'Jakarta Arc Fund',
@@ -89,7 +89,7 @@ class FundSeeder extends Seeder
             'targetAmount' => 100000,
             'approvalStatus' => ['pending', 'approved', 'declined', 'finished'][rand(0, 3) % 4],
             'approvedOrDeclinedBy' => 1,
-            'created_at' => now(),
+            'created_at' => date('Y-m-d', rand(strtotime('2024-01-01'), strtotime('2024-12-31'))),
             'updated_at' => now(),
         ],[
             'name' => 'Sajjad The Movie Fund',
@@ -100,7 +100,7 @@ class FundSeeder extends Seeder
             'targetAmount' => 100000,
             'approvalStatus' => ['pending', 'approved', 'declined', 'finished'][rand(0, 3) % 4],
             'approvedOrDeclinedBy' => 1,
-            'created_at' => now(),
+            'created_at' => date('Y-m-d', rand(strtotime('2024-01-01'), strtotime('2024-12-31'))),
             'updated_at' => now(),
         ],[
             'name' => 'Nilou and Sajjad Last Season Fund',
@@ -111,7 +111,7 @@ class FundSeeder extends Seeder
             'targetAmount' => 100000,
             'approvalStatus' => ['pending', 'approved', 'declined', 'finished'][rand(0, 3) % 4],
             'approvedOrDeclinedBy' => 1,
-            'created_at' => now(),
+            'created_at' => date('Y-m-d', rand(strtotime('2024-01-01'), strtotime('2024-12-31'))),
             'updated_at' => now(),
         ],[
             'name' => 'Game Fund',
@@ -122,7 +122,7 @@ class FundSeeder extends Seeder
             'targetAmount' => 100000,
             'approvalStatus' => ['pending', 'approved', 'declined', 'finished'][rand(0, 3) % 4],
             'approvedOrDeclinedBy' => 1,
-            'created_at' => now(),
+            'created_at' => date('Y-m-d', rand(strtotime('2024-01-01'), strtotime('2024-12-31'))),
             'updated_at' => now(),
         ]]);
     }

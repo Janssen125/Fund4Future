@@ -133,6 +133,8 @@ Route::post('/process-fund', [FundController::class, 'processFund'])->name('proc
 Route::post('/comments/reply', [CommentController::class, 'reply'])->name('comments.reply');
 Route::put('/mail/{id}/reply', [MailController::class, 'reply'])->name('mail.reply');
 Route::put('chats/{id}/changeStatus', [ChatController::class, 'changeStatus'])->name('chats.changeStatus');
+Route::get('/dashboard/viewFilter', [AdminController::class, 'viewFilter'])->name('admin.viewFilter');
+Route::get('/dashboard/fundFilter/{year}', [AdminController::class, 'fundFilter'])->name('admin.fundFilter');
 
 // Google
 Route::get('/send-email', [EmailController::class, 'sendEmail'])->name('email.send');

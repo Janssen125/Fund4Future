@@ -116,13 +116,49 @@
             <div class="row w-100">
                 <div class="col w-100">
                     <div class="card mt-4 p-3">
-                        <h3 class="mb-3">Views Report</h3>
+                        <div class="row">
+                            <div class="col">
+                                <h3>Views Report</h3>
+                            </div>
+                            <div class="col">
+                                <div class="d-flex align-items-center">
+                                    <select id="filterType" class="form-select w-auto me-2">
+                                        <option value="all">All Time</option>
+                                        <option value="year">By Year</option>
+                                        <option value="month">By Month</option>
+                                    </select>
+
+                                    <select id="filterYear" class="form-select w-auto me-2" style="display:none;">
+                                        @foreach ($years as $year)
+                                            <option value="{{ $year }}">{{ $year }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    <select id="filterMonth" class="form-select w-auto" style="display:none;">
+                                        @foreach ($chartLabels as $index => $month)
+                                            <option value="{{ $index + 1 }}">{{ $month }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         <canvas id="viewsChart" style="width: 100%;"></canvas>
                     </div>
                 </div>
                 <div class="col">
                     <div class="card mt-4 p-3">
-                        <h3 class="mb-3">Funds Report</h3>
+                        <div class="row">
+                            <div class="col">
+                                <h3 class="mb-3">Funds Report</h3>
+                            </div>
+                            <div class="col">
+                                <select id="fundYearSelect" class="form-select" style="width: auto;">
+                                    @foreach ($fundYears as $year)
+                                        <option value="{{ $year }}">{{ $year }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                         <canvas id="fundChart" style="width: 100%;"></canvas>
                     </div>
                 </div>
@@ -301,33 +337,56 @@
     @endif
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        const ctx = document.getElementById('viewsChart').getContext('2d');
-        const viewsChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: {
-                    !!json_encode($chartLabels) !!
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('viewsChart').getContext('2d');
+            let chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: {!! json_encode($chartLabels) !!},
+                    datasets: [{
+                        label: 'Views',
+                        data: {!! json_encode($chartData) !!},
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        fill: true,
+                        tension: 0.1
+                    }]
                 },
-                datasets: [{
-                    label: 'Views',
-                    data: {
-                        !!json_encode($chartData) !!
-                    },
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    fill: true,
-                    tension: 0.1
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        precision: 0
-                    }
+                options: {
+                    responsive: true
                 }
+            });
+
+            const filterType = document.getElementById('filterType');
+            const filterYear = document.getElementById('filterYear');
+            const filterMonth = document.getElementById('filterMonth');
+
+            filterType.addEventListener('change', () => {
+                filterYear.style.display = (filterType.value === 'year' || filterType.value === 'month') ?
+                    'inline-block' : 'none';
+                filterMonth.style.display = (filterType.value === 'month') ? 'inline-block' : 'none';
+                fetchData();
+            });
+            filterYear.addEventListener('change', fetchData);
+            filterMonth.addEventListener('change', fetchData);
+
+            function fetchData() {
+                const params = new URLSearchParams({
+                    type: filterType.value,
+                    year: filterYear.value,
+                    month: filterMonth.value
+                });
+
+                fetch(`{{ route('admin.viewFilter') }}?${params}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        chart.data.labels = data.labels;
+                        chart.data.datasets[0].data = data.data;
+                        chart.update();
+                    })
+                    .catch(err => console.error('Error updating chart:', err));
             }
+
         });
     </script>
     <script>
@@ -335,18 +394,13 @@
         const fundChart = new Chart(ctx2, {
             type: 'bar',
             data: {
-                labels: {
-                    !!json_encode($fundchartLabels) !!
-                },
+                labels: {!! json_encode($fundchartLabels) !!},
                 datasets: [{
                     label: 'Funds',
-                    data: {
-                        !!json_encode($fundchartData) !!
-                    },
+                    data: {!! json_encode($fundchartData) !!},
                     backgroundColor: 'rgba(153, 102, 255, 0.2)',
                     borderColor: 'rgba(153, 102, 255, 1)',
-                    fill: true,
-                    tension: 0.1
+                    borderWidth: 1,
                 }]
             },
             options: {
@@ -354,11 +408,22 @@
                 scales: {
                     y: {
                         beginAtZero: true,
-                        precision: 0
                     }
                 }
             }
         });
+
+        document.getElementById('fundYearSelect').addEventListener('change', function() {
+            const selectedYear = this.value;
+            fetch(`/dashboard/fundFilter/${selectedYear}`)
+                .then(response => response.json())
+                .then(result => {
+                    fundChart.data.labels = result.labels;
+                    fundChart.data.datasets[0].data = result.data;
+                    fundChart.update();
+                });
+        });
     </script>
+
 @endsection
 {{-- Dashboard admin untuk melihat data data yang ada di webnya, seperti jumlah user, jumlah penggalangan, dll --}}
