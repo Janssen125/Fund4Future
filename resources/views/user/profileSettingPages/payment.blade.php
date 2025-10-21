@@ -45,8 +45,8 @@
                                 <li>Profile</li>
                             </a>
                             <!-- <a href="{{ route('password.request') }}">
-                                                            <li>Change Password</li>
-                                                        </a> -->
+                                                                <li>Change Password</li>
+                                                            </a> -->
                             <a href="{{ route('profileFundingList') }}">
                                 <li>Funding List</li>
                             </a>
@@ -60,8 +60,8 @@
                                 <li>Add Balance</li>
                             </a>
                             <!-- <a href="{{ route('profileSettings') }}">
-                                                            <li>Settings</li>
-                                                        </a> -->
+                                                                <li>Settings</li>
+                                                            </a> -->
                             <a href="{{ route('profileHelp') }}">
                                 <li>Help</li>
                             </a>
@@ -108,7 +108,7 @@
             </div>
         </div>
     </section>
-    <script type="text/javascript" src="https://app.midtrans.com/snap/snap.js"
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
         data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>
     <script type="text/javascript">
         document.getElementById('pay-button').onclick = function() {
