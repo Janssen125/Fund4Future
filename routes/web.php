@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Http;
+use Google\Client as GoogleClient;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -198,7 +200,13 @@ Route::get('/getimage/{filename}', function ($filename) {
 //     $client->setClientId(env('GOOGLE_CLIENT_ID'));
 //     $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
 //     $client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
-
+//     $client->setAccessType('offline'); // important for refresh token
+//     $client->setPrompt('consent');
+//     $client->addScope([
+//         'https://www.googleapis.com/auth/drive.file',
+//     ]);
+//     $authUrl = $client->createAuthUrl();
+//     // dd($authUrl);
 //     $token = $client->fetchAccessTokenWithAuthCode($code);
 //     return response()->json($token); // contains access_token & refresh_token
 // });

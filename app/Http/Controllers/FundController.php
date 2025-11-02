@@ -79,12 +79,24 @@ class FundController extends Controller
         $client->setPrompt('select_account consent');
         $client->addScope([
             'https://www.googleapis.com/auth/drive.file',
-            'https://www.googleapis.com/auth/gmail.send',
         ]);
 
-        // Use refresh token
-        $client->refreshToken(env('GOOGLE_REFRESH_TOKEN'));
-        $service = new Drive($client);
+        $refreshToken = env('GOOGLE_REFRESH_TOKEN');
+
+        // Fetch a new access token
+        $newAccessToken = $client->fetchAccessTokenWithRefreshToken($refreshToken);
+
+        // Check for errors
+        if (isset($newAccessToken['error'])) {
+            throw new \Exception('Failed to refresh token: ' . $newAccessToken['error_description'] ?? $newAccessToken['error']);
+        }
+
+        // Set it manually
+        $client->setAccessToken($newAccessToken);
+
+
+$service = new Drive($client);
+
 
         $folderName = "Fund4Future";
         $folderId = null;
@@ -174,7 +186,6 @@ class FundController extends Controller
     public function show($id)
     {
         $data = Fund::with(['category', 'fundDetail', 'comment.user', 'comment.reply.user'])->findOrFail($id);
-
         return view('user.fundDetail', compact('data'));
     }
 
