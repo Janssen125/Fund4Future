@@ -10,8 +10,8 @@
 
 @section('content')
     <section class="container">
-        <form method="POST" action="{{ route('verification.resend') }}">
-            @csrf
+        <form method="GET" action="{{ route('resend.verification.email', Auth::id()) }}">
+            {{-- @csrf --}}
             <h2 class="text-center">Resend Verification Email</h2>
             <div class="p-3">
                 Verification email sent to <b>{{ Auth::user()->email }}</b>.
@@ -19,6 +19,10 @@
             @if (session('message'))
                 <div class="alert alert-success w-100 text-success">
                     {{ session('message') }}
+                </div>
+            @elseif(session('error'))
+                <div class="alert alert-danger w-100 text-danger">
+                    {{ session('error') }}
                 </div>
             @endif
             <button type="submit"

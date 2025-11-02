@@ -45,29 +45,26 @@ class VerificationController extends Controller
     private $client;
     public function __construct()
     {
-        $this->client = new GoogleClient();
-        $this->client->setClientId(env('GOOGLE_CLIENT_ID'));
-        $this->client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
-        $this->client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
-        $this->client->addScope(Gmail::GMAIL_SEND);
+        $dotenv = \Dotenv\Dotenv::createImmutable(base_path());
+        $dotenv->safeLoad();
+
+        $this->client = new \Google\Client();
+        $this->client->setAuthConfig(base_path('credentials.json'));
+        $this->client->setScopes(['https://www.googleapis.com/auth/gmail.send']);
         $this->client->refreshToken(env('GOOGLE_REFRESH_TOKEN'));
+
+        // optional, to ensure we have a valid token
         $accessToken = $this->client->getAccessToken();
-
-        if(!isset($accessToken['access_token'])) {
-            throw new \Exception('Failed to obtain access token from refresh token.');
+        if (!$accessToken || $this->client->isAccessTokenExpired()) {
+            $accessToken = $this->client->fetchAccessTokenWithRefreshToken(env('GOOGLE_REFRESH_TOKEN'));
+            $this->client->setAccessToken($accessToken);
         }
-        // $this->client->setAccessToken($this->client->fetchAccessTokenWithRefreshToken(env('GOOGLE_REFRESH_TOKEN')));
-        // if ($this->client->isAccessTokenExpired()) {
-        //     $this->client->fetchAccessTokenWithRefreshToken(env('GOOGLE_REFRESH_TOKEN'));
-        // }
-
-        // $this->middleware('auth');
-        // $this->middleware('signed')->only('verify');
-        // $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
 
     public function sendVerificationEmail(User $user)
     {
+        // $user = $request->user();
+        // dd($user);
         $token = Str::random(64);
 
         $verifyUrl = URL::temporarySignedRoute(
@@ -94,6 +91,7 @@ class VerificationController extends Controller
         Auth::login($user);
         try {
             $gmail->users_messages->send('me', $message);
+            // dd('Email sent');
             return redirect()->route('verification.notice')->with('message', 'Verification email sent! Please check your inbox.');
         } catch (\Exception $e) {
             \Log::error('Gmail API Error: ' . $e->getMessage());

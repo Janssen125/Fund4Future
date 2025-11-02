@@ -79,6 +79,7 @@ class FundController extends Controller
         $client->setPrompt('select_account consent');
         $client->addScope([
             'https://www.googleapis.com/auth/drive.file',
+            // 'https://www.googleapis.com/auth/gmail.send',
         ]);
 
         $refreshToken = env('GOOGLE_REFRESH_TOKEN');
@@ -94,9 +95,7 @@ class FundController extends Controller
         // Set it manually
         $client->setAccessToken($newAccessToken);
 
-
-$service = new Drive($client);
-
+        $service = new Drive($client);
 
         $folderName = "Fund4Future";
         $folderId = null;

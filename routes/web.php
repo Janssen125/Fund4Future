@@ -48,7 +48,7 @@ Route::get('/email/verify/{id}/{token}', [VerificationController::class, 'verify
     ->name('verify.email'); // your Gmail API link
 
 // Optional: resend verification email using Gmail API
-Route::get('/email/resend/{id}', [VerificationController::class, 'sendVerificationEmail'])
+Route::get('/email/resend/{user}', [VerificationController::class, 'sendVerificationEmail'])
 ->name('resend.verification.email');
 
 Auth::routes(['verify' => true, 'reset' => true]);
@@ -192,24 +192,24 @@ Route::get('/getimage/{filename}', function ($filename) {
 //     return redirect($authUrl);
 // });
 
-// Route::get('/callback', function (\Illuminate\Http\Request $request) {
-//     $dotenv = Dotenv\Dotenv::createImmutable(base_path());
-//     $dotenv->safeLoad();
-//     $code = $request->get('code');
-//     $client = new GoogleClient();
-//     $client->setClientId(env('GOOGLE_CLIENT_ID'));
-//     $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
-//     $client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
-//     $client->setAccessType('offline'); // important for refresh token
-//     $client->setPrompt('consent');
-//     $client->addScope([
-//         'https://www.googleapis.com/auth/drive.file',
-//     ]);
-//     $authUrl = $client->createAuthUrl();
-//     // dd($authUrl);
-//     $token = $client->fetchAccessTokenWithAuthCode($code);
-//     return response()->json($token); // contains access_token & refresh_token
-// });
+Route::get('/callback', function (\Illuminate\Http\Request $request) {
+    $dotenv = Dotenv\Dotenv::createImmutable(base_path());
+    $dotenv->safeLoad();
+    $code = $request->get('code');
+    $client = new GoogleClient();
+    $client->setClientId(env('GOOGLE_CLIENT_ID'));
+    $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
+    $client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
+    $client->setAccessType('offline'); // important for refresh token
+    $client->setPrompt('consent');
+    $client->addScope([
+        'https://www.googleapis.com/auth/drive.file',
+    ]);
+    $authUrl = $client->createAuthUrl();
+    // dd($authUrl);
+    $token = $client->fetchAccessTokenWithAuthCode($code);
+    return response()->json($token); // contains access_token & refresh_token
+});
 
 // Route::get('/test-email', function () {
 //     $dotenv = Dotenv\Dotenv::createImmutable(base_path());
@@ -224,7 +224,7 @@ Route::get('/getimage/{filename}', function ($filename) {
 //     $client->setScopes(['https://www.googleapis.com/auth/gmail.send']);
 //     $client->setSubject($userEmail); // impersonate user if using service account
 //     $client->refreshToken(env('GOOGLE_REFRESH_TOKEN'));
-//     $service = new Gmail($client);
+//     $service = new Google\Service\Gmail($client);
 
 //     $rawMessage = "From: {$userEmail}\r\n";
 //     $rawMessage .= "To: {$toEmail}\r\n";
