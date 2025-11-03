@@ -36,7 +36,12 @@
             <div class="fund-container container">
                 @foreach ($data as $funding)
                     <div class="row py-2 fund-item" data-name="{{ strtolower($funding->name) }}"
-                        data-category="{{ strtolower($funding->category->catName) }}" id="itemList">
+                        data-category="
+                        @if ($funding->category) {{ strtolower($funding->category->catName) }}
+                        @else
+                        uncategorized @endif
+                         "
+                        id="itemList">
                         <div class="col">
                             <form action="" class="d-flex justify-content-center align-items-center p-4">
                                 <div class="container align-items-stretch">
@@ -48,8 +53,13 @@
                                         <div class="col col-l">
                                             <h5>{{ $funding->name }}</h5>
                                             <p>{{ $funding->description }}</p>
-                                            <span
-                                                class="border border-success border-2 rounded-1 px-2">{{ $funding->category->catName }}</span>
+                                            <span class="border border-success border-2 rounded-1 px-2">
+                                                @if ($funding->category)
+                                                    {{ $funding->category->catName }}
+                                                @else
+                                                    Uncategorized or Category Deleted
+                                                @endif
+                                            </span>
                                             <span>Funding Progress</span>
                                             <span>Rp.{{ number_format($funding->currAmount, 2) }} /
                                                 Rp.{{ number_format($funding->targetAmount, 2) }}</span>

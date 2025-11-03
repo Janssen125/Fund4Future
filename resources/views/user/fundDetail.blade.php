@@ -75,7 +75,13 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <p><strong>Category:</strong> {{ $data->category->catName }}</p>
+                        <p><strong>Category:</strong>
+                            @if ($data->category)
+                                {{ $data->category->catName }}
+                            @else
+                                Category Deleted
+                            @endif
+                        </p>
                     </div>
                 </div>
                 <div class="row">
