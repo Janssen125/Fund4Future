@@ -9,6 +9,7 @@ use App\Models\FundHistory;
 use App\Models\Comments;
 use App\Models\Chat;
 use App\Models\ActivityLog;
+use App\Models\GoogleToken;
 use Illuminate\Support\Facades\Storage;
 use Google\Client;
 use Google\Service\Drive;
@@ -49,7 +50,7 @@ class FundController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, GoogleClientController $google)
     {
         $request->validate([
             'name' => 'required',
@@ -70,93 +71,19 @@ class FundController extends Controller
             'targetAmount' => $request->targetAmount,
         ]);
 
-        // Initialize Google client once
-        $client = new Client();
-        $client->setClientId(env('GOOGLE_CLIENT_ID'));
-        $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
-        $client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
-        $client->setAccessType('offline');
-        $client->setPrompt('select_account consent');
-        $client->addScope([
-            'https://www.googleapis.com/auth/drive.file',
-            // 'https://www.googleapis.com/auth/gmail.send',
-        ]);
-
-        $refreshToken = env('GOOGLE_REFRESH_TOKEN');
-
-        // Fetch a new access token
-        $newAccessToken = $client->fetchAccessTokenWithRefreshToken($refreshToken);
-
-        // Check for errors
-        if (isset($newAccessToken['error'])) {
-            throw new \Exception('Failed to refresh token: ' . $newAccessToken['error_description'] ?? $newAccessToken['error']);
-        }
-
-        // Set it manually
-        $client->setAccessToken($newAccessToken);
-
-        $service = new Drive($client);
-
-        $folderName = "Fund4Future";
-        $folderId = null;
-
-        $existingFolder = $service->files->listFiles([
-            'q' => "name='{$folderName}' and mimeType='application/vnd.google-apps.folder' and trashed=false",
-            'fields' => 'files(id, name)',
-        ]);
-
-        if (count($existingFolder->files) > 0) {
-            $folderId = $existingFolder->getFiles()[0]->id;
-        } else {
-            $folderMetadata = new DriveFile([
-                'name' => $folderName,
-                'mimeType' => 'application/vnd.google-apps.folder',
-            ]);
-            $folder = $service->files->create($folderMetadata, [
-                'fields' => 'id',
-            ]);
-            $folderId = $folder->id;
-        }
-
         foreach ($request->fund_details as $detail) {
-            $filePath = null;
+
+            $fileUrl = null;
 
             if (isset($detail['imageOrVideo']) && $detail['imageOrVideo']->isValid()) {
-                $file = new DriveFile([
-                    'name' => $detail['imageOrVideo']->getClientOriginalName(),
-                    'mimeType' => $detail['imageOrVideo']->getMimeType(),
-                    'parents' => [$folderId],
-                ]);
-                // $file->setName($detail['imageOrVideo']->getClientOriginalName());
-                // $file->setMimeType($detail['imageOrVideo']->getMimeType());
-
-                // Upload to Drive
-                $createdFile = $service->files->create($file, [
-                    'data' => file_get_contents($detail['imageOrVideo']->getRealPath()),
-                    'mimeType' => $detail['imageOrVideo']->getMimeType(),
-                    'uploadType' => 'multipart',
-                ]);
-
-                // Make file public
-                $permission = new Permission();
-                $permission->setType('anyone');
-                $permission->setRole('reader');
-                $service->permissions->create($createdFile->id, $permission);
-
-                // Detect type and set correct URL
-                $mimeType = $detail['imageOrVideo']->getMimeType();
-
-                if (str_starts_with($mimeType, 'image/')) {
-                    $filePath = "https://drive.google.com/thumbnail?id={$createdFile->id}&export=view";
-                } else {
-                    $filePath = "https://drive.google.com/file/d/{$createdFile->id}/preview";
-                }
+                // CALL GOOGLE CLIENT CONTROLLER
+                $fileUrl = $google->uploadToDrive($detail['imageOrVideo']);
             }
 
             FundDetail::create([
-                'fund_id' => $fund->id,
-                'types' => $detail['types'],
-                'imageOrVideo' => $filePath,
+                'fund_id'      => $fund->id,
+                'types'        => $detail['types'],
+                'imageOrVideo' => $fileUrl,
             ]);
         }
 

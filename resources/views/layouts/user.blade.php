@@ -330,6 +330,20 @@
         });
     </script>
 @endif
+@if (session('warning'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            showNotification("{{ session('warning') }}", 'warning');
+        });
+    </script>
+@endif
+@if (session('success'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            showNotification("{{ session('success') }}", 'success');
+        });
+    </script>
+@endif
 
 </html>
 {{-- Ini buat templatenya user page (tampilannya user) --}}

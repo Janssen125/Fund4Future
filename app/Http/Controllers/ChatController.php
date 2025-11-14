@@ -10,6 +10,7 @@ use Google\Client;
 use Google\Service\Drive;
 use Google\Service\Drive\DriveFile;
 use Google\Service\Drive\Permission;
+use Illuminate\Support\Facades\Log;
 
 class ChatController extends Controller
 {
@@ -39,13 +40,17 @@ class ChatController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, GoogleClientController $google)
     {
+        try{
         $request->validate([
             'chat_id' => 'required|exists:chats,id',
             'message' => 'required|string|max:1000',
-            'attachment' => 'nullable|file|mimes:jpeg,png,jpg,mp4,pdf,zip|max:20480',
+            'attachment' => 'nullable|file|mimes:jpeg,png,jpg,webp,mp4,mov,avi,webm,pdf,zip,rar|max:20480',
         ]);
+    }    catch(\Exception $e){
+        return redirect()->back()->with('error', $e->getMessage());
+    }
 
         $attachmentUrl = null;
         $attachmentType = null;
@@ -61,9 +66,14 @@ class ChatController extends Controller
                 'jpeg' => 'image',
                 'jpg' => 'image',
                 'png' => 'image',
+                'webp' => 'image',
                 'mp4' => 'video',
+                'mov' => 'video',
+                'avi' => 'video',
+                'webm' => 'video',
                 'pdf' => 'pdf',
                 'zip' => 'zip',
+                'rar' => 'zip'
             ];
 
             $attachmentType = $allowedTypes[$fileExtension] ?? null;
@@ -72,83 +82,12 @@ class ChatController extends Controller
                 return redirect()->back()->with('message', 'Invalid file type. Allowed types are: image, video, pdf, zip.');
             }
 
-            // Initialize Google Client
-            $client = new Client();
-            $client->setClientId(env('GOOGLE_CLIENT_ID'));
-            $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
-            $client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
-            $client->setAccessType('offline');
-            $client->setPrompt('select_account consent');
-            $client->addScope([
-                'https://www.googleapis.com/auth/drive.file',
-                'https://www.googleapis.com/auth/gmail.send',
-            ]);
-
-            // Use your refresh token
-            $client->refreshToken(env('GOOGLE_REFRESH_TOKEN'));
-            $accessToken = $client->getAccessToken();
-
-            if (!isset($accessToken['access_token'])) {
-                throw new \Exception('Failed to retrieve access token using refresh token.');
+            try {
+                $attachmentUrl = $google->uploadToDrive($file);
+            } catch(\Exception $e) {
+                Log::error('File Failed' . $e->getMessage());
+                return redirect()->back()->with('message', 'Invalid File');
             }
-
-            // Upload to Drive
-            $service = new Drive($client);
-
-            $folderName = "Fund4Future";
-            $folderId = null;
-            $existingFolder = $service->files->listFiles([
-                'q' => "name='{$folderName}' and mimeType='application/vnd.google-apps.folder' and trashed=false",
-                'fields' => 'files(id, name)',
-            ]);
-
-            if (count($existingFolder->files) > 0) {
-                $folderId = $existingFolder->getFiles()[0]->id;
-            } else {
-                $folderMetadata = new DriveFile([
-                    'name' => $folderName,
-                    'mimeType' => 'application/vnd.google-apps.folder',
-                ]);
-                $folder = $service->files->create($folderMetadata, [
-                    'fields' => 'id',
-                ]);
-                $folderId = $folder->id;
-            }
-
-            $driveFile = new DriveFile([
-                'name' => $file->getClientOriginalName(),
-                'mimeType' => $file->getMimeType(),
-                'parents' => [$folderId],
-            ]);
-            // $driveFile->setName($file->getClientOriginalName());
-            // $driveFile->setMimeType($file->getMimeType());
-
-            $createdFile = $service->files->create($driveFile, [
-                'data' => file_get_contents($file->getRealPath()),
-                'mimeType' => $file->getMimeType(),
-                'uploadType' => 'multipart',
-            ]);
-
-            // Make public
-            $permission = new Permission();
-            $permission->setType('anyone');
-            $permission->setRole('reader');
-            $service->permissions->create($createdFile->id, $permission);
-
-            if ($attachmentType === 'image') {
-                // Show as image thumbnail
-                $attachmentUrl = "https://drive.google.com/thumbnail?id={$createdFile->id}&export=view";
-            } elseif ($attachmentType === 'pdf') {
-                // Use Google Drive preview URL (opens in Drive viewer)
-                $attachmentUrl = "https://drive.google.com/file/d/{$createdFile->id}/view";
-            } elseif ($attachmentType === 'video') {
-                // Use Drive video preview
-                $attachmentUrl = "https://drive.google.com/file/d/{$createdFile->id}/preview";
-            } else {
-                // Fallback: direct file view/download
-                $attachmentUrl = "https://drive.google.com/uc?export=view&id={$createdFile->id}";
-            }
-
 
             $attachmentSize = round($file->getSize() / 1024, 2) . ' KB';
             $attachmentName = $file->getClientOriginalName();

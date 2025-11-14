@@ -10,7 +10,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\MidtransController;
 use App\Http\Controllers\EmailController;
-use App\Http\Controllers\GoogleDriveController;
+use App\Http\Controllers\GoogleClientController;
 use App\Http\Controllers\ProfileSettingController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\VerificationController;
@@ -139,10 +139,11 @@ Route::get('/dashboard/viewFilter', [AdminController::class, 'viewFilter'])->nam
 Route::get('/dashboard/fundFilter/{year}', [AdminController::class, 'fundFilter'])->name('admin.fundFilter');
 
 // Google
-Route::get('/send-email', [EmailController::class, 'sendEmail'])->name('email.send');
-Route::get('/callback', [EmailController::class, 'handleCallback'])->name('email.callback');
-Route::get('/drive/files', [GoogleDriveController::class, 'listFiles']);
-Route::post('/drive/upload', [GoogleDriveController::class, 'uploadFile']);
+// Route::get('/send-email', [EmailController::class, 'sendEmail'])->name('email.send');
+// Route::get('/callback', [EmailController::class, 'handleCallback'])->name('email.callback');
+Route::get('/google/authorize', [GoogleClientController::class, 'authorizeGoogle'])->name('google.authorize');
+Route::get('/callback', [GoogleClientController::class, 'callback'])->name('google.callback');
+
 
 // Test MidTrans
 // Route::get('/test', function() {
@@ -192,24 +193,24 @@ Route::get('/getimage/{filename}', function ($filename) {
 //     return redirect($authUrl);
 // });
 
-Route::get('/callback', function (\Illuminate\Http\Request $request) {
-    $dotenv = Dotenv\Dotenv::createImmutable(base_path());
-    $dotenv->safeLoad();
-    $code = $request->get('code');
-    $client = new GoogleClient();
-    $client->setClientId(env('GOOGLE_CLIENT_ID'));
-    $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
-    $client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
-    $client->setAccessType('offline'); // important for refresh token
-    $client->setPrompt('consent');
-    $client->addScope([
-        'https://www.googleapis.com/auth/drive.file',
-    ]);
-    $authUrl = $client->createAuthUrl();
-    // dd($authUrl);
-    $token = $client->fetchAccessTokenWithAuthCode($code);
-    return response()->json($token); // contains access_token & refresh_token
-});
+// Route::get('/callback', function (\Illuminate\Http\Request $request) {
+//     $dotenv = Dotenv\Dotenv::createImmutable(base_path());
+//     $dotenv->safeLoad();
+//     $code = $request->get('code');
+//     $client = new GoogleClient();
+//     $client->setClientId(env('GOOGLE_CLIENT_ID'));
+//     $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
+//     $client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
+//     $client->setAccessType('offline'); // important for refresh token
+//     $client->setPrompt('consent');
+//     $client->addScope([
+//         'https://www.googleapis.com/auth/drive.file',
+//     ]);
+//     $authUrl = $client->createAuthUrl();
+//     // dd($authUrl);
+//     $token = $client->fetchAccessTokenWithAuthCode($code);
+//     return response()->json($token); // contains access_token & refresh_token
+// });
 
 // Route::get('/test-email', function () {
 //     $dotenv = Dotenv\Dotenv::createImmutable(base_path());

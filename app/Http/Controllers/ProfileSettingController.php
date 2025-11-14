@@ -12,6 +12,7 @@ use Google\Client;
 use Google\Service\Drive;
 use Google\Service\Drive\DriveFile;
 use Google\Service\Drive\Permission;
+
 class ProfileSettingController extends Controller
 {
     public function fundingList()
@@ -73,7 +74,7 @@ class ProfileSettingController extends Controller
         return redirect()->route('profileSettings')->with('success', 'NIK and KTP image have been saved successfully.');
     }
 
-    public function updateName(Request $request)
+    public function updateName(Request $request, GoogleClientController $google)
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -85,76 +86,7 @@ class ProfileSettingController extends Controller
 
         if ($request->hasFile('profile_picture')) {
 
-            // Initialize Google client
-            $client = new Client();
-            $client->setClientId(env('GOOGLE_CLIENT_ID'));
-            $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
-            $client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
-            $client->setAccessType('offline');
-            $client->setPrompt('select_account consent');
-
-            // Add required scopes
-            $client->addScope([
-                'https://www.googleapis.com/auth/drive.file',
-                'https://www.googleapis.com/auth/gmail.send',
-            ]);
-
-            // Use the REFRESH TOKEN
-            $client->refreshToken(env('GOOGLE_REFRESH_TOKEN'));
-            $accessToken = $client->getAccessToken();
-
-            if (!isset($accessToken['access_token'])) {
-                throw new \Exception('Failed to retrieve access token using refresh token.');
-            }
-
-
-            $service = new Drive($client);
-
-            $folderName = "Fund4Future";
-            $folderId = null;
-
-            $existingFolder = $service->files->listFiles([
-                'q' => "name='{$folderName}' and mimeType='application/vnd.google-apps.folder' and trashed=false",
-                'fields' => 'files(id, name)',
-            ]);
-
-            if(count($existingFolder->files) > 0) {
-                $folderId = $existingFolder->getFiles()[0]->id;
-            } else {
-                $folderMetadata = new DriveFile([
-                    'name' => $folderName,
-                    'mimeType' => 'application/vnd.google-apps.folder',
-                ]);
-                $folder = $service->files->create($folderMetadata, [
-                    'fields' => 'id',
-                ]);
-                $folderId = $folder->id;
-            }
-
-            // Upload the file to Google Drive
-            $file = new DriveFile([
-                'name' => $request->file('profile_picture')->getClientOriginalName(),
-                'mimeType' => $request->file('profile_picture')->getMimeType(),
-                'parents' => [$folderId],
-            ]);
-            // $file->setName($request->file('profile_picture')->getClientOriginalName());
-            // $file->setMimeType($request->file('profile_picture')->getMimeType());
-
-            $createdFile = $service->files->create($file, [
-                'data' => file_get_contents($request->file('profile_picture')->getRealPath()),
-                'mimeType' => $request->file('profile_picture')->getMimeType(),
-                'uploadType' => 'multipart',
-            ]);
-
-            // Make the file public
-            $permission = new Permission();
-            $permission->setType('anyone');
-            $permission->setRole('reader');
-            $service->permissions->create($createdFile->id, $permission);
-
-            // Public URL
-            $publicUrl = "https://drive.google.com/thumbnail?id={$createdFile->id}&export=view";
-
+            $publicUrl = $google->uploadToDrive($request->file('profile_picture'));
             // Save the URL to database
             $user->userImg = $publicUrl;
         }
@@ -163,6 +95,7 @@ class ProfileSettingController extends Controller
 
         return redirect()->route('profile')->with('success', 'Profile updated successfully.');
     }
+
     public function help() {
         return view('user.profileSettingPages.help');
     }

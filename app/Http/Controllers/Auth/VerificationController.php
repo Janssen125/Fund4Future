@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\URL;
+use App\Http\Controllers\GoogleClientController;
 
 class VerificationController extends Controller
 {
@@ -43,41 +44,41 @@ class VerificationController extends Controller
      */
 
     private $client;
-    public function __construct()
-    {
-        try {
-            $path = base_path(env('GOOGLE_CREDENTIALS_JSON'));
+    // public function __construct()
+    // {
+    //     try {
+    //         $path = base_path(env('GOOGLE_CREDENTIALS_JSON'));
 
-            if (file_exists($path)) {
-                $json = json_decode(file_get_contents($path), true);
-            } else {
-                $json = json_decode(env('GOOGLE_CREDENTIALS_JSON'), true);
-            }
+    //         if (file_exists($path)) {
+    //             $json = json_decode(file_get_contents($path), true);
+    //         } else {
+    //             $json = json_decode(env('GOOGLE_CREDENTIALS_JSON'), true);
+    //         }
 
-            if (!$json) {
-                throw new \Exception('Invalid Google credentials format.');
-            }
-        } catch (\Throwable $e) {
-            dd('Google Credentials not found or invalid. Please set GOOGLE_CREDENTIALS_JSON in your .env file.');
-        }
-
-
-        $dotenv = \Dotenv\Dotenv::createImmutable(base_path());
-        $dotenv->safeLoad();
-
-        $this->client = new \Google\Client();
-        $this->client->setAuthConfig($json);
-        $this->client->setScopes(['https://www.googleapis.com/auth/gmail.send']);
-        $this->client->refreshToken(env('GOOGLE_REFRESH_TOKEN'));
+    //         if (!$json) {
+    //             throw new \Exception('Invalid Google credentials format.');
+    //         }
+    //     } catch (\Throwable $e) {
+    //         dd('Google Credentials not found or invalid. Please set GOOGLE_CREDENTIALS_JSON in your .env file.');
+    //     }
 
 
-        // optional, to ensure we have a valid token
-        $accessToken = $this->client->getAccessToken();
-        if (!$accessToken || $this->client->isAccessTokenExpired()) {
-            $accessToken = $this->client->fetchAccessTokenWithRefreshToken(env('GOOGLE_REFRESH_TOKEN'));
-            $this->client->setAccessToken($accessToken);
-        }
-    }
+    //     $dotenv = \Dotenv\Dotenv::createImmutable(base_path());
+    //     $dotenv->safeLoad();
+
+    //     $this->client = new \Google\Client();
+    //     $this->client->setAuthConfig($json);
+    //     $this->client->setScopes(['https://www.googleapis.com/auth/gmail.send']);
+    //     $this->client->refreshToken(env('GOOGLE_REFRESH_TOKEN'));
+
+
+    //     // optional, to ensure we have a valid token
+    //     $accessToken = $this->client->getAccessToken();
+    //     if (!$accessToken || $this->client->isAccessTokenExpired()) {
+    //         $accessToken = $this->client->fetchAccessTokenWithRefreshToken(env('GOOGLE_REFRESH_TOKEN'));
+    //         $this->client->setAccessToken($accessToken);
+    //     }
+    // }
 
     public function sendVerificationEmail(User $user)
     {
@@ -94,21 +95,13 @@ class VerificationController extends Controller
         $subject = 'Verify Your Email Address';
         $body = "Hi {$user->name},\n\nPlease verify your email:\n{$verifyUrl}\n\nExpires in 24h.";
 
-        $message = new Message();
-        $rawMessage = "From: " . env('GOOGLE_GMAIL_USER') . "\r\n";
-        $rawMessage .= "To: {$user->email}\r\n";
-        $rawMessage .= "Subject: {$subject}\r\n\r\n";
-        $rawMessage .= $body;
-
-        $encoded = base64_encode($rawMessage);
-        $encoded = str_replace(['+', '/', '='], ['-', '_', ''], $encoded);
-        $message->setRaw($encoded);
-
-        $gmail = new Gmail($this->client);
+        $google = new GoogleClientController;
+        $google->sendEmail($user->email, $subject, $body);
 
         Auth::login($user);
+
         try {
-            $gmail->users_messages->send('me', $message);
+            // $gmail->users_messages->send('me', $message);
             // dd('Email sent');
             return redirect()->route('verification.notice')->with('message', 'Verification email sent! Please check your inbox.');
         } catch (\Exception $e) {

@@ -237,7 +237,10 @@
                                             <textarea name="message" class="form-control" placeholder="Insert New Message" rows="3" required></textarea>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="attachment" class="form-label">Upload File (Image (.jpg, .jpeg,
+                                            <label for="attachment" class="form-label">Upload File Max: <strong>20
+                                                    Mb</strong><br>(Image
+                                                (.jpg,
+                                                .jpeg,
                                                 .png),
                                                 Video (mp4), PDF,
                                                 ZIP)</label>
