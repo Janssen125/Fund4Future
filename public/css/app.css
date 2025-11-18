@@ -12608,3 +12608,16 @@ fieldset:disabled .btn {
         display: none !important;
     }
 }
+
+/* If the device is mobile phone, then the scroll will be hidden, but still work */
+/* I hope this work tho hehe :3 */
+
+@media (max-width: 767px) {
+    .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+}
