@@ -44,41 +44,6 @@ class VerificationController extends Controller
      */
 
     private $client;
-    // public function __construct()
-    // {
-    //     try {
-    //         $path = base_path(env('GOOGLE_CREDENTIALS_JSON'));
-
-    //         if (file_exists($path)) {
-    //             $json = json_decode(file_get_contents($path), true);
-    //         } else {
-    //             $json = json_decode(env('GOOGLE_CREDENTIALS_JSON'), true);
-    //         }
-
-    //         if (!$json) {
-    //             throw new \Exception('Invalid Google credentials format.');
-    //         }
-    //     } catch (\Throwable $e) {
-    //         dd('Google Credentials not found or invalid. Please set GOOGLE_CREDENTIALS_JSON in your .env file.');
-    //     }
-
-
-    //     $dotenv = \Dotenv\Dotenv::createImmutable(base_path());
-    //     $dotenv->safeLoad();
-
-    //     $this->client = new \Google\Client();
-    //     $this->client->setAuthConfig($json);
-    //     $this->client->setScopes(['https://www.googleapis.com/auth/gmail.send']);
-    //     $this->client->refreshToken(env('GOOGLE_REFRESH_TOKEN'));
-
-
-    //     // optional, to ensure we have a valid token
-    //     $accessToken = $this->client->getAccessToken();
-    //     if (!$accessToken || $this->client->isAccessTokenExpired()) {
-    //         $accessToken = $this->client->fetchAccessTokenWithRefreshToken(env('GOOGLE_REFRESH_TOKEN'));
-    //         $this->client->setAccessToken($accessToken);
-    //     }
-    // }
 
     public function sendVerificationEmail(User $user)
     {

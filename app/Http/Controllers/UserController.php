@@ -67,6 +67,7 @@ class UserController extends Controller
             'nohp' => $request->nohp,
             'jk' => $request->jk,
             'dob' => $request->dob,
+            'balance' => 100000,
             // 'email_verified_at' => now(),
             'password' => Hash::make($request->password),
         ]);

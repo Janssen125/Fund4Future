@@ -12,9 +12,48 @@ use Illuminate\Support\Facades\Log;
 
 class GoogleClientController extends Controller
 {
-    // ======================================================================================
-    //  GET GOOGLE CLIENT (for both Drive + Gmail)
-    // ======================================================================================
+
+    public function authorizeGoogle()
+    {
+        $client = new GoogleClient();
+        $client->setClientId(env('GOOGLE_CLIENT_ID'));
+        $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
+        $client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
+        $client->setAccessType('offline');
+        $client->setPrompt('consent');
+        $client->setScopes([Drive::DRIVE_FILE, Gmail::GMAIL_SEND]);
+
+        return redirect($client->createAuthUrl());
+    }
+
+    public function callback()
+    {
+        $client = new GoogleClient();
+        $client->setClientId(env('GOOGLE_CLIENT_ID'));
+        $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
+        $client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
+
+        $token = $client->fetchAccessTokenWithAuthCode(request('code'));
+
+        if (isset($token['error'])) {
+            return redirect()->route('google.authorize')
+                ->with('error', 'Failed to authenticate Google.');
+        }
+
+        GoogleToken::updateOrCreate(
+            ['service' => 'google'],
+            [
+                'access_token' => $token['access_token'],
+                'refresh_token'=> $token['refresh_token'],
+                'expires_in'   => $token['expires_in'],
+                'created'      => $token['created'],
+            ]
+        );
+
+        return redirect('/')->with('success', 'Google Connected Successfully!');
+    }
+
+
     public function getClient()
     {
         $client = new GoogleClient();
@@ -33,7 +72,7 @@ class GoogleClientController extends Controller
         $token = GoogleToken::first();
 
         if (!$token || !$token->refresh_token) {
-            return redirect()->route('google.authorize');
+            return $this->authorizeGoogle();
         }
 
         // Inject token into Google Client
@@ -68,57 +107,6 @@ class GoogleClientController extends Controller
         return $client;
     }
 
-    // ======================================================================================
-    //  STEP 1: REDIRECT USER TO GOOGLE OAUTH
-    // ======================================================================================
-    public function authorizeGoogle()
-    {
-        $client = new GoogleClient();
-        $client->setClientId(env('GOOGLE_CLIENT_ID'));
-        $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
-        $client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
-        $client->setAccessType('offline');
-        $client->setPrompt('consent');
-        $client->setScopes([Drive::DRIVE_FILE, Gmail::GMAIL_SEND]);
-
-        return redirect($client->createAuthUrl());
-    }
-
-    // ======================================================================================
-    //  STEP 2: GOOGLE CALLBACK - SAVE TOKENS
-    // ======================================================================================
-    public function callback()
-    {
-        $client = new GoogleClient();
-        $client->setClientId(env('GOOGLE_CLIENT_ID'));
-        $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
-        $client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
-
-        $token = $client->fetchAccessTokenWithAuthCode(request('code'));
-
-        // dd($token);
-
-        if (isset($token['error'])) {
-            return redirect()->route('google.authorize')
-                ->with('error', 'Failed to authenticate Google.');
-        }
-
-        GoogleToken::updateOrCreate(
-            ['service' => 'google'],
-            [
-                'access_token' => $token['access_token'],
-                'refresh_token'=> $token['refresh_token'],
-                'expires_in'   => $token['expires_in'],
-                'created'      => $token['created'],
-            ]
-        );
-
-        return redirect('/')->with('success', 'Google Connected Successfully!');
-    }
-
-    // ======================================================================================
-    //  DRIVE UPLOAD (Controller Only Version)
-    // ======================================================================================
     public function uploadToDrive($file)
     {
         $client = $this->getClient();
@@ -206,14 +194,18 @@ class GoogleClientController extends Controller
         return null;
     }
 
-    // ======================================================================================
-    //  GMAIL SEND EMAIL (Controller Only Version)
-    // ======================================================================================
     public function sendEmail($to, $subject, $html)
     {
         $client = $this->getClient();
+        if(!$client) {
+            throw new \Exception('Google Client not available.');
+        }
+        try{
         $gmail = new Gmail($client);
-
+        } catch (\Exception $e) {
+            Log::error('Gmail Service Error: ' . $e->getMessage());
+            throw new \Exception('Failed to initialize Gmail service.');
+        }
         $raw = "To: $to\r\n";
         $raw .= "Subject: $subject\r\n";
         $raw .= "MIME-Version: 1.0\r\n";
