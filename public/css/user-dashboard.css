@@ -17,6 +17,10 @@ section {
     overflow: hidden;
 }
 
+.big-hero-left > .container{
+    align-items: start;
+}
+
 .recommended-projects .row {
     max-height: 70dvh;
     overflow-x: auto;

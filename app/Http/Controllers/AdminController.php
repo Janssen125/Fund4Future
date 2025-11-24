@@ -23,21 +23,20 @@ class AdminController extends Controller
                 return redirect()->route('home')->with('message', 'Unauthorized Access');
             }
 
-            // Optional: your PageAnalytics logic
-            $lastEntry = PageAnalytics::where('ip_address', $request->ip())
-            ->where('page_url', $request->fullUrl())
-            ->where('user_id', Auth::check() ? Auth::id() : null)
-            ->where('created_at', '>=', now()->subHours(6))
-            ->latest()
-            ->first();
-            if (!$lastEntry || $lastEntry->created_at->diffInHours(now()) >= 6) {
-                PageAnalytics::create([
-                    'user_id' => Auth::check() ? Auth::id() : null,
-                    'ip_address' => $request->ip(),
-                    'page_url' => $request->fullUrl(),
-                    'user_agent' => $request->header('User-Agent'),
-                ]);
-            };
+    //         $lastEntry = PageAnalytics::where('ip_address', $request->ip())
+    //         ->where('page_url', $request->fullUrl())
+    //         ->where('user_id', Auth::check() ? Auth::id() : null)
+    //         ->where('created_at', '>=', now()->subHours(6))
+    //         ->latest()
+    //         ->first();
+    //         if (!$lastEntry || $lastEntry->created_at->diffInHours(now()) >= 6) {
+    //             PageAnalytics::create([
+    //                 'user_id' => Auth::check() ? Auth::id() : null,
+    //                 'ip_address' => $request->ip(),
+    //                 'page_url' => $request->fullUrl(),
+    //                 'user_agent' => $request->header('User-Agent'),
+    //             ]);
+    //         };
             return $next($request);
        });
     }
